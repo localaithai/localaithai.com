@@ -10,6 +10,7 @@ Static Next.js 16 site for localaithai.com, the Local AI line's Thai selling doo
 - No typecheck script and no test suite. `next build` is the type gate.
 - Source lives under `src/` (`src/app`, `src/components`); `@/*` maps to `./src/*`.
 - Hero frame sequences in `public/frames`, `public/frames-mobile` and `public/frames-jarvis` are rendered from the Remotion compositions in `remotion/`. Rerender with `remotion/render-frames.mts` (optional argument `main` or `jarvis`); never hand-edit frames.
+- Before changing routes, navigation, headings, metadata, copy, internal links, structured data, robots, sitemap, or `llms.txt`, read [SEO, AEO, and sitelink maintenance](docs/reference/seo-aeo-maintenance.md).
 
 ## Business context
 
