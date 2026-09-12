@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome lint .",
+    "seo:audit": "node scripts/seo-audit.mjs https://www.localaithai.com --ai-bots --max=50",
     "format": "biome format --write ."
   },
   "dependencies": {

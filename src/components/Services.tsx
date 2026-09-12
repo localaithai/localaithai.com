@@ -40,9 +40,9 @@ export default function Services() {
     <section id="services" className="py-16 lg:py-20 bg-[#0c1220]/50 relative">
       <div className="max-w-7xl mx-auto px-6 relative">
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold text-[#f0f4f8] mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#f0f4f8] mb-4">
             งานที่ Mimir ช่วยทีมได้
-          </h1>
+          </h2>
           <p className="text-[#94a3b8] max-w-2xl mx-auto">
             เลือกแอปจากงานของทีม, แล้วจัดสเปก Local AI ให้เหมาะกับการใช้งานจริง
           </p>

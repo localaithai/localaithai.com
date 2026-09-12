@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { PageJsonLd } from "@/components/seo";
+import { pageMetadata } from "@/lib/seo";
+import { PAGES } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "นโยบายความเป็นส่วนตัว",
-  description: "การเก็บ ใช้ และคุ้มครองข้อมูลบนเว็บไซต์ LocalAI Thailand ตาม PDPA",
-  alternates: { canonical: "https://www.localaithai.com/privacy" },
-};
+const page = PAGES.privacy;
+export const metadata = pageMetadata(page);
 
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-[#060a14] text-[#f0f4f8]">
+      <PageJsonLd {...page} />
       <Navbar />
       <article className="mx-auto max-w-4xl px-6 py-24 sm:py-32">
         <p className="text-sm font-semibold text-[#00e5ff]">PDPA</p>

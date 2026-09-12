@@ -475,7 +475,7 @@ export default function HardwareSection() {
       <div className="max-w-6xl mx-auto px-6 mb-16">
         <div className="text-center mb-12">
           <span className="text-4xl mb-4 block">⚙️</span>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-[#f0f4f8] mb-4">Hardware</h1>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-[#f0f4f8] mb-4">Hardware</h2>
           <p className="text-[#94a3b8] max-w-2xl mx-auto text-base lg:text-lg">
             เลือกเครื่องที่เหมาะกับคุณ, ตั้งแต่ Mac Mini เท่าฝ่ามือ ถึง GPU Server ระดับ Data Center
           </p>

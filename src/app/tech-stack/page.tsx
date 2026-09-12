@@ -1,8 +1,24 @@
-import type { Metadata } from "next";
 import DataRoadBg from "@/components/DataRoadBg";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import TechStackSection from "@/components/TechStackSection";
+import { PageJsonLd } from "@/components/seo";
+import { pageMetadata } from "@/lib/seo";
+import { PAGES } from "@/lib/site";
 
-export const metadata: Metadata = { title: "แอป Mimir สำหรับ Local AI", description: "Mimir Scan, Bridge, Echo, Ledger, Well, Chat และ Still สำหรับงานของทีมในองค์กร.", alternates: { canonical: "https://www.localaithai.com/tech-stack" } };
-export default function TechStackPage() { return <main className="relative"><DataRoadBg /><div className="relative z-10"><Navbar /><div className="pt-24" /><TechStackSection /><Footer /></div></main>; }
+const page = PAGES["tech-stack"];
+export const metadata = pageMetadata(page);
+export default function TechStackPage() {
+  return (
+    <main className="relative">
+      <PageJsonLd {...page} />
+      <DataRoadBg />
+      <div className="relative z-10">
+        <Navbar />
+        <div className="pt-24" />
+        <TechStackSection />
+        <Footer />
+      </div>
+    </main>
+  );
+}

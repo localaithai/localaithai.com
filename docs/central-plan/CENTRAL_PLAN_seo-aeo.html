@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Central plan: SEO and AEO</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 antialiased">
+  <main class="mx-auto max-w-4xl space-y-10 px-6 py-12">
+    <header class="border-b border-zinc-800 pb-6">
+      <p class="text-xs font-semibold uppercase tracking-widest text-cyan-400">Central plan</p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight">LocalAI Thailand SEO and AEO baseline</h1>
+      <dl class="mt-5 grid grid-cols-[max-content_1fr] gap-x-3 gap-y-1 text-sm">
+        <dt class="font-semibold">Status</dt><dd>Shipped</dd>
+        <dt class="font-semibold">Last updated</dt><dd data-last-updated="2026-09-13">2026-09-13</dd>
+      </dl>
+    </header>
+    <section>
+      <h2 class="text-xl font-semibold">Progress tracker</h2>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full border-collapse text-left text-sm">
+          <thead><tr class="border-b border-zinc-700"><th class="py-2">#</th><th>Milestone</th><th>Area</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="border-b border-zinc-800"><td class="py-3">1</td><td>Route metadata and snippets</td><td><code>src/lib/site.ts</code>, <code>src/lib/seo.ts</code></td><td class="font-medium text-cyan-400">Done</td><td>One production origin and route inventory now provide self-canonicals, full social objects, and build-time snippet limits.</td></tr>
+            <tr class="border-b border-zinc-800"><td class="py-3">2</td><td>Search and answer-engine surfaces</td><td>robots, sitemap, manifest, llms.txt, JSON-LD</td><td class="font-medium text-cyan-400">Done</td><td>Static export emits named AI crawler rules, honest sitemap dates, entity schema, Service schema, and BreadcrumbList on every subpage.</td></tr>
+            <tr><td class="py-3">3</td><td>Production audit command</td><td><code>scripts/seo-audit.mjs</code></td><td class="font-medium text-cyan-400">Done</td><td><code>pnpm seo:audit</code> checks the live www origin after deployment.</td></tr>
+            <tr><td class="py-3">4</td><td>Brand sitelink candidates</td><td>Persistent navigation and candidate routes</td><td class="font-medium text-cyan-400">Done</td><td>How it works, Packages, Hardware, Services, Support, and Contact now share concise links, titles, H1s, and visible breadcrumbs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section>
+      <h2 class="text-xl font-semibold">Locked decision</h2>
+      <p class="mt-3 text-sm leading-6 text-zinc-300">The reachable production host remains the canonical www origin. See <a class="text-cyan-400 underline" href="../decisions/search-discovery/log-2026-09-13.md">the search discovery decision log</a>.</p>
+    </section>
+    <section>
+      <h2 class="text-xl font-semibold">Verification</h2>
+      <p class="mt-3 text-sm leading-6 text-zinc-300"><code>pnpm lint</code> and <code>pnpm build</code> pass. After deployment, run <code>pnpm seo:audit</code> and submit the sitemap through Search Console and Bing Webmaster Tools.</p>
+    </section>
+  </main>
+</body>
+</html>

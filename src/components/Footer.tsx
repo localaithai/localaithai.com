@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <p className="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">Solutions</p>
             <div className="space-y-0.5 text-[13px] text-[#94a3b8]">
-              <a href="/packages" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">ขนาดระบบและราคา</a>
+              <a href="/packages" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Packages</a>
             </div>
           </div>
 
@@ -18,7 +18,7 @@ export default function Footer() {
           <div>
             <p className="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">Hardware</p>
             <div className="space-y-0.5 text-[13px] text-[#94a3b8]">
-              <a href="/hardware" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">อุปกรณ์ AI</a>
+              <a href="/hardware" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Hardware</a>
               <a href="/shop" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">ร้านค้า</a>
               <a href="/tech-stack" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Tech Stack</a>
             </div>
@@ -28,10 +28,10 @@ export default function Footer() {
           <div>
             <p className="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">บริการ</p>
             <div className="space-y-0.5 text-[13px] text-[#94a3b8]">
-              <a href="/services" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">บริการทั้งหมด</a>
+              <a href="/services" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Services</a>
               <a href="https://www.cloudaithai.com" target="_blank" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Cloud AI →</a>
-              <a href="/support" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">ดูแลระบบ</a>
-              <a href="/how-it-works" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">วิธีทำงาน</a>
+              <a href="/support" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Support</a>
+              <a href="/how-it-works" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">How it works</a>
             </div>
           </div>
 
@@ -39,6 +39,7 @@ export default function Footer() {
           <div>
             <p className="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">ติดต่อ</p>
             <div className="space-y-0.5 text-[13px] text-[#94a3b8]">
+              <a href="/contact" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Contact</a>
               <a data-cta="tel" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1" />
               <a data-cta="email" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1" />
               <a data-cta="line" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">LINE <span data-cta="lineid" /></a>

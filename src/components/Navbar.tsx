@@ -27,13 +27,13 @@ const navItems: NavItem[] = [
   {
     label: "Solutions",
     children: [
-      { href: "/packages", label: "ขนาดระบบและราคา", desc: "เริ่มต้นจาก workload ของคุณ" },
+      { href: "/packages", label: "Packages", desc: "เริ่มต้นจาก workload ของคุณ" },
     ],
   },
   {
     label: "Hardware",
     children: [
-      { href: "/hardware", label: "เปรียบเทียบ Hardware", desc: "สเปค Benchmark ทุกเครื่อง" },
+      { href: "/hardware", label: "Hardware", desc: "สเปค Benchmark ทุกเครื่อง" },
       { href: "/shop", label: "ร้านค้า", desc: "ซื้อ Hardware ราคาปลีก" },
       { href: "/tech-stack", label: "แอป Mimir", desc: "งานที่ทีมใช้ได้จริง" },
     ],
@@ -41,13 +41,14 @@ const navItems: NavItem[] = [
   {
     label: "บริการ",
     children: [
-      { href: "/services", label: "บริการทั้งหมด", desc: "ดูบริการทุกรูปแบบ" },
+      { href: "/services", label: "Services", desc: "ดูบริการทุกรูปแบบ" },
       { href: "https://www.cloudaithai.com", label: "Mimir Suites Cloud", desc: "cloudaithai.com" },
-      { href: "/support", label: "ดูแลระบบ", desc: "Maintenance & Support" },
+      { href: "/support", label: "Support", desc: "Maintenance & Support" },
+      { href: "/how-it-works", label: "How it works", desc: "Local AI ทำงานอย่างไร" },
     ],
   },
-  { href: "/packages", label: "ราคา" },
-  { href: "/contact", label: "ติดต่อเรา" },
+  { href: "/packages", label: "Packages" },
+  { href: "/contact", label: "Contact" },
 ];
 
 /* ─── Desktop Dropdown ─── */
