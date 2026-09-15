@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DGX Spark Demo: Operator Guide</title>
+<meta name="description" content="Internal operator guide for the LocalAI Thailand DGX Spark demo: access, issuing keys, demo checklist, troubleshooting.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="icon" href="/icon.svg">
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --band:#eef3f9;
+  --text:#0f172a; --muted:#52627a; --faint:#7b8aa0;
+  --border:#dde5ef; --accent:#0e7490; --accent-soft:rgba(14,116,144,.09);
+  --code-bg:#f1f5f9; --code-text:#0f172a; --warn:#b45309; --warn-soft:rgba(180,83,9,.09);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#060a14; --card:#111827; --band:#0c1220;
+    --text:#f0f4f8; --muted:#94a3b8; --faint:#64748b;
+    --border:#1e293b; --accent:#00e5ff; --accent-soft:rgba(0,229,255,.10);
+    --code-bg:#0c1220; --code-text:#e2e8f0; --warn:#fbbf24; --warn-soft:rgba(251,191,36,.10);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'Space Grotesk','IBM Plex Sans Thai',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:16px; line-height:1.65;
+}
+:lang(th){font-family:'IBM Plex Sans Thai','Space Grotesk',sans-serif; line-height:1.9}
+main{max-width:760px; margin:0 auto; padding:40px 20px 96px}
+header{border-bottom:1px solid var(--border); padding-bottom:24px; margin-bottom:32px}
+.eyebrow{font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin:0 0 10px}
+h1{font-size:1.8rem; font-weight:600; line-height:1.25; margin:0 0 8px; letter-spacing:-.01em}
+h2{font-size:1.25rem; font-weight:600; margin:44px 0 14px; padding-left:12px; border-left:3px solid var(--accent); letter-spacing:-.01em}
+h2 .th{display:block; font-size:.85rem; font-weight:400; color:var(--muted); letter-spacing:0}
+h3{font-size:1rem; font-weight:600; margin:28px 0 8px; color:var(--text)}
+p,li{color:var(--text)}
+p{margin:0 0 14px}
+.lede{color:var(--muted)}
+ul,ol{margin:0 0 14px; padding-left:22px}
+li{margin:0 0 6px}
+a{color:var(--accent)}
+strong{font-weight:600}
+.band{background:var(--band); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin:0 0 18px}
+.band p:last-child,.band ul:last-child,.band ol:last-child{margin-bottom:0}
+.band h3:first-child{margin-top:0}
+.note{background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:.94rem}
+.warn{background:var(--warn-soft); border-left:3px solid var(--warn); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:.94rem}
+.note p:last-child,.warn p:last-child{margin-bottom:0}
+dl.kv{margin:0 0 18px; display:grid; grid-template-columns:max-content 1fr; gap:6px 18px; font-size:.95rem}
+dl.kv dt{color:var(--muted); font-weight:500}
+dl.kv dd{margin:0; overflow-wrap:anywhere}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr; gap:2px} dl.kv dd{margin:0 0 10px}}
+code{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em;
+  background:var(--code-bg); border:1px solid var(--border); border-radius:4px; padding:.08em .32em; overflow-wrap:anywhere}
+pre{position:relative; background:var(--code-bg); border:1px solid var(--border); border-radius:10px;
+  padding:16px 16px 16px; margin:0 0 18px; overflow-x:auto; -webkit-overflow-scrolling:touch}
+pre code{background:none; border:0; padding:0; font-size:.82rem; line-height:1.65; color:var(--code-text); white-space:pre; display:block}
+button.copy{position:absolute; top:8px; right:8px; font:500 .7rem/1 'Space Grotesk',sans-serif;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--card);
+  border:1px solid var(--border); border-radius:6px; padding:6px 10px; cursor:pointer; opacity:.75}
+button.copy:hover,button.copy:focus-visible{opacity:1; color:var(--accent); border-color:var(--accent)}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 18px; border:1px solid var(--border); border-radius:10px}
+table{border-collapse:collapse; width:100%; min-width:460px; font-size:.9rem; background:var(--card)}
+th,td{border-bottom:1px solid var(--border); padding:10px 14px; text-align:left; vertical-align:top}
+th{background:var(--band); font-weight:600; white-space:nowrap}
+tr:last-child td{border-bottom:0}
+figure{margin:0 0 18px}
+figure svg{width:100%; height:auto; display:block}
+figcaption{font-size:.82rem; color:var(--faint); margin-top:8px}
+footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--border); font-size:.85rem; color:var(--faint)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">LocalAI Thailand &middot; internal</p>
+  <h1>DGX Spark Demo: Operator Guide</h1>
+  <p class="lede">How to get on the box, issue a customer key, run a demo, and fix the five things that actually go wrong. One NVIDIA DGX Spark (GB10, 128&nbsp;GB unified), hostname <code>edgexpert-2316</code>, Ubuntu 24.04, in the LocalAI Thailand office.</p>
+</header>
+
+<div class="note"><p>Not linked from anywhere and not indexed, but it is a public URL. It contains no keys and must stay that way.</p></div>
+
+<h2>Access</h2>
+
+<h3>1. Join the tailnet</h3>
+<p>The owner invites you at <a href="https://login.tailscale.com">login.tailscale.com</a> (Users &rarr; invite) and adds an SSH rule for you under Access Controls. Install Tailscale on your laptop, sign in with the invited account, and the Spark appears as node <code>edgexpert-2316</code> at <code>100.75.76.59</code>.</p>
+
+<h3>2. SSH</h3>
+<pre><code>ssh localaithai@edgexpert-2316</code></pre>
+<p>Tailscale SSH: no key to copy, no password to type. Your tailnet identity is the credential. If it asks for a password, your SSH rule is missing &mdash; ask the owner, do not work around it.</p>
+
+<h3>3. The endpoints</h3>
+<dl class="kv">
+  <dt>Public</dt><dd><code>https://spark.dgxthai.com/v1</code> &mdash; what customers get</dd>
+  <dt>Anthropic format</dt><dd><code>https://spark.dgxthai.com/v1/messages</code></dd>
+  <dt>Admin UI</dt><dd><code>https://spark.dgxthai.com/ui</code> &mdash; log in with your own admin account. Owner and partner each have one; the master key does not open the UI.</dd>
+  <dt>Private (on tailnet)</dt><dd><code>http://edgexpert-2316:4000/v1</code> with the master key &mdash; skips Cloudflare, no 100s timeout</dd>
+  <dt>Master key</dt><dd><code>~/spark-demo/master_key</code> on the Spark. It exists nowhere else.</dd>
+</dl>
+<div class="warn"><p><strong>The master key is admin.</strong> It mints and revokes every customer key over the API. Never put it in a message, a ticket, a slide, or a customer's config. Customers get virtual keys, always. The admin UI is a separate login &mdash; your own account, not the master key.</p></div>
+
+<h2>Issuing a customer key</h2>
+<pre><code>ssh localaithai@edgexpert-2316
+cd ~/spark-demo
+./keys.sh new acme 7d     # prints the key ONCE
+./keys.sh list            # alias, hashed token, expiry
+./keys.sh revoke acme     # after the demo; also accepts an sk- key</code></pre>
+<p>Use the customer's company as the alias. <code>7d</code> is the default and the right answer for a demo.</p>
+<div class="note"><p><code>keys.sh list</code> can only show a hash &mdash; LiteLLM stores a SHA-256 of each key and never the key itself. Lost the plaintext? Revoke the alias and issue a new one. There is no recovery.</p></div>
+<p>The admin UI at <code>/ui</code> does the same thing with a form &mdash; sign in with your own admin account, then <strong>Virtual Keys &rarr; Create New Key</strong>, set an alias and an expiry. Same result; the CLI is faster.</p>
+<p>No spend limits. Ollama costs nothing per token, so a budget is meaningless here. Expiry and revoke are the controls.</p>
+
+<h2>Demo-day checklist</h2>
+<ol>
+  <li><strong>Check what is loaded.</strong> <code>ollama ps</code> over SSH. You want the tier-1 model listed.</li>
+  <li><strong>Warm it.</strong> Send one real request (curl below, or the admin UI's test playground) and wait for it to finish. A cold tier-1 load is about 20 seconds &mdash; spend them now, not in front of the customer.</li>
+  <li><strong>Create the key.</strong> <code>./keys.sh new &lt;customer&gt; 7d</code>. Copy the output immediately; it prints once.</li>
+  <li><strong>Send the customer</strong> the link to <a href="/spark/customer.html">localaithai.com/spark/customer.html</a> and the key, in separate messages.</li>
+  <li><strong>Revoke when the demo is over.</strong> <code>./keys.sh revoke &lt;customer&gt;</code>. Do not rely on the 7-day expiry to tidy up for you.</li>
+</ol>
+<pre><code>curl -s http://edgexpert-2316:4000/v1/chat/completions \
+  -H "Authorization: Bearer $(ssh localaithai@edgexpert-2316 cat spark-demo/master_key)" \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"claude-spark","messages":[{"role":"user","content":"warm up"}]}'</code></pre>
+
+<h2>Model management</h2>
+<pre><code>ollama list            # everything on disk
+ollama ps              # what is resident in memory right now
+ollama pull &lt;tag&gt;      # add a model (slow: tier 1 is ~95GB)</code></pre>
+<p>Three models are configured. Only tier 1, <em>or</em> tiers 2 and 3 together, fit in memory at once &mdash; Ollama swaps on demand and the first request after a swap costs about 20 seconds.</p>
+<p>Pulling a model is not enough to expose it: the gateway config is generated from the <code>MODELS</code> list, so after a pull the owner reruns <code>setup.sh</code> with the new tag included. Ask; do not hand-edit <code>litellm_config.yaml</code>, the next rerun overwrites it.</p>
+
+<h2>Troubleshooting</h2>
+<div class="tw">
+<table>
+  <thead><tr><th>Symptom</th><th>Check</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Customer gets <code>401</code></td>
+      <td><code>./keys.sh list</code> &mdash; is the alias there, and is the expiry in the future?</td>
+      <td>Expired or revoked: issue a new key. Present and valid: they are sending the wrong header or pasted a truncated key.</td>
+    </tr>
+    <tr>
+      <td>First request hangs ~20s, then works</td>
+      <td><code>ollama ps</code></td>
+      <td>Nothing to fix. That is the model loading. Warm it before a demo.</td>
+    </tr>
+    <tr>
+      <td>URL dead / connection refused from outside</td>
+      <td><code>systemctl status cloudflared</code>, then <code>journalctl -u cloudflared -n 50</code></td>
+      <td><code>sudo systemctl restart cloudflared</code>. Still dead: the Spark's internet is down &mdash; check from the tailnet URL to confirm the box itself is fine.</td>
+    </tr>
+    <tr>
+      <td>Long answers cut off around 100 seconds</td>
+      <td>Is the request going through <code>spark.dgxthai.com</code>?</td>
+      <td>Cloudflare's proxy timeout. Ask for shorter replies, stream, or use the tailnet URL <code>http://edgexpert-2316:4000/v1</code> for your own testing.</td>
+    </tr>
+    <tr>
+      <td>Gateway answers but every model errors</td>
+      <td><code>sudo docker compose -f ~/spark-demo/docker-compose.yml logs litellm</code> and <code>journalctl -u ollama -n 50</code></td>
+      <td>Ollama is down or mid-pull. <code>sudo systemctl status ollama</code>. <strong>If a pull is running, wait</strong> &mdash; see below.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>Everything is a systemd or Docker service and comes back by itself after a reboot. If the whole box was restarted, give it a couple of minutes before concluding anything is broken.</p>
+
+<h2>Do not</h2>
+<div class="warn">
+  <p><strong>Never delete Ollama's <code>*-partial*</code> files by hand.</strong> They are resume markers, not junk. Removing them makes the finalize step fail and silently truncates the blob &mdash; you then have a model that looks present and does not work. If a download is genuinely broken, remove the whole model and pull it again.</p>
+  <p><strong>Never restart Ollama during a pull.</strong> It kills the download and corrupts the resume state. Tier 1 is a 95&nbsp;GB pull; losing it costs hours.</p>
+</div>
+<ul>
+  <li>Do not hand out the master key, ever.</li>
+  <li>Do not hand-edit <code>litellm_config.yaml</code> &mdash; the next <code>setup.sh</code> rerun regenerates it.</li>
+  <li>Do not point a customer at the tailnet URL. It requires the master key.</li>
+  <li>Do not run <code>setup.sh</code> yourself while a pull is in flight. Owner territory.</li>
+</ul>
+
+<footer>LocalAI Thailand &middot; internal operator guide &middot; not for customers</footer>
+</main>
+<script>
+document.querySelectorAll('pre').forEach(function(pre){
+  var b=document.createElement('button'); b.className='copy'; b.type='button'; b.textContent='Copy';
+  b.setAttribute('aria-label','Copy code to clipboard');
+  b.addEventListener('click',function(){navigator.clipboard.writeText(pre.querySelector('code').textContent).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy';},1500);});});
+  pre.appendChild(b);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DGX Spark Demo: Owner Runbook</title>
+<meta name="description" content="Internal owner runbook for the LocalAI Thailand DGX Spark demo: architecture, setup.sh contract, DNS and tunnel, incidents, upgrade paths.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="icon" href="/icon.svg">
+<style>
+:root{
+  --bg:#f6f8fb; --card:#ffffff; --band:#eef3f9;
+  --text:#0f172a; --muted:#52627a; --faint:#7b8aa0;
+  --border:#dde5ef; --accent:#0e7490; --accent-soft:rgba(14,116,144,.09);
+  --code-bg:#f1f5f9; --code-text:#0f172a; --warn:#b45309; --warn-soft:rgba(180,83,9,.09);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#060a14; --card:#111827; --band:#0c1220;
+    --text:#f0f4f8; --muted:#94a3b8; --faint:#64748b;
+    --border:#1e293b; --accent:#00e5ff; --accent-soft:rgba(0,229,255,.10);
+    --code-bg:#0c1220; --code-text:#e2e8f0; --warn:#fbbf24; --warn-soft:rgba(251,191,36,.10);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'Space Grotesk','IBM Plex Sans Thai',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:16px; line-height:1.65;
+}
+:lang(th){font-family:'IBM Plex Sans Thai','Space Grotesk',sans-serif; line-height:1.9}
+main{max-width:760px; margin:0 auto; padding:40px 20px 96px}
+header{border-bottom:1px solid var(--border); padding-bottom:24px; margin-bottom:32px}
+.eyebrow{font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin:0 0 10px}
+h1{font-size:1.8rem; font-weight:600; line-height:1.25; margin:0 0 8px; letter-spacing:-.01em}
+h2{font-size:1.25rem; font-weight:600; margin:44px 0 14px; padding-left:12px; border-left:3px solid var(--accent); letter-spacing:-.01em}
+h2 .th{display:block; font-size:.85rem; font-weight:400; color:var(--muted); letter-spacing:0}
+h3{font-size:1rem; font-weight:600; margin:28px 0 8px; color:var(--text)}
+p,li{color:var(--text)}
+p{margin:0 0 14px}
+.lede{color:var(--muted)}
+ul,ol{margin:0 0 14px; padding-left:22px}
+li{margin:0 0 6px}
+a{color:var(--accent)}
+strong{font-weight:600}
+.band{background:var(--band); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin:0 0 18px}
+.band p:last-child,.band ul:last-child,.band ol:last-child{margin-bottom:0}
+.band h3:first-child{margin-top:0}
+.note{background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:.94rem}
+.warn{background:var(--warn-soft); border-left:3px solid var(--warn); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:.94rem}
+.note p:last-child,.warn p:last-child{margin-bottom:0}
+dl.kv{margin:0 0 18px; display:grid; grid-template-columns:max-content 1fr; gap:6px 18px; font-size:.95rem}
+dl.kv dt{color:var(--muted); font-weight:500}
+dl.kv dd{margin:0; overflow-wrap:anywhere}
+@media (max-width:520px){dl.kv{grid-template-columns:1fr; gap:2px} dl.kv dd{margin:0 0 10px}}
+code{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em;
+  background:var(--code-bg); border:1px solid var(--border); border-radius:4px; padding:.08em .32em; overflow-wrap:anywhere}
+pre{position:relative; background:var(--code-bg); border:1px solid var(--border); border-radius:10px;
+  padding:16px 16px 16px; margin:0 0 18px; overflow-x:auto; -webkit-overflow-scrolling:touch}
+pre code{background:none; border:0; padding:0; font-size:.82rem; line-height:1.65; color:var(--code-text); white-space:pre; display:block}
+button.copy{position:absolute; top:8px; right:8px; font:500 .7rem/1 'Space Grotesk',sans-serif;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--card);
+  border:1px solid var(--border); border-radius:6px; padding:6px 10px; cursor:pointer; opacity:.75}
+button.copy:hover,button.copy:focus-visible{opacity:1; color:var(--accent); border-color:var(--accent)}
+.tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 18px; border:1px solid var(--border); border-radius:10px}
+table{border-collapse:collapse; width:100%; min-width:460px; font-size:.9rem; background:var(--card)}
+th,td{border-bottom:1px solid var(--border); padding:10px 14px; text-align:left; vertical-align:top}
+th{background:var(--band); font-weight:600; white-space:nowrap}
+tr:last-child td{border-bottom:0}
+figure{margin:0 0 18px}
+figure svg{width:100%; height:auto; display:block}
+figcaption{font-size:.82rem; color:var(--faint); margin-top:8px}
+footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--border); font-size:.85rem; color:var(--faint)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="eyebrow">LocalAI Thailand &middot; internal</p>
+  <h1>DGX Spark Demo: Owner Runbook</h1>
+  <p class="lede">Everything in the operator guide, plus the parts only the owner touches: how the stack fits together, what a <code>setup.sh</code> rerun promises, DNS and the tunnel, the kit repo, where this goes next, and what already went wrong.</p>
+</header>
+
+<div class="note"><p>Not linked from anywhere and not indexed, but it is a public URL. No keys on this page, ever.</p></div>
+
+<h2>The box</h2>
+<dl class="kv">
+  <dt>Hardware</dt><dd>One NVIDIA DGX Spark (GB10, 128&nbsp;GB unified memory)</dd>
+  <dt>Hostname</dt><dd><code>edgexpert-2316</code>, Ubuntu 24.04, LocalAI Thailand office</dd>
+  <dt>Login</dt><dd><code>localaithai</code></dd>
+  <dt>Tailscale</dt><dd>node <code>edgexpert-2316</code>, <code>100.75.76.59</code>, on the owner's tailnet</dd>
+  <dt>Public URL</dt><dd><code>https://spark.dgxthai.com/v1</code> (OpenAI format), <code>/v1/messages</code> (Anthropic format), <code>/ui</code> (admin UI, per-person admin accounts)</dd>
+  <dt>Private URL</dt><dd><code>http://edgexpert-2316:4000/v1</code> with the master key &mdash; tailnet only, no Cloudflare timeout</dd>
+  <dt>Master key</dt><dd><code>~/spark-demo/master_key</code> on the Spark, and nowhere else</dd>
+</dl>
+
+<h2>Architecture</h2>
+<figure>
+<svg viewBox="0 0 520 434" role="img" aria-labelledby="archtitle archdesc" xmlns="http://www.w3.org/2000/svg">
+  <title id="archtitle">Request path through the Spark demo stack</title>
+  <desc id="archdesc">A client request goes to the Cloudflare edge, through the cloudflared named tunnel, into LiteLLM on port 4000, and on to Ollama on port 11434. LiteLLM stores key hashes in Postgres. Tailscale is a side door straight into LiteLLM on port 4000.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--faint)"/>
+    </marker>
+  </defs>
+  <g font-family="'Space Grotesk',sans-serif" text-anchor="middle">
+    <g fill="var(--card)" stroke="var(--border)" stroke-width="1.5">
+      <rect x="170" y="10"  width="190" height="54" rx="8"/>
+      <rect x="170" y="98"  width="190" height="54" rx="8"/>
+      <rect x="170" y="186" width="190" height="54" rx="8"/>
+      <rect x="170" y="274" width="190" height="54" rx="8" stroke="var(--accent)"/>
+      <rect x="170" y="362" width="190" height="54" rx="8"/>
+      <rect x="8"   y="274" width="150" height="54" rx="8" stroke-dasharray="4 3"/>
+      <rect x="372" y="274" width="140" height="54" rx="8"/>
+    </g>
+    <g fill="var(--text)" font-size="12.5" font-weight="600">
+      <text x="265" y="33">Client</text>
+      <text x="265" y="121">Cloudflare edge</text>
+      <text x="265" y="209">cloudflared</text>
+      <text x="265" y="297">LiteLLM :4000</text>
+      <text x="265" y="385">Ollama :11434</text>
+      <text x="83"  y="297">Tailscale</text>
+      <text x="442" y="297">Postgres</text>
+    </g>
+    <g fill="var(--muted)" font-size="9.5">
+      <text x="265" y="50">Codex &middot; Claude Code &middot; curl</text>
+      <text x="265" y="138">TLS terminates here &middot; 100s cap</text>
+      <text x="265" y="226">named tunnel &ldquo;spark&rdquo; &middot; systemd</text>
+      <text x="265" y="314">docker &middot; virtual keys, aliases</text>
+      <text x="265" y="402">host &middot; 3 models &middot; 32K ctx</text>
+      <text x="83"  y="314">side door, master key</text>
+      <text x="442" y="314">docker &middot; key hashes</text>
+    </g>
+    <g stroke="var(--faint)" stroke-width="1.5" marker-end="url(#ar)">
+      <line x1="265" y1="64"  x2="265" y2="94"/>
+      <line x1="265" y1="152" x2="265" y2="182"/>
+      <line x1="265" y1="240" x2="265" y2="270"/>
+      <line x1="265" y1="328" x2="265" y2="358"/>
+      <line x1="158" y1="301" x2="166" y2="301"/>
+      <line x1="360" y1="301" x2="368" y2="301"/>
+    </g>
+  </g>
+</svg>
+<figcaption>No inbound port is open on the Spark. Cloudflare reaches it only because cloudflared dials out. Everything below the edge is on this one machine's loopback.</figcaption>
+</figure>
+<ul>
+  <li><strong>LiteLLM owns authentication.</strong> Ollama has none. Anything that can reach <code>:11434</code> directly is unauthenticated, which is why it binds to <code>127.0.0.1</code>.</li>
+  <li><strong>Postgres holds key hashes only.</strong> Plaintext keys exist once, in the output of <code>keys.sh new</code>.</li>
+  <li><strong>Tailscale bypasses Cloudflare entirely</strong>, so it has no 100-second response cap. Use it for long test runs.</li>
+</ul>
+
+<h2>Access</h2>
+<p>Partner onboarding: invite at <a href="https://login.tailscale.com">login.tailscale.com</a> (Users &rarr; invite), then add an SSH rule for them under Access Controls. They install Tailscale and get in with:</p>
+<pre><code>ssh localaithai@edgexpert-2316</code></pre>
+<p>Tailscale SSH &mdash; no key exchange, no password. Revoking the tailnet user removes the access.</p>
+<p>Admin UI: <code>https://spark.dgxthai.com/ui</code>. Owner and partner each sign in with their own admin account; the master key does not open the UI. It remains the API credential for <code>keys.sh</code> and for the private tailnet endpoint.</p>
+
+<h2>Issuing customer keys</h2>
+<pre><code>cd ~/spark-demo
+./keys.sh new acme 7d     # prints the key ONCE
+./keys.sh list            # alias, hashed token, expiry
+./keys.sh revoke acme     # also accepts an sk- key</code></pre>
+<p>Or the admin UI, signed in as yourself: <strong>Virtual Keys &rarr; Create New Key</strong>. Same object either way.</p>
+<p>From a laptop instead of the box:</p>
+<pre><code>export SPARK_URL=https://spark.dgxthai.com
+export LITELLM_MASTER_KEY=sk-...
+./keys.sh list</code></pre>
+<p>Budgets are pointless here &mdash; Ollama has no per-token cost. Expiry and revoke are the only real controls.</p>
+
+<h2>Demo-day checklist</h2>
+<ol>
+  <li><code>ollama ps</code> &mdash; confirm the tier-1 model is resident.</li>
+  <li>Warm it with one real request and let it finish (~20s cold).</li>
+  <li><code>./keys.sh new &lt;customer&gt; 7d</code> and copy the output at once.</li>
+  <li>Send the <a href="/spark/customer.html">customer page</a> and the key in separate messages.</li>
+  <li><code>./keys.sh revoke &lt;customer&gt;</code> when the demo is over.</li>
+</ol>
+
+<h2>The setup.sh rerun contract</h2>
+<pre><code>ssh -t localaithai-xp1 'sudo -v && TUNNEL_HOST=spark.dgxthai.com bash ~/spark-demo/setup.sh'</code></pre>
+<p>This is the one command that changes the box. Rerun it after any change. What it guarantees:</p>
+<ul>
+  <li><strong>Idempotent.</strong> Safe to run repeatedly.</li>
+  <li><strong>Keys survive.</strong> They live in Postgres; the master key and the Postgres password are generated once into <code>~/spark-demo/</code> and reused.</li>
+  <li><strong>The URL survives</strong> as long as <code>TUNNEL_HOST</code> is passed. Drop it and you fall back to a throwaway <code>*.trycloudflare.com</code> host &mdash; do not do that here.</li>
+  <li><strong>Ollama is only restarted if its systemd drop-in actually changed.</strong> This is deliberate; see the incident log.</li>
+  <li><strong><code>litellm_config.yaml</code> is regenerated from <code>MODELS</code> every run</strong>, so the gateway always matches what is pulled. Never hand-edit it.</li>
+  <li><strong>LiteLLM is explicitly restarted</strong> each run, because <code>compose up -d</code> does not notice a bind-mounted config change.</li>
+  <li><strong>It self-checks before declaring READY:</strong> 401 unauthenticated, 200 with the master key, and a real completion on a freshly minted virtual key. A failure is a non-zero exit, not a warning.</li>
+</ul>
+<p>Adding a model:</p>
+<pre><code>ollama pull &lt;tag&gt;
+MODELS="metalspork/qwen3.8-flash-next-ud:UD-IQ4_XS qwen3.8:27b-q4_K_M qwen3.5:9b &lt;tag&gt;" \
+  TUNNEL_HOST=spark.dgxthai.com bash ~/spark-demo/setup.sh</code></pre>
+<p>First and last entries in <code>MODELS</code> become <code>claude-spark</code> and <code>claude-spark-fast</code>. Keep tier 1 first and tier 3 last, or the Claude Code aliases move.</p>
+
+<h2>Logs</h2>
+<pre><code>sudo docker compose -f ~/spark-demo/docker-compose.yml logs litellm
+journalctl -u cloudflared -n 100
+journalctl -u ollama -n 100</code></pre>
+
+<h2>DNS, Cloudflare and the tunnel</h2>
+<ul>
+  <li><code>dgxthai.com</code> is on Cloudflare DNS, free plan. That is all the plan needs to do.</li>
+  <li><code>spark</code> is a proxied CNAME to the named tunnel <code>spark</code>; the target is <code>&lt;uuid&gt;.cfargotunnel.com</code>, and the UUID is in <code>~/.cloudflared/config.yml</code> on the Spark.</li>
+  <li><code>cloudflared tunnel login</code> ran once and wrote <code>~/.cloudflared/cert.pem</code>. Without it, <code>setup.sh</code> refuses the named-tunnel path rather than silently degrading.</li>
+  <li><code>cloudflared service install</code> put the unit in systemd and copied the config to <code>/etc/cloudflared/config.yml</code>; a rerun copies the config again but does not reinstall the service (it is not idempotent and aborts on a conflicting configuration).</li>
+  <li>TLS terminates at the Cloudflare edge. Nothing on the Spark holds a certificate and no inbound port is open.</li>
+  <li>Repointing to a different hostname is a rerun with a different <code>TUNNEL_HOST</code>. Nothing else moves.</li>
+</ul>
+
+<h2>The claude-spark profile</h2>
+<p>The owner's own Claude Code profile against this box:</p>
+<pre><code>export CLAUDE_CONFIG_DIR=~/.claude-spark
+export ANTHROPIC_BASE_URL=https://spark.dgxthai.com
+export ANTHROPIC_AUTH_TOKEN=$(cat ~/.claude-spark/api-key)
+export ANTHROPIC_DEFAULT_MODEL=claude-spark
+export ANTHROPIC_DEFAULT_FAST_MODEL=claude-spark-fast
+claude</code></pre>
+<p>Aliased as <code>claude-spark</code>. The separate <code>CLAUDE_CONFIG_DIR</code> is what keeps it from colliding with the normal profiles. No <code>/v1</code> on the base URL &mdash; Claude Code appends <code>/v1/messages</code>.</p>
+
+<h2>Kit repo</h2>
+<p><code>~/Development/active/spark-demo</code>, scp'd to <code>~/spark-demo/</code> on the box.</p>
+<div class="tw">
+<table>
+  <thead><tr><th>File</th><th>What it is</th></tr></thead>
+  <tbody>
+    <tr><td><code>setup.sh</code></td><td>The whole build. Ollama, LiteLLM, Postgres, cloudflared, config generation, self-check.</td></tr>
+    <tr><td><code>keys.sh</code></td><td><code>new</code> / <code>list</code> / <code>revoke</code> against the gateway's key API.</td></tr>
+    <tr><td><code>check.sh</code></td><td>Sanity-check an issued key from a laptop: <code>./check.sh &lt;base URL&gt; &lt;key&gt;</code>.</td></tr>
+    <tr><td><code>docker-compose.yml</code></td><td>LiteLLM + Postgres.</td></tr>
+    <tr><td><code>README.md</code></td><td>Source of truth for the client snippets on the customer page.</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Generated on the box and never committed: <code>master_key</code>, <code>pg_pass</code>, <code>.env</code>, <code>litellm_config.yaml</code>, <code>logs/</code>.</p>
+
+<h2>Known limits</h2>
+<ul>
+  <li><strong>Office upload bandwidth is the ceiling</strong>, not the GPU. Every token leaves through the office link.</li>
+  <li><strong>2&ndash;3 concurrent users is fine. 20 is not.</strong> Ollama queues FIFO with no continuous batching.</li>
+  <li><strong>Cloudflare caps a proxied response at 100 seconds.</strong> Long single generations get cut. The tailnet URL has no such cap.</li>
+  <li><strong>No per-token cost, so budgets are theatre.</strong> Expiry plus revoke is the control surface.</li>
+  <li><strong>Keys live in Postgres on the box with no backup.</strong> A rerun recreates nothing. Losing the box means re-issuing every key.</li>
+  <li><strong>32K context per request</strong>, one setting for all models, even though tier 1 can do 256K.</li>
+</ul>
+
+<h2>Troubleshooting</h2>
+<div class="tw">
+<table>
+  <thead><tr><th>Symptom</th><th>Check</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td>Customer gets <code>401</code></td><td><code>./keys.sh list</code> &mdash; alias present, expiry in the future?</td><td>Expired or revoked: issue a new key. Otherwise they are sending a truncated key or the wrong header.</td></tr>
+    <tr><td>First request hangs ~20s</td><td><code>ollama ps</code></td><td>Model swap. Not a fault. Warm before demos.</td></tr>
+    <tr><td>Public URL dead</td><td><code>systemctl status cloudflared</code>, <code>journalctl -u cloudflared</code></td><td><code>sudo systemctl restart cloudflared</code>. If the tailnet URL still works, the problem is the office internet or Cloudflare, not the stack.</td></tr>
+    <tr><td>Responses cut at ~100s</td><td>Is it going through <code>spark.dgxthai.com</code>?</td><td>Cloudflare proxy timeout. Stream, ask for shorter output, or test over the tailnet.</td></tr>
+    <tr><td>Gateway up, every model errors</td><td><code>docker compose logs litellm</code>, <code>journalctl -u ollama</code></td><td>Ollama down or mid-pull. If a pull is running, <strong>wait</strong>. Otherwise <code>sudo systemctl restart ollama</code>.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Do not</h2>
+<div class="warn">
+  <p><strong>Never delete Ollama's <code>*-partial*</code> files by hand</strong> &mdash; they are resume markers. Removing them makes finalize fail and truncates the blob. Wipe the model and re-pull instead.</p>
+  <p><strong>Never restart Ollama during a pull.</strong> It kills the download and corrupts the resume state.</p>
+</div>
+<ul>
+  <li>Never hand out the master key.</li>
+  <li>Never hand-edit <code>litellm_config.yaml</code>; the next rerun regenerates it.</li>
+  <li>Never point a customer at the tailnet URL.</li>
+</ul>
+
+<h2>Incident log</h2>
+
+<h3>2026-09-15 &mdash; setup.sh restarted Ollama and killed a 95&nbsp;GB pull</h3>
+<div class="band">
+  <p><strong>What happened.</strong> A rerun of <code>setup.sh</code> wrote the systemd drop-in and restarted Ollama unconditionally. A tier-1 pull was in flight. The restart killed the download and left its resume markers inconsistent, so the retry could not continue from where it stopped.</p>
+  <p><strong>Why.</strong> The script treated "write the config" and "restart the service" as one step, with no test for whether the config had actually changed. On a rerun it usually had not.</p>
+  <p><strong>Fix, now in <code>setup.sh</code>.</strong> The drop-in is written to a temp file and compared with <code>cmp -s</code> against the installed one. Identical &rarr; <code>systemctl enable --now</code> only. Different &rarr; install, <code>daemon-reload</code>, restart. A rerun during a pull is now harmless.</p>
+  <p><strong>Rule.</strong> Never restart a service to apply a config that did not change.</p>
+</div>
+
+<h3>2026-09-16 &mdash; hand-deleting <code>*-partial-N</code> markers truncated the blob</h3>
+<div class="band">
+  <p><strong>What happened.</strong> After the failed pull, the <code>*-partial-N</code> files in the Ollama blob directory looked like leftover garbage and were deleted by hand to force a clean restart. The re-pull appeared to run, then failed at the finalize step, and what landed on disk was a truncated blob that still presented as a downloaded model.</p>
+  <p><strong>Why.</strong> Those files are not junk. Ollama chunks a download and uses the partial markers to track which chunks are complete; finalize reassembles from them. Deleting them mid-flight destroys the accounting, and the failure surfaces at the end rather than at the point of damage.</p>
+  <p><strong>Fix.</strong> Remove the model entirely and pull it again from nothing. Hours, not minutes, for tier 1.</p>
+  <p><strong>Rule.</strong> Never touch <code>*-partial*</code>. If a download is bad, delete the whole model and re-pull. Both incidents were the same mistake in different clothes: interfering with a long download instead of leaving it alone.</p>
+</div>
+
+<h2>Upgrade paths</h2>
+<div class="tw">
+<table>
+  <thead><tr><th>Step</th><th>Status</th><th>When to take it</th></tr></thead>
+  <tbody>
+    <tr><td>Named tunnel, stable hostname</td><td><strong>Done.</strong> <code>spark.dgxthai.com</code>, survives reboots.</td><td>&mdash;</td></tr>
+    <tr><td>LiteLLM budgets and spend tracking</td><td>Available, deliberately unused.</td><td>Only if a paid provider is ever put behind the same gateway. Local tokens cost nothing.</td></tr>
+    <tr><td>Second Spark</td><td>Not started.</td><td>When one model group in memory at a time becomes the complaint. Two boxes means tier 1 resident on one and tiers 2+3 on the other &mdash; no more swap penalty.</td></tr>
+    <tr><td>vLLM instead of Ollama</td><td>Not started.</td><td>When concurrency, not latency, is the ceiling. Roughly 4&ndash;5&times; the aggregate throughput, for no hardware spend. Costs the easy <code>ollama pull</code> workflow.</td></tr>
+    <tr><td>Key backup</td><td>Not started.</td><td>The day a lost box would be more than an annoyance. Today, re-issuing is cheaper than building it.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<footer>LocalAI Thailand &middot; owner runbook &middot; not for customers or partners without context</footer>
+</main>
+<script>
+document.querySelectorAll('pre').forEach(function(pre){
+  var b=document.createElement('button'); b.className='copy'; b.type='button'; b.textContent='Copy';
+  b.setAttribute('aria-label','Copy code to clipboard');
+  b.addEventListener('click',function(){navigator.clipboard.writeText(pre.querySelector('code').textContent).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy';},1500);});});
+  pre.appendChild(b);
+});
+</script>
+</body>
+</html>
