@@ -133,7 +133,7 @@ footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--border); fo
       <text x="265" y="138">TLS terminates here &middot; 100s cap</text>
       <text x="265" y="226">named tunnel &ldquo;spark&rdquo; &middot; systemd</text>
       <text x="265" y="314">docker &middot; virtual keys, aliases</text>
-      <text x="265" y="402">host &middot; 3 models &middot; 32K ctx</text>
+      <text x="265" y="402">host &middot; 3 models &middot; 64K ctx</text>
       <text x="83"  y="314">side door, master key</text>
       <text x="442" y="314">docker &middot; key hashes</text>
     </g>
@@ -248,7 +248,7 @@ claude</code></pre>
   <li><strong>Cloudflare caps a proxied response at 100 seconds.</strong> Long single generations get cut. The tailnet URL has no such cap.</li>
   <li><strong>No per-token cost, so budgets are theatre.</strong> Expiry plus revoke is the control surface.</li>
   <li><strong>Keys live in Postgres on the box with no backup.</strong> A rerun recreates nothing. Losing the box means re-issuing every key.</li>
-  <li><strong>32K context per request</strong>, one setting for all models, even though tier 1 can do 256K.</li>
+  <li><strong>64K context per request</strong>, 2 parallel slots, q8 KV cache (<code>OLLAMA_CONTEXT_LENGTH=65536</code>, <code>OLLAMA_FLASH_ATTENTION=1</code>, <code>OLLAMA_KV_CACHE_TYPE=q8_0</code>, <code>OLLAMA_NUM_PARALLEL=2</code>), one setting for all models, even though tier 1 can do 256K.</li>
 </ul>
 
 <h2>Troubleshooting</h2>
@@ -292,6 +292,11 @@ claude</code></pre>
   <p><strong>Why.</strong> Those files are not junk. Ollama chunks a download and uses the partial markers to track which chunks are complete; finalize reassembles from them. Deleting them mid-flight destroys the accounting, and the failure surfaces at the end rather than at the point of damage.</p>
   <p><strong>Fix.</strong> Remove the model entirely and pull it again from nothing. Hours, not minutes, for tier 1.</p>
   <p><strong>Rule.</strong> Never touch <code>*-partial*</code>. If a download is bad, delete the whole model and re-pull. Both incidents were the same mistake in different clothes: interfering with a long download instead of leaving it alone.</p>
+</div>
+
+<h3>2026-09-16 &mdash; old context window truncated agent prompts</h3>
+<div class="band">
+  <p>The previous window truncated Claude Code/Codex prompts (Ollama log <code>n_tokens = 32767, truncated = 1</code>); raised to 64K + compaction flag.</p>
 </div>
 
 <h2>Upgrade paths</h2>

@@ -148,8 +148,9 @@ codex</code></pre>
 export ANTHROPIC_AUTH_TOKEN=&lt;your key&gt;
 export ANTHROPIC_DEFAULT_MODEL=claude-spark
 export ANTHROPIC_DEFAULT_FAST_MODEL=claude-spark-fast
-claude</code></pre>
+claude --settings '{"autoCompactWindow":"60k"}'</code></pre>
 <p><strong>No <code>/v1</code> on <code>ANTHROPIC_BASE_URL</code></strong> &mdash; Claude Code appends <code>/v1/messages</code> itself. <code>claude-spark</code> is tier 1 and <code>claude-spark-fast</code> is tier 3; the names carry "claude" because Claude Code filters model ids on it.</p>
+<p>The <code>--settings</code> flag tells Claude Code to compact before the box's 64K window &mdash; it assumes 200K otherwise.</p>
 
 <h3>Hermes Agent</h3>
 <pre><code>export OPENAI_BASE_URL=https://spark.dgxthai.com/v1
@@ -175,9 +176,11 @@ print(c.chat.completions.create(
   <li><strong>Speed by tier.</strong> Tier 3 answers as fast as you can read. Tier 2 is comfortable for chat. Tier 1 is the slowest and the best &mdash; it is a 125B model on one box, not a datacentre.</li>
   <li><strong>One big model at a time.</strong> Either tier 1 is in memory, or tiers 2 and 3 are. Switching between those two groups costs about 20 seconds on the first request afterwards. Later requests are normal speed.</li>
   <li><strong>First request after a quiet spell</strong> can be slow for the same reason. It is warming up, not broken.</li>
-  <li><strong>32K tokens of context per request</strong> across all three models.</li>
-  <li><strong>One machine, our office.</strong> A handful of people at once is fine; it is not built for a whole department hammering it.</li>
-  <li><strong>Very long single replies</strong> (past roughly 100 seconds of streaming) can be cut off by the network edge. Ask for the answer in parts if you hit that.</li>
+  <li><strong>64K tokens of context per request</strong> across all three models. Claude Code compacts automatically around 60K, so you should not hit the wall mid-task.</li>
+  <li><strong>Two people at once is fine.</strong> Three or more share the same tokens per second &mdash; it is one machine in our office, not a datacentre.</li>
+  <li><strong>Very long single replies</strong> (past roughly 100 seconds of silence) can be cut off by Cloudflare's proxy timeout. Use a streaming client &mdash; every tool above already does &mdash; or ask for the answer in parts.</li>
+  <li><strong>Vision</strong> works on tier 2 only.</li>
+  <li><strong>256K-context work</strong> is not available on this box; 64K is the ceiling.</li>
 </ul>
 
 <h2>House rules<span class="th" lang="th">ข้อตกลงการใช้งาน</span></h2>
