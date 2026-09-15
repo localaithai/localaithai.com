@@ -65,6 +65,10 @@ button.copy{position:absolute; top:8px; right:8px; font:500 .7rem/1 'Space Grote
   letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--card);
   border:1px solid var(--border); border-radius:6px; padding:6px 10px; cursor:pointer; opacity:.75}
 button.copy:hover,button.copy:focus-visible{opacity:1; color:var(--accent); border-color:var(--accent)}
+input#key{display:block; width:100%; margin:0 0 18px; padding:11px 13px; color:var(--text);
+  background:var(--card); border:1px solid var(--border); border-radius:8px;
+  font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.85rem}
+input#key:focus{border-color:var(--accent)}
 .tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 18px; border:1px solid var(--border); border-radius:10px}
 table{border-collapse:collapse; width:100%; min-width:460px; font-size:.9rem; background:var(--card)}
 th,td{border-bottom:1px solid var(--border); padding:10px 14px; text-align:left; vertical-align:top}
@@ -100,6 +104,13 @@ footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--border); fo
 </dl>
 <div class="note"><p>Authentication is a bearer token: <code>Authorization: Bearer &lt;your key&gt;</code>. Any OpenAI-compatible client does this for you when you set its API-key field.</p></div>
 
+<h2>Connect in one command<span class="th" lang="th">ติดตั้งด้วยคำสั่งเดียว</span></h2>
+<p>On macOS or Linux this saves your key and adds <code>spark-test</code>, <code>spark-claude</code>, <code>spark-codex</code> and <code>spark-hermes</code> to your shell. No sudo, nothing outside your home folder, safe to run twice.</p>
+<pre><code>curl -fsSL https://localaithai.com/spark/connect.sh | bash -s -- &lt;your key&gt;</code></pre>
+<p><label for="key">Paste your key here and every snippet on this page fills itself in. It stays in this browser tab.</label></p>
+<input id="key" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="paste your API key">
+<p>On Windows, or if you would rather not run a script, configure your tool by hand further down.</p>
+
 <h2>The three models<span class="th" lang="th">โมเดลทั้งสามตัว</span></h2>
 <div class="tw">
 <table>
@@ -128,7 +139,7 @@ footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--border); fo
 </div>
 <p>If you are not sure, start at tier 1 and only drop to tier 3 when you want the reply to land instantly.</p>
 
-<h2>Connect your tool<span class="th" lang="th">ตั้งค่าเครื่องมือของคุณ</span></h2>
+<h2>Or configure by hand<span class="th" lang="th">หรือตั้งค่าเอง</span></h2>
 
 <h3>Codex CLI &mdash; <code>~/.codex/config.toml</code></h3>
 <pre><code>model = "claude-spark"
@@ -204,6 +215,14 @@ document.querySelectorAll('pre').forEach(function(pre){
   b.setAttribute('aria-label','Copy code to clipboard');
   b.addEventListener('click',function(){navigator.clipboard.writeText(pre.querySelector('code').textContent).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy';},1500);});});
   pre.appendChild(b);
+});
+var box=document.getElementById('key');
+box.addEventListener('input',function(){
+  var v=box.value.trim();
+  document.querySelectorAll('pre code').forEach(function(c){
+    if(c.dataset.tpl===undefined){c.dataset.tpl=c.textContent;}
+    c.textContent=v?c.dataset.tpl.split('<your key>').join(v):c.dataset.tpl;
+  });
 });
 </script>
 </body>
