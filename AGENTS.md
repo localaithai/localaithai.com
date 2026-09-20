@@ -5,7 +5,7 @@ Static Next.js 16 site for localaithai.com, the Local AI line's Thai selling doo
 ## Quick reference
 
 - Package manager: `pnpm@10.17.1` (`pnpm-lock.yaml` is the committed lockfile)
-- Develop: `pnpm dev` at `http://localhost:3009`
+- Develop: `pnpm dev` at `http://localhost:19009`
 - Verification: `pnpm lint && pnpm build` (static export writes `out/`)
 - No typecheck script and no test suite. `next build` is the type gate.
 - Source lives under `src/` (`src/app`, `src/components`); `@/*` maps to `./src/*`.
