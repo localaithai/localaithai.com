@@ -1,13 +1,14 @@
+import { assetUrl } from "@/lib/assets";
 import Image from "next/image";
 
 const partners = [
-  { name: "Ingram Micro", logo: "/partners/ingram-micro.svg", className: "brightness-0 invert" },
-  { name: "TD SYNNEX", logo: "/partners/td-synnex.svg", className: "brightness-0 invert" },
-  { name: "SiS Distribution", logo: "/partners/sis.png", className: "brightness-0 invert" },
-  { name: "Ascenti", logo: "/partners/ascenti.png", className: "" },
-  { name: "Eaton", logo: "/partners/eaton.svg", className: "brightness-0 invert" },
-  { name: "Schneider Electric", logo: "/partners/schneider-electric.svg", className: "brightness-0 invert" },
-  { name: "VST ECS", logo: "/partners/vst-ecs.png", className: "brightness-0 invert" },
+  { name: "Ingram Micro", logo: assetUrl("/partners/ingram-micro.svg"), className: "brightness-0 invert" },
+  { name: "TD SYNNEX", logo: assetUrl("/partners/td-synnex.svg"), className: "brightness-0 invert" },
+  { name: "SiS Distribution", logo: assetUrl("/partners/sis.png"), className: "brightness-0 invert" },
+  { name: "Ascenti", logo: assetUrl("/partners/ascenti.png"), className: "" },
+  { name: "Eaton", logo: assetUrl("/partners/eaton.svg"), className: "brightness-0 invert" },
+  { name: "Schneider Electric", logo: assetUrl("/partners/schneider-electric.svg"), className: "brightness-0 invert" },
+  { name: "VST ECS", logo: assetUrl("/partners/vst-ecs.png"), className: "brightness-0 invert" },
 ] as const;
 
 export default function Partners() {

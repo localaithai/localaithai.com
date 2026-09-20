@@ -5,7 +5,7 @@ Static Next.js 16 site for localaithai.com, the Local AI line's Thai selling doo
 ## Quick reference
 
 - Package manager: `pnpm@10.17.1` (`pnpm-lock.yaml` is the committed lockfile)
-- Develop: `pnpm dev`
+- Develop: `pnpm dev` at `http://localhost:3009`
 - Verification: `pnpm lint && pnpm build` (static export writes `out/`)
 - No typecheck script and no test suite. `next build` is the type gate.
 - Source lives under `src/` (`src/app`, `src/components`); `@/*` maps to `./src/*`.
@@ -35,6 +35,13 @@ Before writing copy, CTAs, footer disclosures, or cross-links, read:
 - Copy is Thai-first with English technical nouns inline (GPU, RAG, PDPA, LLM). Keep Thai line heights.
 - TypeScript is strict; do not weaken types or add broad suppressions.
 - Preserve WCAG 2.2 AA behavior: semantic structure, keyboard access, visible focus, contrast, touch targets and reduced motion.
+
+## Shared image assets
+
+- Browser-loaded content images use immutable URLs from `https://assets.mimir.business/assets/` through `lib/assets.ts` (or `src/lib/assets.ts`) in both development and production. Do not add local URL fallbacks.
+- Keep favicons, manifest icons, social cards, and structured-data identity images on this site origin because crawlers may omit the `Referer` header required by the asset-host WAF rule.
+- Add or replace shared images through the `assets.mimir.business` catalogue workflow, then update the generated hash URL in the asset module.
+- The asset host catalogue, deployment rules, and decisions live in the `assets.mimir.business` repository.
 
 ## Source of truth
 

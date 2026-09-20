@@ -1,35 +1,37 @@
 "use client";
+
+import { assetUrl } from "@/lib/assets";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 const services = [
   {
-    logos: ["/mimir-apps/scan.png"],
+    logos: [assetUrl("/mimir-apps/scan.png")],
     title: "อ่านเอกสารด้วย Mimir Scan",
     desc: "จัดการ OCR และเอกสารให้พร้อมค้นหา",
   },
   {
-    logos: ["/mimir-apps/bridge.png"],
+    logos: [assetUrl("/mimir-apps/bridge.png")],
     title: "แปลด้วย Mimir Bridge",
     desc: "ช่วยทีมแปลภาษาในงานประจำ",
   },
   {
-    logos: ["/mimir-apps/echo.png"],
+    logos: [assetUrl("/mimir-apps/echo.png")],
     title: "ถอดเสียงด้วย Mimir Echo",
     desc: "เปลี่ยนเสียงเป็นข้อความสำหรับการทำงานต่อ",
   },
   {
-    logos: ["/mimir-apps/ledger.png"],
+    logos: [assetUrl("/mimir-apps/ledger.png")],
     title: "เตรียมบัญชีด้วย Mimir Ledger",
     desc: "ช่วยจัดเตรียมข้อมูลก่อนส่งต่อทีมบัญชี",
   },
   {
-    logos: ["/mimir-apps/well.png"],
+    logos: [assetUrl("/mimir-apps/well.png")],
     title: "ความรู้บริษัทด้วย Mimir Well",
     desc: "ค้นหาความรู้จากเอกสารองค์กร",
   },
   {
-    logos: ["/mimir-apps/chat.png", "/mimir-apps/still.png"],
+    logos: [assetUrl("/mimir-apps/chat.png"), assetUrl("/mimir-apps/still.png")],
     title: "ทำงานกับ Mimir Chat และ Still",
     desc: "สนทนา ร่างงาน และสร้างภาพผ่าน Suite",
   },

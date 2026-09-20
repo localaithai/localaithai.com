@@ -1,4 +1,6 @@
 "use client";
+
+import { assetUrl } from "@/lib/assets";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -30,7 +32,7 @@ export default function TechStackSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-10">
           <Image
-            src="/mimir-suite-logo.png"
+            src={assetUrl("/mimir-suite-logo.png")}
             alt=""
             width={84}
             height={56}

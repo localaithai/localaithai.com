@@ -1,4 +1,6 @@
 "use client";
+
+import { assetUrl } from "@/lib/assets";
 import { ArrowRight, Cloud, Laptop, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
@@ -16,7 +18,7 @@ export default function CloudCTA() {
           <div className="rounded-2xl bg-[#0c1220] p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
             <div>
               <Image
-                src="/mimir-suite-logo.png"
+                src={assetUrl("/mimir-suite-logo.png")}
                 alt=""
                 width={72}
                 height={48}

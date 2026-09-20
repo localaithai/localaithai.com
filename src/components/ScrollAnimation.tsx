@@ -1,4 +1,6 @@
 "use client";
+
+import { desktopFrameUrls, mobileFrameUrls } from "@/lib/assets";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 const TOTAL_FRAMES = 180;
@@ -58,7 +60,7 @@ export default function ScrollAnimation() {
 
   const FRAME_WIDTH = isMobile ? 780 : 1920;
   const FRAME_HEIGHT = isMobile ? 1400 : 1080;
-  const frameDir = isMobile ? "/frames-mobile" : "/frames";
+  const frameUrls = isMobile ? mobileFrameUrls : desktopFrameUrls;
 
   // Preload all frames
   useEffect(() => {
@@ -70,7 +72,7 @@ export default function ScrollAnimation() {
 
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new Image();
-      img.src = `${frameDir}/element-${String(i).padStart(3, "0")}.jpeg`;
+      img.src = frameUrls[i];
       img.onload = () => {
         loadedCount++;
         loadedRef.current[i] = true;
@@ -82,7 +84,7 @@ export default function ScrollAnimation() {
     }
 
     imagesRef.current = images;
-  }, [frameDir, reducedMotion]);
+  }, [frameUrls, reducedMotion]);
 
   // Scroll tracking
   useEffect(() => {
