@@ -126,7 +126,7 @@ const services = [
       "Workshop ใช้งาน Mimir Suite (ครึ่งวัน)",
       "สอน prompt engineering, ถามยังไงให้ได้คำตอบดี",
       "สอน RAG, upload เอกสาร ค้นหา ถามคำถาม",
-      "สอนสร้างรูปด้วย Mimir Still",
+      "สอนสร้างรูปด้วย Mimir Image Studio",
       "สอน admin, จัดการ user, model, settings",
       "Onboarding พนักงานใหม่ (1-2 ชม.)",
       "เอกสาร user guide ภาษาไทย",

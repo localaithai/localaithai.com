@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { Check, Cpu, Monitor, Server, Sparkles } from "lucide-react";
 
 const tiers = [
-  { icon: Monitor, title: "เครื่องตั้งโต๊ะ Spark-class", hardware: "AI machine ขนาดตั้งโต๊ะ", price: "เริ่มต้น ฿179,900", color: "#00e5ff", outcomes: ["Mimir Scan อ่านเอกสารและ OCR", "Mimir Bridge แปลภาษา", "Mimir Chat ช่วยค้นหาและร่างงาน"] },
-  { icon: Cpu, title: "Spark สองเครื่อง", hardware: "AI machine สองเครื่องสำหรับงานที่ต้องการทรัพยากรมากขึ้น", price: "เริ่มต้น ฿399,900", color: "#00ff88", outcomes: ["รองรับงานของทีมตามผลการประเมิน", "Mimir Echo ถอดเสียง", "Mimir Still สร้างภาพผ่านแอปของ Mimir"] },
-  { icon: Cpu, title: "RTX 5090 workstation", hardware: "เวิร์กสเตชัน GPU สำหรับงาน AI ในองค์กร", price: "เริ่มต้น ฿219,900", color: "#8b5cf6", outcomes: ["Mimir Well สำหรับความรู้บริษัท", "Mimir Ledger ช่วยเตรียมข้อมูลบัญชี", "เลือกแอปตามงานที่ต้องการ"] },
+  { icon: Monitor, title: "เครื่องตั้งโต๊ะ Spark-class", hardware: "AI machine ขนาดตั้งโต๊ะ", price: "เริ่มต้น ฿179,900", color: "#00e5ff", outcomes: ["Mimir Scan อ่านเอกสารและ OCR", "Mimir Translate แปลภาษา", "Mimir Chat ช่วยค้นหาและร่างงาน"] },
+  { icon: Cpu, title: "Spark สองเครื่อง", hardware: "AI machine สองเครื่องสำหรับงานที่ต้องการทรัพยากรมากขึ้น", price: "เริ่มต้น ฿399,900", color: "#00ff88", outcomes: ["รองรับงานของทีมตามผลการประเมิน", "Mimir Transcribe ถอดเสียง", "Mimir Image Studio สร้างภาพผ่านแอปของ Mimir"] },
+  { icon: Cpu, title: "RTX 5090 workstation", hardware: "เวิร์กสเตชัน GPU สำหรับงาน AI ในองค์กร", price: "เริ่มต้น ฿219,900", color: "#8b5cf6", outcomes: ["Mimir Second Brain สำหรับความรู้บริษัท", "Mimir Ledger ช่วยเตรียมข้อมูลบัญชี", "เลือกแอปตามงานที่ต้องการ"] },
   { icon: Server, title: "GPU server", hardware: "เซิร์ฟเวอร์ GPU สำหรับการติดตั้งระดับองค์กร", price: "เริ่มต้น ฿1,190,000", color: "#ec4899", outcomes: ["ออกแบบระบบสำหรับหน้างาน", "กำหนดการสำรองข้อมูลและโครงสร้างพื้นฐาน", "ติดตั้ง Suite บนเครื่องพนักงานตามสิทธิ์ใช้งาน"] },
 ];
 

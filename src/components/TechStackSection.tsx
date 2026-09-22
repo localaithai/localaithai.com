@@ -10,20 +10,20 @@ const apps = [
     name: "Mimir Scan",
     outcome: "OCR และอ่านเอกสาร",
   },
-  { logo: "/mimir-apps/bridge.png", name: "Mimir Bridge", outcome: "แปลภาษา" },
-  { logo: "/mimir-apps/echo.png", name: "Mimir Echo", outcome: "ถอดเสียง" },
+  { logo: "/mimir-apps/translate.png", name: "Mimir Translate", outcome: "แปลภาษา" },
+  { logo: "/mimir-apps/transcribe.png", name: "Mimir Transcribe", outcome: "ถอดเสียง" },
   {
     logo: "/mimir-apps/ledger.png",
     name: "Mimir Ledger",
     outcome: "เตรียมข้อมูลก่อนทำบัญชี",
   },
-  { logo: "/mimir-apps/well.png", name: "Mimir Well", outcome: "ความรู้บริษัท" },
+  { logo: "/mimir-apps/second-brain.png", name: "Mimir Second Brain", outcome: "ความรู้บริษัท" },
   {
     logo: "/mimir-apps/chat.png",
     name: "Mimir Chat",
     outcome: "สนทนา ค้นหา และร่างงาน",
   },
-  { logo: "/mimir-apps/still.png", name: "Mimir Still", outcome: "สร้างภาพ" },
+  { logo: "/mimir-apps/image-studio.png", name: "Mimir Image Studio", outcome: "สร้างภาพ" },
 ];
 
 export default function TechStackSection() {

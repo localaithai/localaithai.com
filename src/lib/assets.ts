@@ -1,11 +1,18 @@
 const sharedAssets: Readonly<Record<string, string>> = {
-  "/mimir-apps/bridge.png": "https://assets.mimir.business/assets/shared/apps/bridge.93f772b5a40c.png",
-  "/mimir-apps/chat.png": "https://assets.mimir.business/assets/shared/apps/chat.6a32e40a7667.png",
-  "/mimir-apps/echo.png": "https://assets.mimir.business/assets/shared/apps/echo.61319bfca13b.png",
-  "/mimir-apps/ledger.png": "https://assets.mimir.business/assets/shared/apps/ledger.9c9dd2671ec8.png",
-  "/mimir-apps/scan.png": "https://assets.mimir.business/assets/shared/apps/scan.de83d07598c9.png",
-  "/mimir-apps/still.png": "https://assets.mimir.business/assets/shared/apps/still.05c9f1cce432.png",
-  "/mimir-apps/well.png": "https://assets.mimir.business/assets/shared/apps/well.094bed7dba30.png",
+  "/mimir-apps/chat.png":
+    "https://assets.mimir.business/assets/shared/apps/chat.6a32e40a7667.png",
+  "/mimir-apps/image-studio.png":
+    "https://assets.mimir.business/assets/shared/apps/image-studio.05c9f1cce432.png",
+  "/mimir-apps/ledger.png":
+    "https://assets.mimir.business/assets/shared/apps/ledger.9c9dd2671ec8.png",
+  "/mimir-apps/scan.png":
+    "https://assets.mimir.business/assets/shared/apps/scan.de83d07598c9.png",
+  "/mimir-apps/second-brain.png":
+    "https://assets.mimir.business/assets/shared/apps/second-brain.094bed7dba30.png",
+  "/mimir-apps/transcribe.png":
+    "https://assets.mimir.business/assets/shared/apps/transcribe.61319bfca13b.png",
+  "/mimir-apps/translate.png":
+    "https://assets.mimir.business/assets/shared/apps/translate.93f772b5a40c.png",
   "/mimir-suite-logo.png": "https://assets.mimir.business/assets/shared/brand/mimir-suite-logo.52b4d97f76ea.png",
   "/partners/ascenti.png": "https://assets.mimir.business/assets/sites/localaithai.com/partners/ascenti.8c074158a3ca.png",
   "/partners/eaton.svg": "https://assets.mimir.business/assets/shared/partners/eaton.4d7cc489208e.svg",

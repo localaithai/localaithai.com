@@ -11,13 +11,13 @@ const services = [
     desc: "จัดการ OCR และเอกสารให้พร้อมค้นหา",
   },
   {
-    logos: [assetUrl("/mimir-apps/bridge.png")],
-    title: "แปลด้วย Mimir Bridge",
+    logos: [assetUrl("/mimir-apps/translate.png")],
+    title: "แปลด้วย Mimir Translate",
     desc: "ช่วยทีมแปลภาษาในงานประจำ",
   },
   {
-    logos: [assetUrl("/mimir-apps/echo.png")],
-    title: "ถอดเสียงด้วย Mimir Echo",
+    logos: [assetUrl("/mimir-apps/transcribe.png")],
+    title: "ถอดเสียงด้วย Mimir Transcribe",
     desc: "เปลี่ยนเสียงเป็นข้อความสำหรับการทำงานต่อ",
   },
   {
@@ -26,13 +26,13 @@ const services = [
     desc: "ช่วยจัดเตรียมข้อมูลก่อนส่งต่อทีมบัญชี",
   },
   {
-    logos: [assetUrl("/mimir-apps/well.png")],
-    title: "ความรู้บริษัทด้วย Mimir Well",
+    logos: [assetUrl("/mimir-apps/second-brain.png")],
+    title: "ความรู้บริษัทด้วย Mimir Second Brain",
     desc: "ค้นหาความรู้จากเอกสารองค์กร",
   },
   {
-    logos: [assetUrl("/mimir-apps/chat.png"), assetUrl("/mimir-apps/still.png")],
-    title: "ทำงานกับ Mimir Chat และ Still",
+    logos: [assetUrl("/mimir-apps/chat.png"), assetUrl("/mimir-apps/image-studio.png")],
+    title: "ทำงานกับ Mimir Chat และ Image Studio",
     desc: "สนทนา ร่างงาน และสร้างภาพผ่าน Suite",
   },
 ];
