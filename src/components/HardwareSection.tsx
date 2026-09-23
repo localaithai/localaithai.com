@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Zap, Cpu, HardDrive, BatteryCharging, Server, Monitor, ArrowRight } from "lucide-react";
 import { assetUrl } from "@/lib/assets";
+import MachineOptions from "@/components/MachineOptions";
 
 function GlowCard({ children, color = "#00e5ff", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
@@ -484,6 +485,7 @@ export default function HardwareSection() {
             เลือกเครื่องที่เหมาะกับคุณ, ตั้งแต่ Mac Mini เท่าฝ่ามือ ถึง GPU Server ระดับ Data Center
           </p>
         </div>
+        <MachineOptions />
 
         {/* Category nav */}
         <div className="relative">

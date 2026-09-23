@@ -1,8 +1,7 @@
 "use client";
-import Image from "next/image";
-import { assetUrl } from "@/lib/assets";
 import { motion } from "framer-motion";
 import { Check, Cpu, Monitor, Server, Sparkles } from "lucide-react";
+import MachineOptions from "@/components/MachineOptions";
 
 const tiers = [
   { icon: Monitor, title: "เครื่องตั้งโต๊ะ Spark-class", hardware: "AI machine ขนาดตั้งโต๊ะ", price: "เริ่มต้น ฿179,900", color: "#00e5ff", outcomes: ["Mimir Scan อ่านเอกสารและ OCR", "Mimir Translate แปลภาษา", "Mimir Chat ช่วยค้นหาและร่างงาน"] },
@@ -23,20 +22,7 @@ export default function Packages() {
             ราคาเป็นจุดเริ่มต้น, สเปกและราคาสุดท้ายออกแบบตามปริมาณงาน ข้อมูล และจำนวนผู้ใช้ของคุณ
           </p>
         </div>
-        <figure className="mx-auto mb-10 max-w-4xl overflow-hidden rounded-2xl border border-[#1e293b] bg-[#060a14]">
-          <div className="relative aspect-[16/9] w-full">
-            <Image
-              src={assetUrl("/nvidia-dgx-spark.jpg")}
-              alt="NVIDIA DGX Spark"
-              fill
-              sizes="(max-width: 896px) 100vw, 896px"
-              className="object-contain"
-            />
-          </div>
-          <figcaption className="px-4 py-4 text-center text-sm leading-relaxed text-[#94a3b8]">
-            ภาพนี้เป็นตัวอย่างเครื่อง AI ตั้งโต๊ะจริงหนึ่งรุ่น เราเลือกรุ่นและสเปกสุดท้ายตาม workload ของคุณ
-          </figcaption>
-        </figure>
+        <MachineOptions />
         <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {tiers.map((tier, index) => (
             <motion.div

@@ -1,6 +1,10 @@
 const sharedAssets: Readonly<Record<string, string>> = {
+  "/acer-gn100.jpg":
+    "https://assets.mimir.business/assets/sites/mimir.business/presentations/acer-gn100.c2d1031bbb2d.jpg",
   "/asus-gx10.png":
     "https://assets.mimir.business/assets/sites/mimir.business/presentations/asus-gx10.239a2586deb1.png",
+  "/lenovo-pgx.png":
+    "https://assets.mimir.business/assets/sites/mimir.business/presentations/lenovo-pgx.8b97ca1633d7.png",
   "/mimir-apps/chat.png":
     "https://assets.mimir.business/assets/shared/apps/chat.6a32e40a7667.png",
   "/mimir-apps/image-studio.png":
@@ -16,6 +20,8 @@ const sharedAssets: Readonly<Record<string, string>> = {
   "/mimir-apps/translate.png":
     "https://assets.mimir.business/assets/shared/apps/translate.93f772b5a40c.png",
   "/mimir-suite-logo.png": "https://assets.mimir.business/assets/shared/brand/mimir-suite-logo.52b4d97f76ea.png",
+  "/msi-edgexpert.png":
+    "https://assets.mimir.business/assets/sites/mimir.business/presentations/msi-edgexpert.d4296d826892.png",
   "/nvidia-dgx-spark.jpg":
     "https://assets.mimir.business/assets/sites/mimir.business/presentations/nvidia-dgx-spark.8d2f40a53de1.jpg",
   "/partners/ascenti.png": "https://assets.mimir.business/assets/sites/localaithai.com/partners/ascenti.8c074158a3ca.png",
