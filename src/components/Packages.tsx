@@ -1,4 +1,6 @@
 "use client";
+import Image from "next/image";
+import { assetUrl } from "@/lib/assets";
 import { motion } from "framer-motion";
 import { Check, Cpu, Monitor, Server, Sparkles } from "lucide-react";
 
@@ -10,5 +12,84 @@ const tiers = [
 ];
 
 export default function Packages() {
-  return <section id="packages" className="py-16 lg:py-20 relative"><div className="max-w-7xl mx-auto px-6"><div className="text-center mb-10"><h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#f0f4f8] mb-4">เริ่มจากขนาดที่เหมาะกับงาน</h2><p className="text-[#94a3b8] max-w-2xl mx-auto text-base leading-relaxed">ราคาเป็นจุดเริ่มต้น, สเปกและราคาสุดท้ายออกแบบตามปริมาณงาน ข้อมูล และจำนวนผู้ใช้ของคุณ</p></div><div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">{tiers.map((tier, index) => <motion.div key={tier.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: index * 0.06 }} className="rounded-2xl bg-[#111827] border border-[#1e293b] p-5 sm:p-6 flex flex-col hover:-translate-y-1 transition-transform" style={{ boxShadow: `0 0 28px ${tier.color}10` }}><div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5" style={{ background: `${tier.color}15` }}><tier.icon size={21} style={{ color: tier.color }} /></div><h3 className="text-lg font-bold text-[#f0f4f8] mb-2">{tier.title}</h3><p className="text-xs text-[#94a3b8] mb-4">{tier.hardware}</p><p className="text-xl font-bold mb-5" style={{ color: tier.color }}>{tier.price}</p><ul className="space-y-3 mb-6 flex-1">{tier.outcomes.map((outcome) => <li key={outcome} className="flex items-start gap-2 text-sm text-[#94a3b8]"><Check size={14} className="mt-0.5 shrink-0" style={{ color: tier.color }} />{outcome}</li>)}</ul><a href="#contact" className="block text-center py-2.5 rounded-lg border text-sm font-semibold" style={{ borderColor: `${tier.color}60`, color: tier.color }}>ขอประเมินสเปก</a></motion.div>)}</div><div className="mt-10 rounded-2xl border border-[#00e5ff]/20 bg-[#00e5ff]/5 p-6 text-center"><Sparkles size={22} className="mx-auto mb-3 text-[#00e5ff]" /><p className="text-sm text-[#94a3b8] mb-4">ทุกระบบใช้ Mimir Suites บนเครื่องพนักงาน และ AI machine ติดตั้งในองค์กรของคุณ</p><a href="#contact" className="inline-flex px-5 py-2.5 rounded-xl bg-[#00e5ff] text-[#060a14] font-bold text-sm">ยังไม่แน่ใจ ติดต่อเรา</a></div></div></section>;
+  return (
+    <section id="packages" className="relative py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-10 text-center">
+          <h2 className="mb-4 text-3xl font-bold text-[#f0f4f8] md:text-5xl lg:text-6xl">
+            เริ่มจากขนาดที่เหมาะกับงาน
+          </h2>
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#94a3b8]">
+            ราคาเป็นจุดเริ่มต้น, สเปกและราคาสุดท้ายออกแบบตามปริมาณงาน ข้อมูล และจำนวนผู้ใช้ของคุณ
+          </p>
+        </div>
+        <figure className="mx-auto mb-10 max-w-4xl overflow-hidden rounded-2xl border border-[#1e293b] bg-[#060a14]">
+          <div className="relative aspect-[16/9] w-full">
+            <Image
+              src={assetUrl("/nvidia-dgx-spark.jpg")}
+              alt="NVIDIA DGX Spark"
+              fill
+              sizes="(max-width: 896px) 100vw, 896px"
+              className="object-contain"
+            />
+          </div>
+          <figcaption className="px-4 py-4 text-center text-sm leading-relaxed text-[#94a3b8]">
+            ภาพนี้เป็นตัวอย่างเครื่อง AI ตั้งโต๊ะจริงหนึ่งรุ่น เราเลือกรุ่นและสเปกสุดท้ายตาม workload ของคุณ
+          </figcaption>
+        </figure>
+        <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+          {tiers.map((tier, index) => (
+            <motion.div
+              key={tier.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.06 }}
+              className="flex flex-col rounded-2xl border border-[#1e293b] bg-[#111827] p-5 transition-transform hover:-translate-y-1 sm:p-6"
+              style={{ boxShadow: `0 0 28px ${tier.color}10` }}
+            >
+              <div
+                className="mb-5 flex size-11 items-center justify-center rounded-xl"
+                style={{ background: `${tier.color}15` }}
+              >
+                <tier.icon size={21} style={{ color: tier.color }} />
+              </div>
+              <h3 className="mb-2 text-lg font-bold text-[#f0f4f8]">{tier.title}</h3>
+              <p className="mb-4 text-xs text-[#94a3b8]">{tier.hardware}</p>
+              <p className="mb-5 text-xl font-bold" style={{ color: tier.color }}>
+                {tier.price}
+              </p>
+              <ul className="mb-6 flex-1 space-y-3">
+                {tier.outcomes.map((outcome) => (
+                  <li key={outcome} className="flex items-start gap-2 text-sm text-[#94a3b8]">
+                    <Check size={14} className="mt-0.5 shrink-0" style={{ color: tier.color }} />
+                    {outcome}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#contact"
+                className="block rounded-lg border py-2.5 text-center text-sm font-semibold"
+                style={{ borderColor: `${tier.color}60`, color: tier.color }}
+              >
+                ขอประเมินสเปก
+              </a>
+            </motion.div>
+          ))}
+        </div>
+        <div className="mt-10 rounded-2xl border border-[#00e5ff]/20 bg-[#00e5ff]/5 p-6 text-center">
+          <Sparkles size={22} className="mx-auto mb-3 text-[#00e5ff]" />
+          <p className="mb-4 text-sm text-[#94a3b8]">
+            ทุกระบบใช้ Mimir Suites บนเครื่องพนักงาน และ AI machine ติดตั้งในองค์กรของคุณ
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex rounded-xl bg-[#00e5ff] px-5 py-2.5 text-sm font-bold text-[#060a14]"
+          >
+            ยังไม่แน่ใจ ติดต่อเรา
+          </a>
+        </div>
+      </div>
+    </section>
+  );
 }

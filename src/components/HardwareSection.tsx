@@ -1,7 +1,9 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Zap, Cpu, HardDrive, BatteryCharging, Server, Monitor, ArrowRight } from "lucide-react";
+import { assetUrl } from "@/lib/assets";
 
 function GlowCard({ children, color = "#00e5ff", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
@@ -147,6 +149,7 @@ const categories: HardwareCategory[] = [
         tagline: "คุ้มที่สุดสำหรับ 128GB AI machine",
         tag: "Best Value • ฿179,900",
         color: "#76B900",
+        image: assetUrl("/asus-gx10.png"),
         description: "ASUS GX10 ใช้ GB10 Grace Blackwell Superchip เหมือน DGX Spark แต่ราคาถูกกว่า $1,000 เพราะ storage น้อยกว่า (1TB vs 4TB) นอกนั้นสเปคเหมือนกันทุกอย่าง",
         whyForAI: "128GB unified memory ทำให้โหลด model ถึง 200B parameters (4-bit) ได้ ซึ่ง Mac Studio 128GB ก็ทำได้เหมือนกัน แต่ GX10 มี NVIDIA GPU cores ที่ทำ training/fine-tuning ได้ดีกว่า",
         keySpecs: [
@@ -174,6 +177,7 @@ const categories: HardwareCategory[] = [
         tagline: "Official NVIDIA พร้อม Enterprise Support",
         tag: "Enterprise • ฿249,900",
         color: "#76B900",
+        image: assetUrl("/nvidia-dgx-spark.jpg"),
         description: "DGX Spark เป็นรุ่น official จาก NVIDIA มี 4TB storage และ NVIDIA Enterprise Support สเปคเหมือน GX10 ทุกอย่าง แค่เพิ่ม storage + support",
         whyForAI: "เหมือน GX10 ทุกอย่าง แต่ 4TB storage ทำให้เก็บ dataset ใหญ่ + หลาย model ได้ และ NVIDIA Enterprise Support ดีสำหรับองค์กรที่ต้องการ vendor support",
         keySpecs: [
@@ -517,6 +521,19 @@ export default function HardwareSection() {
               <motion.div key={item.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
                 <GlowCard color={item.color}>
                   <div className="p-5 md:p-6">
+                    {item.image ? (
+                      <figure className="mb-4">
+                        <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-[#070b12]">
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 1100px"
+                            className="object-contain p-5"
+                          />
+                        </div>
+                      </figure>
+                    ) : null}
                     <button onClick={() => setExpandedItem(expandedItem === item.name ? null : item.name)} className="w-full text-left">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
