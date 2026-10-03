@@ -1,4 +1,8 @@
 const sharedAssets: Readonly<Record<string, string>> = {
+  "/photography/hero.webp":
+    "https://assets.mimir.business/assets/sites/localaithai.com/general/hero.07855eb9e22a.webp",
+  "/photography/hero-mobile.webp":
+    "https://assets.mimir.business/assets/sites/localaithai.com/general/hero-mobile.a464dd28bef4.webp",
   "/acer-gn100.jpg":
     "https://assets.mimir.business/assets/sites/mimir.business/presentations/acer-gn100.c2d1031bbb2d.jpg",
   "/asus-gx10.png":

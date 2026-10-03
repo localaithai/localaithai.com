@@ -4,7 +4,7 @@ export const SITE_TAGLINE = "ติดตั้ง AI ส่วนตัวส�
 export const SITE_TITLE = "Local AI Thailand | AI ส่วนตัวสำหรับธุรกิจ";
 export const SITE_DESCRIPTION =
   "LocalAI Thailand คือบริการติดตั้ง AI ส่วนตัวในองค์กร ข้อมูลไม่ออกจากองค์กร เลือกสเปกตาม workload และรองรับ PDPA.";
-export const REVIEWED_DATE = "2026-09-13";
+export const REVIEWED_DATE = "2026-10-03";
 
 export const absoluteUrl = (path = "/") =>
   path.startsWith("http") ? path : `${SITE_URL}${path === "/" ? "" : path}`;

@@ -1,103 +1,85 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { Lock, Banknote, Building2 } from "lucide-react";
-import GridCanvas from "./GridCanvas";
+import Image from "next/image";
+import { assetUrl } from "@/lib/assets";
+
+const benefits = [
+  "ประมวลผลในเครื่อง",
+  "เลือกเครื่องให้พอดีกับงาน",
+  "ดูแลหลังส่งมอบ",
+];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <GridCanvas />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,255,0.08)_0%,transparent_70%)]" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#060a14] to-transparent" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 className="text-3xl sm:text-6xl lg:text-8xl font-bold leading-tight mb-6 mt-16 sm:mt-0">
-            <span className="text-[#f0f4f8]">ติดตั้ง AI ส่วนตัว</span>
+    <section className="overflow-hidden bg-[#060a14] px-6 text-[#f0f4f8]">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="mx-auto grid max-w-7xl items-center gap-10 pt-28 pb-16 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:pt-32"
+      >
+        <div>
+          <h1 className="mb-5 text-[clamp(2.2rem,4vw,4rem)] font-bold leading-[1.2] text-[#f0f4f8]">
+            ติดตั้ง AI ส่วนตัว
             <br />
-            <span className="gradient-text-cyan">สำหรับธุรกิจในประเทศไทย</span>
+            สำหรับธุรกิจในประเทศไทย
           </h1>
-
-          <p className="text-lg sm:text-xl lg:text-2xl text-[#94a3b8] max-w-3xl mx-auto mb-4 leading-relaxed">
-            เหมือนมี ChatGPT ส่วนตัว ทำงานบนเครื่องในออฟฟิศของคุณ
-            <br className="hidden sm:block" />
-            ข้อมูลไม่หลุดไปไหน ไม่มีค่า token หรือค่าใช้งานรายเดือนสำหรับ AI, สอดคล้องกับ PDPA
+          <p className="max-w-2xl text-lg leading-8 text-[#c8d5e3] sm:text-xl">
+            AI ส่วนตัวบนเครื่องในออฟฟิศ สำหรับงานเอกสารและข้อมูลของธุรกิจคุณ
           </p>
-          <p className="text-base lg:text-lg text-[#64748b] max-w-xl mx-auto mb-4">
-            บริการติดตั้ง AI ครบวงจร ตั้งแต่เลือกเครื่อง ติดตั้งระบบ จนพร้อมใช้งาน เริ่มต้น ฿179,900
+          <p className="mt-3 max-w-xl text-base leading-7 text-[#94a3b8]">
+            เราช่วยเลือกเครื่อง ติดตั้งระบบ และสอนทีมให้พร้อมใช้งาน
           </p>
-          <div className="max-w-lg mx-auto mb-12 py-4 border-t border-b border-[#1e293b]/60">
-            <p className="text-sm sm:text-base text-[#c8d5e3] font-medium italic text-center leading-relaxed">
-              ไม่มี solution สำเร็จรูปที่เหมาะกับทุกคน
-              <br className="hidden sm:block" />
-              มีแต่ระบบที่สร้างขึ้นให้พอดีกับธุรกิจคุณ
-            </p>
-            <p className="text-[10px] text-[#7a8ba0] text-center mt-2 tracking-[0.2em] uppercase">Our Philosophy</p>
-          </div>
-
-          {/* Value props as simple cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto mb-12">
-            {[
-              {
-                icon: Lock,
-                title: "ข้อมูลอยู่กับคุณ 100%",
-                desc: "ทุกอย่างประมวลผลในเครื่องของคุณ ไม่ส่งออกไปที่ไหนเลย",
-                color: "#00ff88",
-              },
-              {
-                icon: Banknote,
-                title: "ลงทุนกับ hardware ครั้งเดียว",
-                desc: "ไม่มีค่า token หรือค่าใช้งานรายเดือนสำหรับ AI",
-                color: "#00e5ff",
-              },
-              {
-                icon: Building2,
-                title: "ดูแลครบจบที่เดียว",
-                desc: "ทั้งเครื่อง ระบบไฟ ตู้ Rack ที่เก็บข้อมูล เราจัดให้หมด",
-                color: "#8b5cf6",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-xl border border-[#1e293b] bg-[#111827]/60 p-5 text-left"
-              >
-                <div
-                  className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
-                  style={{ background: item.color + "15" }}
-                >
-                  <item.icon size={18} style={{ color: item.color }} />
-                </div>
-                <h3 className="text-sm font-bold text-[#f0f4f8] mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-[#94a3b8] leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a
               href="#contact"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] font-bold text-base hover:opacity-90 transition-opacity text-center"
+              className="min-h-11 w-full rounded-lg bg-[#00e5ff] px-8 py-3.5 text-center text-base font-bold text-[#060a14] transition-opacity hover:opacity-90 sm:w-auto"
             >
               Request a Demo
             </a>
             <a
               href="#how-it-works"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-lg border border-[#1e293b] text-[#f0f4f8] font-semibold text-base hover:border-[#00e5ff] hover:text-[#00e5ff] transition-all text-center"
+              className="min-h-11 w-full rounded-lg border border-[#1e293b] px-8 py-3.5 text-center text-base font-semibold text-[#f0f4f8] transition-colors hover:border-[#00e5ff] hover:text-[#00e5ff] sm:w-auto"
             >
               ดูว่า AI ส่วนตัวทำอะไรได้บ้าง
             </a>
           </div>
-        </motion.div>
-      </div>
+          <ul className="mt-7 divide-y divide-[#1e293b] border-y border-[#1e293b]">
+            {benefits.map((benefit) => (
+              <li
+                key={benefit}
+                className="flex min-h-11 items-center py-2.5 text-sm font-medium text-[#c8d5e3]"
+              >
+                {benefit}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <figure className="min-w-0">
+          <div className="aspect-[4/3] overflow-hidden rounded-lg border border-[#1e293b] bg-[#111827]">
+            <picture className="block h-full">
+              <source
+                media="(max-width: 767px)"
+                srcSet={assetUrl("/photography/hero-mobile.webp")}
+              />
+              <Image
+                src={assetUrl("/photography/hero.webp")}
+                alt="เครื่อง AI บนโต๊ะทำงานในออฟฟิศ"
+                width={1440}
+                height={810}
+                loading="eager"
+                fetchPriority="high"
+                className="h-full w-full object-cover object-[70%_center]"
+              />
+            </picture>
+          </div>
+          <figcaption className="mt-3 text-xs leading-5 text-[#94a3b8]">
+            ภาพจำลองการใช้งาน · AI ในออฟฟิศของคุณ
+          </figcaption>
+        </figure>
+      </motion.div>
     </section>
   );
 }
