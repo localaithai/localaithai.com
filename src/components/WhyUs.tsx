@@ -1,5 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { assetUrl } from "@/lib/assets";
 import {
   Award,
   Code2,
@@ -62,6 +64,28 @@ export default function WhyUs() {
             ตั้งแต่เลือกเครื่อง ติดตั้งระบบ จนใช้งาน AI ได้จริง
           </p>
         </div>
+
+        <figure className="mx-auto mt-8 mb-12 max-w-3xl">
+          <div className="aspect-[16/9] overflow-hidden rounded-lg border border-[#1e293b] bg-[#111827]">
+            <picture className="block h-full">
+              <source
+                media="(max-width: 767px)"
+                srcSet={assetUrl("/photography/hero-mobile.webp")}
+              />
+              <Image
+                src={assetUrl("/photography/hero.webp")}
+                alt="เครื่อง AI บนโต๊ะทำงานในออฟฟิศ"
+                width={1440}
+                height={810}
+                loading="lazy"
+                className="h-full w-full object-cover object-[70%_center]"
+              />
+            </picture>
+          </div>
+          <figcaption className="mt-3 text-xs leading-5 text-[#94a3b8]">
+            ภาพจำลองการใช้งาน · AI ในออฟฟิศของคุณ
+          </figcaption>
+        </figure>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {reasons.map((r, i) => (

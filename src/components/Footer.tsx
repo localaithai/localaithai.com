@@ -42,7 +42,7 @@ export default function Footer() {
               <a href="/contact" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Contact</a>
               <a data-cta="tel" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1" />
               <a data-cta="email" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1" />
-              <a data-cta="line" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">LINE <span data-cta="lineid" /></a>
+              <a data-cta="line" className="inline-flex items-center gap-2 [&>[data-omni-line-logo]]:!size-4 hover:text-[#00e5ff] transition-colors py-2 sm:py-1"><span>LINE <span data-cta="lineid" /></span></a>
               <a href="/privacy" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">นโยบายความเป็นส่วนตัว</a>
             </div>
           </div>

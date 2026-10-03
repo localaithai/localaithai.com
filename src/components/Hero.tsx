@@ -2,8 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import { assetUrl } from "@/lib/assets";
 import GridCanvas from "./GridCanvas";
 
 const benefits = [
@@ -29,10 +27,10 @@ export default function Hero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 pt-28 pb-16 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:pt-32"
+        className="relative z-10 mx-auto flex min-h-[88svh] max-w-7xl flex-col justify-center pt-36 pb-20 lg:pt-44"
       >
-        <div>
-          <h1 className="mb-5 text-[clamp(2.2rem,4vw,4rem)] font-bold leading-[1.2] text-[#f0f4f8]">
+        <div className="max-w-3xl">
+          <h1 className="mb-5 text-[clamp(2.8rem,6vw,5.5rem)] font-bold leading-[1.2] text-[#f0f4f8]">
             ติดตั้ง AI ส่วนตัว
             <br />
             สำหรับธุรกิจในประเทศไทย
@@ -57,7 +55,7 @@ export default function Hero() {
               ดูว่า AI ส่วนตัวทำอะไรได้บ้าง
             </a>
           </div>
-          <ul className="mt-7 divide-y divide-[#1e293b] border-y border-[#1e293b]">
+          <ul className="mt-7 grid gap-3 border-y border-[#1e293b] py-3 sm:grid-cols-3">
             {benefits.map((benefit) => (
               <li
                 key={benefit}
@@ -68,29 +66,6 @@ export default function Hero() {
             ))}
           </ul>
         </div>
-
-        <figure className="min-w-0">
-          <div className="aspect-[4/3] overflow-hidden rounded-lg border border-[#1e293b] bg-[#111827]">
-            <picture className="block h-full">
-              <source
-                media="(max-width: 767px)"
-                srcSet={assetUrl("/photography/hero-mobile.webp")}
-              />
-              <Image
-                src={assetUrl("/photography/hero.webp")}
-                alt="เครื่อง AI บนโต๊ะทำงานในออฟฟิศ"
-                width={1440}
-                height={810}
-                loading="eager"
-                fetchPriority="high"
-                className="h-full w-full object-cover object-[70%_center]"
-              />
-            </picture>
-          </div>
-          <figcaption className="mt-3 text-xs leading-5 text-[#94a3b8]">
-            ภาพจำลองการใช้งาน · AI ในออฟฟิศของคุณ
-          </figcaption>
-        </figure>
       </motion.div>
     </section>
   );
