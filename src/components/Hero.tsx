@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { assetUrl } from "@/lib/assets";
+import GridCanvas from "./GridCanvas";
 
 const benefits = [
   "ประมวลผลในเครื่อง",
@@ -11,13 +13,23 @@ const benefits = [
 ];
 
 export default function Hero() {
+  const reducedMotion = useReducedMotion();
+  const [motionAllowed, setMotionAllowed] = useState(false);
+
+  useEffect(() => setMotionAllowed(!reducedMotion), [reducedMotion]);
+
   return (
-    <section className="overflow-hidden bg-[#060a14] px-6 text-[#f0f4f8]">
+    <section className="relative isolate overflow-hidden bg-[#060a14] px-6 text-[#f0f4f8]">
+      {motionAllowed ? (
+        <div aria-hidden="true">
+          <GridCanvas />
+        </div>
+      ) : null}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="mx-auto grid max-w-7xl items-center gap-10 pt-28 pb-16 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:pt-32"
+        className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 pt-28 pb-16 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:pt-32"
       >
         <div>
           <h1 className="mb-5 text-[clamp(2.2rem,4vw,4rem)] font-bold leading-[1.2] text-[#f0f4f8]">
