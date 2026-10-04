@@ -23,6 +23,8 @@ const sharedAssets: Readonly<Record<string, string>> = {
     "https://assets.mimir.business/assets/shared/apps/transcribe.61319bfca13b.png",
   "/mimir-apps/translate.png":
     "https://assets.mimir.business/assets/shared/apps/translate.93f772b5a40c.png",
+  "/mimir-apps/write.png":
+    "https://assets.mimir.business/assets/shared/apps/write.0da10233fb87.png",
   "/mimir-suite-logo.png": "https://assets.mimir.business/assets/shared/brand/mimir-suite-logo.52b4d97f76ea.png",
   "/msi-edgexpert.png":
     "https://assets.mimir.business/assets/sites/mimir.business/presentations/msi-edgexpert.d4296d826892.png",

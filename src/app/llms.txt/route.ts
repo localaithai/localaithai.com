@@ -6,6 +6,7 @@ import {
   SITE_TAGLINE,
   SITE_URL,
 } from "@/lib/site";
+import { mimirScopeNotice } from "@/lib/suite-scope";
 
 export const dynamic = "force-static";
 
@@ -26,6 +27,7 @@ ${SITE_DESCRIPTION}
 
 - Tagline: ${SITE_TAGLINE}
 - Offer: Mimir Suites on an AI machine installed at the customer’s site.
+- ${mimirScopeNotice}
 - Data boundary: customer data is processed on the installed system, not sent to an AI cloud service for the Local AI offer.
 - Market: Thai businesses that need private AI in their office.
 - Primary action: Request a Demo through the contact form.

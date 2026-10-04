@@ -6,7 +6,6 @@ import {
   Cpu,
   MessageSquareText,
   Search,
-  Image,
   BarChart3,
 } from "lucide-react";
 
@@ -54,10 +53,10 @@ const useCases = [
     example: "\"สรุปรายงานประจำปี 50 หน้านี้ให้หน่อย\"",
   },
   {
-    icon: Image,
-    title: "สร้างรูปภาพ & คอนเทนต์",
-    desc: "สร้างภาพและทำงานกับเอกสารผ่านแอป Mimir ตามสิทธิ์ใช้งาน",
-    example: "\"สร้าง Thumbnail สำหรับวิดีโอรีวิวมือถือ\"",
+    icon: FileText,
+    title: "ร่างเอกสารจากข้อมูลของคุณ",
+    desc: "Mimir Write ช่วยร่างเอกสารธุรกิจจากแหล่งข้อมูลที่คุณให้ แล้วแก้ไขต่อได้",
+    example: "\"ร่างข้อเสนอจากข้อมูลสินค้าและเงื่อนไขในเอกสารนี้\"",
   },
 ];
 

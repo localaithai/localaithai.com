@@ -12,6 +12,8 @@ Thai SME owners and managers who want private AI installed in their office, with
 
 Sell the Local edition as one usable on-site system containing the AI machine, Mimir Suites, installation, training, and support.
 
+Mimir Suites offers supported document, knowledge, and business workflows. Slides, Image Studio, and Video Studio are paused and excluded from both the Local and Cloud editions.
+
 ## Brand Personality
 
 Technical, energetic, and reassuring. The site should make a sophisticated local system feel tangible and supported.

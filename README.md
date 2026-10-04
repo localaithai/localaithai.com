@@ -6,6 +6,8 @@
 
 🌐 **Website**: [localaithai.com](https://localaithai.com)
 
+Mimir Suites focuses on supported document, knowledge, and business workflows. Slides, Image Studio, and Video Studio are paused and excluded from both the Local and Cloud editions; separately configured third-party tools remain outside that app offering.
+
 ## Features
 
 - 🧠 AI ส่วนตัว 100% บนเครื่องของคุณ

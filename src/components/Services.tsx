@@ -1,6 +1,7 @@
 "use client";
 
 import { assetUrl } from "@/lib/assets";
+import { mimirScopeNotice } from "@/lib/suite-scope";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -31,9 +32,9 @@ const services = [
     desc: "ค้นหาความรู้จากเอกสารองค์กร",
   },
   {
-    logos: [assetUrl("/mimir-apps/chat.png"), assetUrl("/mimir-apps/image-studio.png")],
-    title: "ทำงานกับ Mimir Chat และ Image Studio",
-    desc: "สนทนา ร่างงาน และสร้างภาพผ่าน Suite",
+    logos: [assetUrl("/mimir-apps/chat.png"), assetUrl("/mimir-apps/write.png")],
+    title: "สนทนาและร่างเอกสารด้วย Mimir Chat และ Write",
+    desc: "คุยกับ AI และร่างเอกสารธุรกิจจากแหล่งข้อมูลของคุณผ่าน Suite",
   },
 ];
 
@@ -47,6 +48,9 @@ export default function Services() {
           </h2>
           <p className="text-[#94a3b8] max-w-2xl mx-auto">
             เลือกแอปจากงานของทีม, แล้วจัดสเปก Local AI ให้เหมาะกับการใช้งานจริง
+          </p>
+          <p className="text-sm leading-relaxed text-[#94a3b8] max-w-2xl mx-auto mt-4">
+            {mimirScopeNotice}
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

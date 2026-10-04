@@ -1,6 +1,7 @@
 "use client";
 
 import { assetUrl } from "@/lib/assets";
+import { mimirScopeNotice } from "@/lib/suite-scope";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -23,7 +24,6 @@ const apps = [
     name: "Mimir Chat",
     outcome: "สนทนา ค้นหา และร่างงาน",
   },
-  { logo: "/mimir-apps/image-studio.png", name: "Mimir Image Studio", outcome: "สร้างภาพ" },
 ];
 
 export default function TechStackSection() {
@@ -42,8 +42,11 @@ export default function TechStackSection() {
             แอป Mimir สำหรับงานจริง
           </h1>
           <p className="text-[#94a3b8] max-w-2xl mx-auto">
-            พนักงานใช้แอปใน Mimir Suites, ส่วน Ollama และ ComfyUI ถูกจัดเตรียมบน AI
+            พนักงานใช้แอปใน Mimir Suites, ส่วน Ollama ใช้จัดเตรียมโมเดลบน AI
             machine ระหว่างการติดตั้งและไม่ใช่หน้าจอสำหรับพนักงาน
+          </p>
+          <p className="text-sm leading-relaxed text-[#94a3b8] max-w-2xl mx-auto mt-4">
+            {mimirScopeNotice}
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
