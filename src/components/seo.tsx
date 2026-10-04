@@ -6,8 +6,8 @@ import {
   SITE_URL,
 } from "@/lib/site";
 
-const ORG_ID = `${SITE_URL}/#organization`;
-const WEBSITE_ID = `${SITE_URL}/#website`;
+export const ORG_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 function JsonLd({ data }: { data: object }) {
   return (

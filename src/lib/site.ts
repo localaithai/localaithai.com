@@ -128,3 +128,9 @@ export const STATIC_ROUTES = [
   { path: "/", priority: 1 },
   ...Object.values(PAGES).map(({ path, priority }) => ({ path, priority })),
 ] as const;
+
+export const blogIndex = {
+  "title": "ข่าว AI ส่วนตัวสำหรับธุรกิจ",
+  "description": "อัปเดต AI ส่วนตัวสำหรับธุรกิจไทย อ่านข่าวโมเดลและฮาร์ดแวร์ พร้อมวิธีวางระบบเอกสาร เลือกเครื่อง และดูแลข้อมูลในสำนักงาน",
+  "navLabel": "ข่าวและอัปเดต"
+} as const;

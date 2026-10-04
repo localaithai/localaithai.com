@@ -1,3 +1,4 @@
+import { blog } from "@/lib/blog";
 import {
   PAGES,
   REVIEWED_DATE,
@@ -42,7 +43,7 @@ ${pages}
 Use the contact page to request a demo or discuss the workload, data sensitivity, and hardware needs for a Local AI system.
 `;
 
-  return new Response(body, {
+  return new Response(body + "\n" + blog.llmsSection(), {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }

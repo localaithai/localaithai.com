@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { blogIndex } from "@/lib/site";
 
 /* ─── Nav structure: top-level links + dropdowns ─── */
 interface NavLink {
@@ -45,6 +46,7 @@ const navItems: NavItem[] = [
       { href: "https://www.cloudaithai.com", label: "Mimir Suites Cloud", desc: "cloudaithai.com" },
       { href: "/support", label: "Support", desc: "Maintenance & Support" },
       { href: "/how-it-works", label: "How it works", desc: "Local AI ทำงานอย่างไร" },
+      { href: "/blog/", label: blogIndex.navLabel, desc: blogIndex.title },
     ],
   },
   { href: "/packages", label: "Packages" },

@@ -1,0 +1,18 @@
+{
+  "version": "0.1.0",
+  "commit": "d0e2860f1631cc6545d644ae8743adb219e51b78",
+  "files": {
+    "core/dates.ts": "cd916b8b9cb268e8155a1ddb916907f2986fae06dff02dee7d0a4097090ee81b",
+    "core/facts.ts": "8d44a02899f6472f2196ae08bcc8eda4ed87ad6985174ced50a0a168f805ee0f",
+    "core/feeds.ts": "a7c7bddb0dfa7d84fb2568bf9b531fb7d8a86c0451ef0099b2511de06b339e8a",
+    "core/guards.ts": "d9cd2f326b324917a8e08ecccd9325337a958eaec50b2d2188b5f4cb2a7e3978",
+    "core/index.ts": "fe2bc96941845ce04303a442f796c389699cd7ce284d373eeda696698657741d",
+    "core/jsonld.ts": "36af48c74cb28b2b2337b6b26b4f8eca29b5daec50498a96c5cb4df7b6ae80e3",
+    "core/load.ts": "a140c22c4ff0e80b32190325348e8f23bcbc0a10a3d5c4208997acda3e2c7c26",
+    "core/render.tsx": "49194861fed7c4d5ec5e3fae487a59d20ff44f91dcdb13808fcb1f48942b0f0b",
+    "core/schema.ts": "2e8c7a438c3eaab1e2d8ecc4987c28da547cc8230299a90bded24d1fe68d1628",
+    "core/text.ts": "c2c700226810de646cb8be43d9fc8753c0240938cd5e825eb4e295b0b280b2f6",
+    "facts/index.ts": "b726928f532d49b7e91bba3326053ea340bbf501673edf5acd3f808ba436fa2e",
+    "verify.mjs": "013d29516868324a9d3db9795131f09d8e2c3183456aec3c8437c36bde86edc7"
+  }
+}

@@ -1,5 +1,6 @@
 "use client";
 import CrossSiteLink from "./CrossSiteLink";
+import { blogIndex } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -32,6 +33,7 @@ export default function Footer() {
               <a href="https://www.cloudaithai.com" target="_blank" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Cloud AI →</a>
               <a href="/support" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Support</a>
               <a href="/how-it-works" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">How it works</a>
+              <a href="/blog/" className="block hover:text-[#00e5ff] transition-colors py-2 sm:py-1">{blogIndex.navLabel}</a>
             </div>
           </div>
 
