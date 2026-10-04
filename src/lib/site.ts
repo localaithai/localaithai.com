@@ -47,7 +47,7 @@ export const PAGES = {
     label: "แอป Mimir สำหรับ Local AI",
     title: "แอป Mimir สำหรับ Local AI",
     description:
-      "Mimir Scan, Bridge, Echo, Ledger, Well, Chat และ Still สำหรับงานของทีมในองค์กร.",
+      "Mimir Scan, Translate, Transcribe, Ledger, Second Brain, Chat และ Write สำหรับงานของทีมในองค์กร.",
     priority: 0.7,
     serviceName: "บริการ Local AI พร้อม Mimir Suites",
   },
