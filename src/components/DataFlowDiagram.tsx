@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -16,6 +15,7 @@ import {
   Sparkles,
   Check,
 } from "lucide-react";
+import { withMotionConfig } from "@/components/motion-config";
 
 // Animated flowing dots between steps
 function FlowDots({
@@ -324,7 +324,7 @@ const tabs = [
   },
 ];
 
-export default function DataFlowDiagram() {
+function DataFlowDiagram() {
   const [activeTab, setActiveTab] = useState("rag");
 
   return (
@@ -382,3 +382,5 @@ export default function DataFlowDiagram() {
     </section>
   );
 }
+
+export default withMotionConfig(DataFlowDiagram);

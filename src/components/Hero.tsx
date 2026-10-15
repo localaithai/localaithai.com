@@ -1,8 +1,7 @@
-"use client";
-
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import GridCanvas from "./GridCanvas";
+import { withMotionConfig } from "@/components/motion-config";
 
 const benefits = [
   "ประมวลผลในเครื่อง",
@@ -10,7 +9,7 @@ const benefits = [
   "ดูแลหลังส่งมอบ",
 ];
 
-export default function Hero() {
+function Hero() {
   const reducedMotion = useReducedMotion();
   const [motionAllowed, setMotionAllowed] = useState(false);
 
@@ -70,3 +69,5 @@ export default function Hero() {
     </section>
   );
 }
+
+export default withMotionConfig(Hero);

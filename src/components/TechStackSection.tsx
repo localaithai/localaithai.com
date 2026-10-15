@@ -1,9 +1,7 @@
-"use client";
-
 import { assetUrl } from "@/lib/assets";
 import { mimirScopeNotice } from "@/lib/suite-scope";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { withMotionConfig } from "@/components/motion-config";
 
 const apps = [
   {
@@ -26,17 +24,20 @@ const apps = [
   },
 ];
 
-export default function TechStackSection() {
+function TechStackSection() {
   return (
     <section className="py-16 lg:py-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-10">
-          <Image
+          <img
             src={assetUrl("/mimir-suite-logo.png")}
             alt=""
             width={84}
             height={56}
+            loading="lazy"
+            decoding="async"
             className="mx-auto mb-4 h-14 w-auto object-contain"
+            style={{ color: "transparent" }}
           />
           <h1 className="text-3xl md:text-5xl font-black text-[#f0f4f8] mb-4">
             แอป Mimir สำหรับงานจริง
@@ -59,12 +60,15 @@ export default function TechStackSection() {
               transition={{ delay: index * 0.05 }}
               className="rounded-2xl bg-[#111827] border border-[#1e293b] p-5"
             >
-              <Image
+              <img
                 src={app.logo}
                 alt=""
                 width={48}
                 height={48}
+                loading="lazy"
+                decoding="async"
                 className="mb-4 size-12 object-contain"
+                style={{ color: "transparent" }}
               />
               <h2 className="font-bold text-[#f0f4f8] mb-1">{app.name}</h2>
               <p className="text-sm text-[#94a3b8]">{app.outcome}</p>
@@ -78,3 +82,5 @@ export default function TechStackSection() {
     </section>
   );
 }
+
+export default withMotionConfig(TechStackSection);

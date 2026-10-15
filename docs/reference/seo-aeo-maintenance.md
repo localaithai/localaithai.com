@@ -4,7 +4,7 @@ Read this before changing routes, navigation, headings, metadata, copy, internal
 
 ## Sources of truth
 
-`src/lib/site.ts` holds settled site facts. Route components and `src/lib/seo.ts` create route metadata. `src/app/robots.ts`, `src/app/sitemap.ts`, and `src/app/llms.txt` publish crawler surfaces. Keep the origin and content facts centralized when touching these files.
+`src/lib/site.ts` holds settled site facts. Pages and `src/lib/seo.ts` create route metadata, which `src/layouts/Base.astro` renders; `src/lib/structured-data.ts` builds the JSON-LD. `src/pages/robots.txt.ts`, `src/pages/sitemap.xml.ts`, and `src/pages/llms.txt.ts` publish crawler surfaces. Keep the origin and content facts centralized when touching these files.
 
 Keep one canonical origin and one canonical URL for every indexable page. Do not create a second source for these facts.
 

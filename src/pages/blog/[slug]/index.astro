@@ -1,0 +1,64 @@
+---
+import { serializeJsonLd } from "@mimir/blog";
+import BlogArticle from "@/components/blog/BlogArticle.astro";
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { blog, blogPostImage, blogSite, orderedBlogPosts } from "@/lib/blog";
+import { assertSnippet, type PageHead } from "@/lib/seo";
+
+export function getStaticPaths() {
+  return blog.staticParams().map((params) => ({ params }));
+}
+
+const post = blog.post(Astro.params.slug ?? "");
+if (!post) throw new Error(`blog: no post for ${Astro.params.slug}`);
+
+const title = post.title + blogSite.titleSuffix;
+const url = blogSite.url + post.path;
+const image = blogPostImage(post);
+assertSnippet(post.path, { title, description: post.description });
+
+const head: PageHead = {
+  title,
+  description: post.description,
+  canonical: url,
+  openGraph: {
+    type: "article",
+    url,
+    title,
+    description: post.description,
+    siteName: blogSite.name,
+    locale: "th_TH",
+    publishedTime: post.published.toISOString(),
+    modifiedTime: post.reviewed.toISOString(),
+    images: [{ url: image, alt: post.hero?.alt ?? post.title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: post.description,
+    images: [image],
+  },
+};
+
+const relatedPosts = orderedBlogPosts
+  .filter(
+    (candidate) =>
+      candidate.slug !== post.slug && candidate.cluster === post.cluster,
+  )
+  .slice(0, 2);
+---
+
+<BlogLayout head={head}>
+  <script
+    type="application/ld+json"
+    set:html={serializeJsonLd(blog.jsonLd(post, { imageUrl: image }))}
+  />
+  <BlogArticle
+    blog={blog}
+    post={post}
+    siteName={blogSite.name}
+    ctaLabel="ขอสาธิต AI ส่วนตัว"
+    ctaHref="/contact/"
+    relatedPosts={relatedPosts}
+  />
+</BlogLayout>

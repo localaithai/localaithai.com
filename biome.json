@@ -8,12 +8,11 @@
   "files": {
     "includes": [
       "**",
-      "!.next",
-      "!out",
+      "!dist",
+      "!.astro",
       "!build",
       "!public",
       "!docs",
-      "!next-env.d.ts",
       "!scripts/seo-audit.mjs",
       "!**/*.glsl.ts",
       "!vendor"
@@ -37,7 +36,6 @@
   "linter": {
     "enabled": true,
     "domains": {
-      "next": "recommended",
       "react": "recommended"
     },
     "rules": {
@@ -80,5 +78,22 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          },
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ]
 }

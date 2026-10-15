@@ -1,0 +1,243 @@
+---
+import type { Blog, Post } from "@mimir/blog";
+import { BlogVideo } from "./blog-video";
+import { mdxComponents } from "./mdx-components";
+import { RenderNode } from "./render-node";
+
+type Props = {
+  blog: Blog;
+  post: Post;
+  siteName: string;
+  ctaLabel: string;
+  ctaHref: string;
+  relatedPosts: readonly Post[];
+};
+
+const { blog, post, siteName, ctaLabel, ctaHref, relatedPosts } = Astro.props;
+
+const dateFormat = new Intl.DateTimeFormat("th-TH", {
+  dateStyle: "long",
+  timeZone: "Asia/Bangkok",
+});
+const sourceDate = (value: string) =>
+  dateFormat.format(new Date(`${value}T00:00:00+07:00`));
+
+// The MDX body renders to static HTML on the server; no client JS ships for it.
+const body = await blog.render(post, mdxComponents);
+const showContents =
+  post.headings.filter((heading) => heading.depth === 2).length >= 3;
+const related = relatedPosts
+  .filter(
+    (candidate, index, entries) =>
+      candidate.path !== post.path &&
+      entries.findIndex((entry) => entry.path === candidate.path) === index,
+  )
+  .slice(0, 2);
+---
+
+<article class="mimir-blog-article" aria-labelledby="mimir-blog-title">
+  <div
+    class={showContents
+      ? "mimir-blog-article-layout mimir-blog-with-toc"
+      : "mimir-blog-article-layout"}
+  >
+    <div class="mimir-blog-reader mimir-blog-opening">
+      <nav class="mimir-blog-breadcrumb" aria-label="เส้นทางหน้า">
+        <ol>
+          <li>
+            <a href="/">หน้าแรก</a>
+          </li>
+          <li>
+            <a href="/blog/">ข่าวและอัปเดต</a>
+          </li>
+          <li aria-current="page">{post.title}</li>
+        </ol>
+      </nav>
+
+      <header class="mimir-blog-article-header">
+        <p class="mimir-blog-eyebrow">เผยแพร่โดย {siteName}</p>
+        <h1 id="mimir-blog-title" class="mimir-blog-title">
+          {post.title}
+        </h1>
+        <div class="mimir-blog-summary-panel">
+          <p class="mimir-blog-summary-label">ประเด็นสำคัญ</p>
+          <p class="mimir-blog-summary">
+            {post.summary ?? post.description}
+          </p>
+        </div>
+        <dl class="mimir-blog-metadata">
+          <div>
+            <dt>เผยแพร่บทความ</dt>
+            <dd>
+              <time datetime={post.published.toISOString()}>
+                {dateFormat.format(post.published)}
+              </time>
+            </dd>
+          </div>
+          <div>
+            <dt>ตรวจทานล่าสุด</dt>
+            <dd>
+              <time datetime={post.reviewed.toISOString()}>
+                {dateFormat.format(post.reviewed)}
+              </time>
+            </dd>
+          </div>
+          {
+            post.newsDate ? (
+              <div>
+                <dt>วันที่ข่าวต้นทาง</dt>
+                <dd>
+                  <time datetime={post.newsDate}>
+                    {sourceDate(post.newsDate)}
+                  </time>
+                </dd>
+              </div>
+            ) : null
+          }
+        </dl>
+        <p class="mimir-blog-reading-time">
+          อ่านประมาณ {post.readingMinutes} นาที
+        </p>
+      </header>
+
+      {
+        post.hero ? (
+          <figure class="mimir-blog-hero">
+            <img
+              src={post.hero.src}
+              alt={post.hero.alt}
+              width="1200"
+              height="675"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <figcaption class="mimir-blog-caption">
+              <span>{post.hero.caption}</span>
+              <span>ภาพ: {post.hero.credit}</span>
+              <a href={post.hero.sourceUrl}>แหล่งที่มาของภาพ</a>
+            </figcaption>
+          </figure>
+        ) : null
+      }
+    </div>
+
+    {
+      showContents ? (
+        <nav class="mimir-blog-toc" aria-labelledby="mimir-blog-toc-title">
+          <h2 id="mimir-blog-toc-title">ในบทความนี้</h2>
+          <ol>
+            {post.headings.map((heading) => (
+              <li data-depth={heading.depth}>
+                <a href={`#${heading.id}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      ) : null
+    }
+
+    <div class="mimir-blog-reader mimir-blog-content">
+      <div class="mimir-blog-prose"><RenderNode node={body} /></div>
+
+      {
+        post.faq.length > 0 ? (
+          <section
+            class="mimir-blog-section mimir-blog-faq"
+            aria-labelledby="mimir-blog-faq-title"
+          >
+            <h2 id="mimir-blog-faq-title">คำถามที่พบบ่อย</h2>
+            <dl>
+              {post.faq.map((item) => (
+                <div>
+                  <dt>{item.question}</dt>
+                  <dd>{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null
+      }
+
+      {
+        post.videos.length > 0 ? (
+          <section
+            class="mimir-blog-section"
+            aria-labelledby="mimir-blog-videos-title"
+          >
+            <h2 id="mimir-blog-videos-title">วิดีโอที่เกี่ยวข้อง</h2>
+            <ul class="mimir-blog-video-list">
+              {post.videos.map((video) => (
+                <li>
+                  <BlogVideo client:visible video={video} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null
+      }
+
+      {
+        post.citations.length > 0 ? (
+          <section
+            class="mimir-blog-section"
+            aria-labelledby="mimir-blog-sources-title"
+          >
+            <h2 id="mimir-blog-sources-title">แหล่งข้อมูล</h2>
+            <ol class="mimir-blog-sources">
+              {post.citations.map((citation) => (
+                <li>
+                  <a href={citation.url}>{citation.title}</a>
+                  <p>{citation.publisher}</p>
+                  <dl class="mimir-blog-source-dates">
+                    {citation.published ? (
+                      <div>
+                        <dt>เผยแพร่ต้นทาง</dt>
+                        <dd>
+                          <time datetime={citation.published}>
+                            {sourceDate(citation.published)}
+                          </time>
+                        </dd>
+                      </div>
+                    ) : null}
+                    <div>
+                      <dt>เข้าถึงข้อมูล</dt>
+                      <dd>
+                        <time datetime={citation.accessed}>
+                          {sourceDate(citation.accessed)}
+                        </time>
+                      </dd>
+                    </div>
+                  </dl>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : null
+      }
+
+      {
+        related.length > 0 ? (
+          <nav
+            class="mimir-blog-section"
+            aria-labelledby="mimir-blog-related-title"
+          >
+            <h2 id="mimir-blog-related-title">อ่านต่อ</h2>
+            <ul class="mimir-blog-related">
+              {related.map((candidate) => (
+                <li>
+                  <a href={candidate.path}>{candidate.title}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null
+      }
+
+      <aside class="mimir-blog-offer">
+        <a class="mimir-blog-cta" href={ctaHref}>
+          {ctaLabel}
+        </a>
+      </aside>
+    </div>
+  </div>
+</article>

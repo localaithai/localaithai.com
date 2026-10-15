@@ -1,0 +1,34 @@
+---
+import Comparison from "@/components/Comparison";
+import DataRoadBg from "@/components/DataRoadBg";
+import Footer from "@/components/Footer.astro";
+import Infrastructure from "@/components/Infrastructure";
+import Navbar from "@/components/Navbar";
+import Packages from "@/components/Packages";
+import SitelinkTrail from "@/components/SitelinkTrail.astro";
+import SystemBuilder from "@/components/SystemBuilder";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import Base from "@/layouts/Base.astro";
+import { pageMetadata } from "@/lib/seo";
+import { nextPathname, PAGES } from "@/lib/site";
+import { pageGraph } from "@/lib/structured-data";
+
+const page = PAGES.packages;
+---
+
+<Base head={pageMetadata(page)}>
+  <main class="relative">
+    <JsonLd data={pageGraph(page)} />
+    <DataRoadBg client:idle />
+    <div class="relative z-10">
+      <Navbar client:load pathname={nextPathname(Astro.url.pathname)} />
+      <SitelinkTrail page="packages" />
+      <div class="pt-20"></div>
+      <Packages client:load />
+      <Comparison client:visible={{ rootMargin: "200px" }} />
+      <SystemBuilder client:idle />
+      <Infrastructure client:visible={{ rootMargin: "200px" }} />
+      <Footer />
+    </div>
+  </main>
+</Base>

@@ -1,4 +1,3 @@
-"use client";
 import { motion } from "framer-motion";
 import {
   BatteryCharging,
@@ -8,6 +7,7 @@ import {
   Check,
   AlertTriangle,
 } from "lucide-react";
+import { withMotionConfig } from "@/components/motion-config";
 
 const categories = [
   {
@@ -87,7 +87,7 @@ const categories = [
   },
 ];
 
-export default function Infrastructure() {
+function Infrastructure() {
   return (
     <section id="infrastructure" className="py-16 lg:py-20 bg-[#0c1220]/50 relative">
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#060a14] to-transparent" />
@@ -209,3 +209,5 @@ export default function Infrastructure() {
     </section>
   );
 }
+
+export default withMotionConfig(Infrastructure);

@@ -1,6 +1,6 @@
-"use client";
-import { useState, ReactNode, MouseEvent } from "react";
+import { type MouseEvent, type ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { withMotionConfig } from "@/components/motion-config";
 
 interface CrossSiteLinkProps {
   href: string;
@@ -8,7 +8,7 @@ interface CrossSiteLinkProps {
   className?: string;
 }
 
-export default function CrossSiteLink({
+function CrossSiteLink({
   href,
   children,
   className = "",
@@ -59,3 +59,5 @@ export default function CrossSiteLink({
     </>
   );
 }
+
+export default withMotionConfig(CrossSiteLink);

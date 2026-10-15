@@ -1,6 +1,4 @@
-"use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { assetUrl } from "@/lib/assets";
 import {
   Award,
@@ -10,6 +8,7 @@ import {
   CreditCard,
   Users,
 } from "lucide-react";
+import { withMotionConfig } from "@/components/motion-config";
 
 const reasons = [
   {
@@ -50,7 +49,7 @@ const reasons = [
   },
 ];
 
-export default function WhyUs() {
+function WhyUs() {
   return (
     <section id="why-us" className="py-16 lg:py-20 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -72,13 +71,15 @@ export default function WhyUs() {
                 media="(max-width: 767px)"
                 srcSet={assetUrl("/photography/hero-mobile.webp")}
               />
-              <Image
+              <img
                 src={assetUrl("/photography/hero.webp")}
                 alt="เครื่อง AI บนโต๊ะทำงานในออฟฟิศ"
                 width={1440}
                 height={810}
                 loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover object-[70%_center]"
+                style={{ color: "transparent" }}
               />
             </picture>
           </div>
@@ -123,3 +124,5 @@ export default function WhyUs() {
     </section>
   );
 }
+
+export default withMotionConfig(WhyUs);

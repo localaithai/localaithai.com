@@ -1,5 +1,3 @@
-"use client";
-import Image from "next/image";
 import { assetUrl } from "@/lib/assets";
 
 const machines = [
@@ -19,12 +17,13 @@ export default function MachineOptions() {
         {machines.map((machine) => (
           <figure key={machine.name} className="overflow-hidden rounded-xl border border-[#1e293b] bg-[#060a14] p-3">
             <div className="relative aspect-[4/3] w-full">
-              <Image
+              <img
                 src={assetUrl(machine.image)}
                 alt={machine.name}
-                fill
-                sizes="(max-width: 640px) 44vw, (max-width: 1024px) 22vw, 16rem"
+                loading="lazy"
+                decoding="async"
                 className="object-contain"
+                style={{ position: "absolute", height: "100%", width: "100%", inset: 0, color: "transparent" }}
               />
             </div>
             <figcaption className="pt-2 text-center text-xs font-medium leading-5 text-[#f0f4f8] sm:text-sm">

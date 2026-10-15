@@ -1,0 +1,130 @@
+---
+import type { Post } from "@mimir/blog";
+
+type Props = {
+  posts: readonly Post[];
+  siteName: string;
+  indexTitle: string;
+  indexDescription: string;
+};
+
+const { posts, siteName, indexTitle, indexDescription } = Astro.props;
+
+const dateFormat = new Intl.DateTimeFormat("th-TH", {
+  dateStyle: "long",
+  timeZone: "Asia/Bangkok",
+});
+const monthFormat = new Intl.DateTimeFormat("th-TH", {
+  month: "long",
+  year: "numeric",
+  timeZone: "Asia/Bangkok",
+});
+const categoryLabels: Record<Post["kind"], string> = {
+  news: "ข่าว",
+  guide: "คู่มือ",
+  compare: "เปรียบเทียบ",
+  "use-case": "ตัวอย่างการใช้งาน",
+};
+
+const orderedPosts = [...posts].sort(
+  (left, right) => right.published.getTime() - left.published.getTime(),
+);
+const months = new Map<string, Post[]>();
+
+for (const post of orderedPosts) {
+  const month = monthFormat.format(post.published);
+  const entries = months.get(month) ?? [];
+  entries.push(post);
+  months.set(month, entries);
+}
+---
+
+<section class="mimir-blog-index" aria-labelledby="mimir-blog-index-title">
+  <nav class="mimir-blog-breadcrumb" aria-label="เส้นทางหน้า">
+    <ol>
+      <li>
+        <a href="/">หน้าแรก</a>
+      </li>
+      <li aria-current="page">ข่าวและอัปเดต</li>
+    </ol>
+  </nav>
+  <header class="mimir-blog-index-header">
+    <p class="mimir-blog-eyebrow">{siteName}</p>
+    <h1 id="mimir-blog-index-title" class="mimir-blog-title">
+      {indexTitle}
+    </h1>
+    <p class="mimir-blog-summary">{indexDescription}</p>
+    <a class="mimir-blog-feed-link" href="/blog/feed.xml">
+      ติดตามข่าวผ่าน RSS
+    </a>
+  </header>
+
+  {
+    orderedPosts.length === 0 ? (
+      <p class="mimir-blog-empty">ยังไม่มีข่าวที่เผยแพร่</p>
+    ) : (
+      [...months].map(([month, entries]) => (
+        <section class="mimir-blog-archive">
+          <h2 class="mimir-blog-month">{month}</h2>
+          <ul class="mimir-blog-card-list">
+            {entries.map((post) => (
+              <li
+                class={
+                  post === orderedPosts[0]
+                    ? "mimir-blog-card mimir-blog-card-feature"
+                    : "mimir-blog-card"
+                }
+              >
+                {post.hero ? (
+                  <img
+                    class="mimir-blog-card-image"
+                    src={post.hero.src}
+                    alt={post.hero.alt}
+                    width="1200"
+                    height="675"
+                    loading={post === orderedPosts[0] ? "eager" : "lazy"}
+                    fetchpriority={post === orderedPosts[0] ? "high" : "auto"}
+                  />
+                ) : null}
+                <div class="mimir-blog-card-content">
+                  <p class="mimir-blog-eyebrow">{categoryLabels[post.kind]}</p>
+                  <h3 class="mimir-blog-card-title">
+                    <a href={post.path}>{post.title}</a>
+                  </h3>
+                  <p class="mimir-blog-card-summary">
+                    {post.summary ?? post.description}
+                  </p>
+                  <dl class="mimir-blog-card-dates">
+                    {post.kind === "news" && post.newsDate ? (
+                      <div>
+                        <dt>ข่าววันที่</dt>
+                        <dd>
+                          <time datetime={post.newsDate}>
+                            {dateFormat.format(
+                              new Date(`${post.newsDate}T00:00:00+07:00`),
+                            )}
+                          </time>
+                        </dd>
+                      </div>
+                    ) : null}
+                    <div>
+                      <dt>เผยแพร่บทความ</dt>
+                      <dd>
+                        <time datetime={post.published.toISOString()}>
+                          {dateFormat.format(post.published)}
+                        </time>
+                      </dd>
+                    </div>
+                  </dl>
+                  <p class="mimir-blog-reading-time">
+                    อ่านประมาณ {post.readingMinutes} นาที
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    )
+  }
+</section>

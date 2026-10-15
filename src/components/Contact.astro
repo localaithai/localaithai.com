@@ -1,0 +1,87 @@
+---
+import { Mail, MessageCircle, Phone } from "@lucide/astro";
+
+// omni's cta.js fills every data-cta element after load, so this section is
+// static: a hydrating React island would render over the DOM cta.js wrote.
+const cardClass =
+  "flex items-center gap-4 p-5 rounded-xl bg-[#111827] border border-[#1e293b]";
+---
+
+<section id="contact" class="py-16 lg:py-20 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 relative">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-5xl font-bold text-[#f0f4f8] mb-4">ขอเดโมและประเมินสเปก</h2>
+      <p class="text-[#94a3b8]">บอก workload ของคุณ, เราจะช่วยวาง Local AI ที่เหมาะสม</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="space-y-5">
+        <a data-cta="line" class={cardClass}><MessageCircle size={22} class="text-[#00C300]" /><span class="text-[#f0f4f8] font-bold">แชทผ่าน LINE</span></a>
+        <a data-cta="tel" class={`${cardClass} text-[#f0f4f8] font-bold`}><Phone size={22} class="text-[#00e5ff]" /></a>
+        <a data-cta="email" class={`${cardClass} text-[#f0f4f8] font-bold`}><Mail size={22} class="text-[#8b5cf6]" /></a>
+      </div>
+
+      <div
+        data-contact-reveal
+        class="rounded-2xl bg-[#111827] border border-[#1e293b] p-6 md:p-8"
+        style="opacity:0;transform:translateX(20px)"
+      >
+        <div data-cta="form"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Replays the framer-motion entrance the React version had: once in view,
+  // opacity eases in (0.3s) while x settles on framer's default spring
+  // (stiffness 500, damping 25). Reduced motion keeps the fade and drops the
+  // slide, as MotionConfig reducedMotion="user" did.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function springKeyframes(from: number): Keyframe[] {
+    const stiffness = 500;
+    const damping = 25;
+    const omega = Math.sqrt(stiffness);
+    const zeta = damping / (2 * omega);
+    const omegaD = omega * Math.sqrt(1 - zeta * zeta);
+    const frames: Keyframe[] = [];
+    const duration = 0.6;
+    for (let step = 0; step <= 36; step += 1) {
+      const t = (step / 36) * duration;
+      const envelope = Math.exp(-zeta * omega * t);
+      const x =
+        from *
+        envelope *
+        (Math.cos(omegaD * t) + ((zeta * omega) / omegaD) * Math.sin(omegaD * t));
+      frames.push({ transform: `translateX(${x.toFixed(3)}px)` });
+    }
+    frames[frames.length - 1] = { transform: "none" };
+    return frames;
+  }
+
+  function reveal(element: HTMLElement) {
+    element.style.opacity = "1";
+    element.style.transform = "none";
+    element.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 300,
+      easing: "cubic-bezier(0.25, 0.1, 0.35, 1)",
+    });
+    if (!reduced.matches) {
+      element.animate(springKeyframes(20), { duration: 600 });
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      observer.unobserve(entry.target);
+      reveal(entry.target as HTMLElement);
+    }
+  });
+  for (const element of document.querySelectorAll<HTMLElement>(
+    "[data-contact-reveal]",
+  )) {
+    observer.observe(element);
+  }
+</script>

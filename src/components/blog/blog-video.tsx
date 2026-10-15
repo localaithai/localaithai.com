@@ -1,5 +1,3 @@
-"use client";
-
 import type { BlogVideo as BlogVideoData } from "@mimir/blog";
 import { useId, useState } from "react";
 

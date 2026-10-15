@@ -1,7 +1,7 @@
-"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, Monitor, Cpu, HardDrive, BatteryCharging, Server, ExternalLink, ArrowRight, Tag } from "lucide-react";
+import { withMotionConfig } from "@/components/motion-config";
 
 /* ─── Types ─── */
 interface Product {
@@ -373,7 +373,7 @@ function ProductCard({ product, catColor }: { product: Product; catColor: string
 }
 
 /* ─── Main Component ─── */
-export default function ShopSection() {
+function ShopSection() {
   const [activeCategory, setActiveCategory] = useState("mac-mini");
   const current = categories.find((c) => c.id === activeCategory)!;
 
@@ -475,3 +475,5 @@ export default function ShopSection() {
     </section>
   );
 }
+
+export default withMotionConfig(ShopSection);

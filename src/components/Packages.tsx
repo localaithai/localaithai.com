@@ -1,7 +1,7 @@
-"use client";
 import { motion } from "framer-motion";
 import { Check, Cpu, Monitor, Server, Sparkles } from "lucide-react";
 import MachineOptions from "@/components/MachineOptions";
+import { withMotionConfig } from "@/components/motion-config";
 
 const tiers = [
   { icon: Monitor, title: "เครื่องตั้งโต๊ะ Spark-class", hardware: "AI machine ขนาดตั้งโต๊ะ", price: "เริ่มต้น ฿179,900", color: "#00e5ff", outcomes: ["Mimir Scan อ่านเอกสารและ OCR", "Mimir Translate แปลภาษา", "Mimir Chat ช่วยค้นหาและร่างงาน"] },
@@ -10,7 +10,7 @@ const tiers = [
   { icon: Server, title: "GPU server", hardware: "เซิร์ฟเวอร์ GPU สำหรับการติดตั้งระดับองค์กร", price: "เริ่มต้น ฿1,190,000", color: "#ec4899", outcomes: ["ออกแบบระบบสำหรับหน้างาน", "กำหนดการสำรองข้อมูลและโครงสร้างพื้นฐาน", "ติดตั้ง Suite บนเครื่องพนักงานตามสิทธิ์ใช้งาน"] },
 ];
 
-export default function Packages() {
+function Packages() {
   return (
     <section id="packages" className="relative py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-6">
@@ -79,3 +79,5 @@ export default function Packages() {
     </section>
   );
 }
+
+export default withMotionConfig(Packages);

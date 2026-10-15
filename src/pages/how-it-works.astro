@@ -1,0 +1,32 @@
+---
+import DataFlowDiagram from "@/components/DataFlowDiagram";
+import DataRoadBg from "@/components/DataRoadBg";
+import Footer from "@/components/Footer.astro";
+import HowItWorks from "@/components/HowItWorks";
+import Navbar from "@/components/Navbar";
+import ScrollAnimation from "@/components/ScrollAnimation";
+import SitelinkTrail from "@/components/SitelinkTrail.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import Base from "@/layouts/Base.astro";
+import { pageMetadata } from "@/lib/seo";
+import { nextPathname, PAGES } from "@/lib/site";
+import { pageGraph } from "@/lib/structured-data";
+
+const page = PAGES["how-it-works"];
+---
+
+<Base head={pageMetadata(page)}>
+  <main class="relative">
+    <JsonLd data={pageGraph(page)} />
+    <DataRoadBg client:idle />
+    <div class="relative z-10">
+      <Navbar client:load pathname={nextPathname(Astro.url.pathname)} />
+      <SitelinkTrail page="how-it-works" />
+      <div class="pt-20"></div>
+      <ScrollAnimation client:idle />
+      <HowItWorks client:visible={{ rootMargin: "200px" }} />
+      <DataFlowDiagram client:idle />
+      <Footer />
+    </div>
+  </main>
+</Base>

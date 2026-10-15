@@ -1,4 +1,3 @@
-"use client";
 import { motion } from "framer-motion";
 import {
   Check,
@@ -16,6 +15,7 @@ import {
   HardDrive,
   Cpu,
 } from "lucide-react";
+import { withMotionConfig } from "@/components/motion-config";
 
 function GlowCard({ children, color = "#00e5ff", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
@@ -221,7 +221,7 @@ const plans = [
   },
 ];
 
-export default function SupportSection() {
+function SupportSection() {
   return (
     <section className="relative">
       {/* Header */}
@@ -417,3 +417,5 @@ export default function SupportSection() {
     </section>
   );
 }
+
+export default withMotionConfig(SupportSection);

@@ -1,6 +1,6 @@
 import path from "node:path";
 import { type BlogSite, createBlog, type Post } from "@mimir/blog";
-import { ORG_ID, WEBSITE_ID } from "@/components/seo";
+import { ORG_ID, WEBSITE_ID } from "@/lib/structured-data";
 import { SOCIAL_IMAGE, TITLE_SUFFIX } from "@/lib/seo";
 import { blogIndex, SITE_NAME, SITE_URL, STATIC_ROUTES } from "@/lib/site";
 

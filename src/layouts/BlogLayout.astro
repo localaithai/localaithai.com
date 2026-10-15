@@ -1,0 +1,41 @@
+---
+import Footer from "@/components/Footer.astro";
+import Navbar from "@/components/Navbar";
+import Base from "@/layouts/Base.astro";
+import type { PageHead } from "@/lib/seo";
+import { nextPathname } from "@/lib/site";
+import "@/styles/blog.css";
+
+type Props = { head: PageHead };
+
+const { head } = Astro.props;
+
+const tokens = {
+  "--blog-bg": "#060a14",
+  "--blog-surface": "#0c1220",
+  "--blog-ink": "#f0f4f8",
+  "--blog-muted": "#94a3b8",
+  "--blog-border": "#263244",
+  "--blog-accent": "#00e5ff",
+  "--blog-accent-ink": "#060a14",
+  "--blog-tint": "#0c2330",
+  "--blog-radius": "16px",
+};
+---
+
+<Base head={head}>
+  <link
+    slot="head"
+    rel="alternate"
+    type="application/rss+xml"
+    href="/blog/feed.xml"
+    title="RSS"
+  />
+  <Navbar client:load pathname={nextPathname(Astro.url.pathname)} />
+  <main id="content" tabindex="-1" style={{ paddingTop: "5rem" }}>
+    <div class="mimir-blog" style={tokens}>
+      <slot />
+    </div>
+  </main>
+  <Footer />
+</Base>

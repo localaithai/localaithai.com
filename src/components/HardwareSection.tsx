@@ -1,10 +1,9 @@
-"use client";
-import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Zap, Cpu, HardDrive, BatteryCharging, Server, Monitor, ArrowRight } from "lucide-react";
 import { assetUrl } from "@/lib/assets";
 import MachineOptions from "@/components/MachineOptions";
+import { withMotionConfig } from "@/components/motion-config";
 
 function GlowCard({ children, color = "#00e5ff", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
@@ -469,7 +468,7 @@ function MobileHardwareComparison() {
   );
 }
 
-export default function HardwareSection() {
+function HardwareSection() {
   const [activeCategory, setActiveCategory] = useState("compact");
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const current = categories.find((c) => c.id === activeCategory)!;
@@ -526,12 +525,13 @@ export default function HardwareSection() {
                     {item.image ? (
                       <figure className="mb-4">
                         <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-[#070b12]">
-                          <Image
+                          <img
                             src={item.image}
                             alt={item.name}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 1100px"
+                            loading="lazy"
+                            decoding="async"
                             className="object-contain p-5"
+                            style={{ position: "absolute", height: "100%", width: "100%", inset: 0, color: "transparent" }}
                           />
                         </div>
                       </figure>
@@ -752,3 +752,5 @@ export default function HardwareSection() {
     </section>
   );
 }
+
+export default withMotionConfig(HardwareSection);

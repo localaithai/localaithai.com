@@ -56,4 +56,4 @@ All open source. All self-hosted. 100% local.
 
 ---
 
-Built with Next.js + Tailwind CSS + Framer Motion + Remotion
+Built with Astro + React islands + Tailwind CSS + Framer Motion + Remotion

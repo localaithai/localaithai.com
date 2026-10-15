@@ -1,9 +1,8 @@
-"use client";
 import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { blogIndex } from "@/lib/site";
+import { withMotionConfig } from "@/components/motion-config";
 
 /* ─── Nav structure: top-level links + dropdowns ─── */
 interface NavLink {
@@ -227,8 +226,7 @@ function MobileGroup({
 }
 
 /* ─── Main Navbar ─── */
-export default function Navbar() {
-  const pathname = usePathname();
+function Navbar({ pathname }: { pathname: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -408,3 +406,5 @@ export default function Navbar() {
     </>
   );
 }
+
+export default withMotionConfig(Navbar);

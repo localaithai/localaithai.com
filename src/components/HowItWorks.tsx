@@ -1,4 +1,3 @@
-"use client";
 import { motion } from "framer-motion";
 import {
   FileText,
@@ -8,6 +7,7 @@ import {
   Search,
   BarChart3,
 } from "lucide-react";
+import { withMotionConfig } from "@/components/motion-config";
 
 const steps = [
   {
@@ -60,7 +60,7 @@ const useCases = [
   },
 ];
 
-export default function HowItWorks() {
+function HowItWorks() {
   return (
     <section id="how-it-works" className="py-16 lg:py-20 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -455,3 +455,5 @@ export default function HowItWorks() {
     </section>
   );
 }
+
+export default withMotionConfig(HowItWorks);

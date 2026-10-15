@@ -1,0 +1,30 @@
+---
+import Contact from "@/components/Contact.astro";
+import DataRoadBg from "@/components/DataRoadBg";
+import Footer from "@/components/Footer.astro";
+import Navbar from "@/components/Navbar";
+import Services from "@/components/Services";
+import SitelinkTrail from "@/components/SitelinkTrail.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import Base from "@/layouts/Base.astro";
+import { pageMetadata } from "@/lib/seo";
+import { nextPathname, PAGES } from "@/lib/site";
+import { pageGraph } from "@/lib/structured-data";
+
+const page = PAGES.services;
+---
+
+<Base head={pageMetadata(page)}>
+  <main class="relative">
+    <JsonLd data={pageGraph(page)} />
+    <DataRoadBg client:idle />
+    <div class="relative z-10">
+      <Navbar client:load pathname={nextPathname(Astro.url.pathname)} />
+      <SitelinkTrail page="services" />
+      <div class="pt-24"></div>
+      <Services client:load />
+      <Contact />
+      <Footer />
+    </div>
+  </main>
+</Base>

@@ -134,3 +134,10 @@ export const blogIndex = {
   "description": "อัปเดต AI ส่วนตัวสำหรับธุรกิจไทย อ่านข่าวโมเดลและฮาร์ดแวร์ พร้อมวิธีวางระบบเอกสาร เลือกเครื่อง และดูแลข้อมูลในสำนักงาน",
   "navLabel": "ข่าวและอัปเดต"
 } as const;
+
+/**
+ * The pathname as Next.js usePathname reported it, without a trailing slash or
+ * an .html extension, so navigation highlights the same links as before.
+ */
+export const nextPathname = (pathname: string) =>
+  pathname.replace(/\.html$/, "").replace(/(.)\/+$/, "$1") || "/";

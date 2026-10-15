@@ -1,9 +1,7 @@
-"use client";
-
 import { assetUrl } from "@/lib/assets";
 import { mimirScopeNotice } from "@/lib/suite-scope";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { withMotionConfig } from "@/components/motion-config";
 
 const services = [
   {
@@ -38,7 +36,7 @@ const services = [
   },
 ];
 
-export default function Services() {
+function Services() {
   return (
     <section id="services" className="py-16 lg:py-20 bg-[#0c1220]/50 relative">
       <div className="max-w-7xl mx-auto px-6 relative">
@@ -65,13 +63,16 @@ export default function Services() {
             >
               <div className="mb-4 flex -space-x-2">
                 {service.logos.map((logo) => (
-                  <Image
+                  <img
                     key={logo}
                     src={logo}
                     alt=""
                     width={44}
                     height={44}
+                    loading="lazy"
+                    decoding="async"
                     className="size-11 object-contain"
+                    style={{ color: "transparent" }}
                   />
                 ))}
               </div>
@@ -88,3 +89,5 @@ export default function Services() {
     </section>
   );
 }
+
+export default withMotionConfig(Services);

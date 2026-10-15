@@ -1,5 +1,3 @@
-"use client";
-
 import { desktopFrameUrls, mobileFrameUrls } from "@/lib/assets";
 import { useEffect, useRef, useState, useCallback } from "react";
 
