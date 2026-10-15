@@ -76,7 +76,7 @@ function DesktopDropdown({
     <div className="relative" onMouseEnter={enter} onMouseLeave={leave}>
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+        className={`flex min-h-11 items-center gap-1 text-sm font-medium transition-colors ${
           isChildActive
             ? "text-[#00e5ff]"
             : "text-[#94a3b8] hover:text-[#00e5ff]"
@@ -114,7 +114,7 @@ function DesktopDropdown({
                   key={child.href}
                   href={child.href}
                   onClick={() => setOpen(false)}
-                  className={`block px-4 py-3 rounded-xl transition-all ${
+                  className={`block px-4 py-3 rounded-xl transition-[background-color,border-color,color,box-shadow] ${
                     isActive
                       ? "bg-[#00e5ff]/8"
                       : "hover:bg-[#1e293b]/50"
@@ -135,7 +135,7 @@ function DesktopDropdown({
                     )}
                   </span>
                   {child.desc && (
-                    <span className="text-[11px] text-[#64748b] block mt-0.5">
+                    <span className="text-[11px] text-[#94a3b8] block mt-0.5">
                       {child.desc}
                     </span>
                   )}
@@ -210,7 +210,7 @@ function MobileGroup({
                       {child.label}
                     </span>
                     {child.desc && (
-                      <span className="text-[11px] text-[#64748b] block mt-0.5">
+                      <span className="text-[11px] text-[#94a3b8] block mt-0.5">
                         {child.desc}
                       </span>
                     )}
@@ -262,10 +262,10 @@ function Navbar({ pathname }: { pathname: string }) {
         ข้ามไปเนื้อหา
       </a>
       <motion.nav
-        initial={{ y: -80 }}
+        initial={false}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,color,box-shadow] duration-300 ${
           scrolled
             ? "bg-[#060a14]/90 backdrop-blur-xl border-b border-[#1e293b]"
             : "bg-transparent"
@@ -273,7 +273,7 @@ function Navbar({ pathname }: { pathname: string }) {
       >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2 group">
+        <a href="/" className="flex min-h-11 items-center gap-2 group">
           <img
             src="/icon.svg"
             alt="LocalAI"
@@ -284,7 +284,7 @@ function Navbar({ pathname }: { pathname: string }) {
           <span className="text-lg font-bold tracking-tight">
             <span className="gradient-text-cyan">Local</span>
             <span className="text-[#f0f4f8]">AI</span>
-            <span className="text-[#64748b] text-xs ml-1.5 font-normal hidden sm:inline">
+            <span className="text-[#94a3b8] text-xs ml-1.5 font-normal hidden sm:inline">
               Thailand
             </span>
           </span>
@@ -303,7 +303,7 @@ function Navbar({ pathname }: { pathname: string }) {
               <a
                 key={item.href + item.label}
                 href={item.href}
-                className={`text-sm font-medium transition-colors relative ${
+                className={`inline-flex min-h-11 items-center text-sm font-medium transition-colors relative ${
                   pathname === item.href
                     ? "text-[#00e5ff]"
                     : item.highlight
@@ -320,7 +320,7 @@ function Navbar({ pathname }: { pathname: string }) {
           )}
           <a
             href="/contact"
-            className="text-sm font-semibold px-5 py-2 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] hover:opacity-90 transition-opacity"
+            className="inline-flex min-h-11 items-center text-sm font-semibold px-5 py-2 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] hover:opacity-90 transition-opacity"
           >
             ขอใบเสนอราคา
           </a>

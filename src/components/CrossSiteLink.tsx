@@ -49,7 +49,7 @@ function CrossSiteLink({
                   ease: "linear",
                 }}
               />
-              <span className="text-xs text-[#64748b] tracking-wider">
+              <span className="text-xs text-[#94a3b8] tracking-wider">
                 Loading...
               </span>
             </div>

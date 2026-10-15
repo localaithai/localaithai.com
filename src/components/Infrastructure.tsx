@@ -108,7 +108,7 @@ function Infrastructure() {
           {categories.map((cat, ci) => (
             <motion.div
               key={cat.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: ci * 0.15 }}
@@ -130,7 +130,7 @@ function Infrastructure() {
                 <h3 className="text-lg font-bold text-[#f0f4f8]">
                   {cat.title}
                 </h3>
-                <p className="text-xs text-[#64748b] mt-1">{cat.subtitle}</p>
+                <p className="text-xs text-[#94a3b8] mt-1">{cat.subtitle}</p>
               </div>
 
               {/* Why you need this */}
@@ -176,7 +176,7 @@ function Infrastructure() {
 
         {/* Bundle */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={false}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="mt-12 rounded-2xl border border-[#00ff88]/20 bg-[#00ff88]/5 p-6 md:p-8 text-center"

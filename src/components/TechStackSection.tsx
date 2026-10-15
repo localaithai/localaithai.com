@@ -54,7 +54,7 @@ function TechStackSection() {
           {apps.map((app, index) => (
             <motion.div
               key={app.name}
-              initial={{ opacity: 0, y: 14 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
@@ -75,7 +75,7 @@ function TechStackSection() {
             </motion.div>
           ))}
         </div>
-        <p className="text-center text-xs text-[#64748b] mt-8">
+        <p className="text-center text-xs text-[#94a3b8] mt-8">
           ข้อมูลอยู่ในองค์กรของคุณ, ออกแบบการใช้งานให้สอดคล้องกับ PDPA
         </p>
       </div>

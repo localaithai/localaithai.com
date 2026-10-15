@@ -215,8 +215,8 @@
 .mimir-blog-summary-panel {
   margin-block: 1.5rem;
   padding: 1.25rem;
-  border-inline-start: 3px solid var(--blog-accent, #2348bf);
-  border-radius: 0 0.75rem 0.75rem 0;
+  border: 1px solid var(--blog-border, #d4dae4);
+  border-radius: 0.75rem;
   background: var(--blog-surface, #ffffff);
 }
 
@@ -325,8 +325,9 @@
 
 .mimir-blog-prose blockquote {
   margin: 1.5rem 0;
-  padding-inline-start: 1.25rem;
-  border-inline-start: 3px solid var(--blog-border, #d4dae4);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--blog-border, #d4dae4);
+  border-radius: 0.5rem;
   color: var(--blog-muted, #526077);
 }
 
@@ -344,7 +345,6 @@
   margin: 1.5rem 0;
   padding: 1.25rem;
   border: 1px solid var(--blog-border, #d4dae4);
-  border-inline-start: 3px solid var(--blog-accent, #2348bf);
   border-radius: 0.5rem;
   background: var(--blog-surface, #ffffff);
 }

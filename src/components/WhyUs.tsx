@@ -92,11 +92,11 @@ function WhyUs() {
           {reasons.map((r, i) => (
             <motion.div
               key={r.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="rounded-2xl bg-[#111827] border border-[#1e293b] p-6 hover:border-opacity-60 transition-all duration-300 hover:-translate-y-1"
+              className="rounded-2xl bg-[#111827] border border-[#1e293b] p-6 hover:border-opacity-60 transition-[background-color,border-color,color,box-shadow] duration-300"
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor =
                   r.color + "40";

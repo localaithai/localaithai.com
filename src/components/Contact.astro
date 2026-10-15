@@ -24,7 +24,6 @@ const cardClass =
       <div
         data-contact-reveal
         class="rounded-2xl bg-[#111827] border border-[#1e293b] p-6 md:p-8"
-        style="opacity:0;transform:translateX(20px)"
       >
         <div data-cta="form"></div>
       </div>
@@ -33,10 +32,6 @@ const cardClass =
 </section>
 
 <script>
-  // Replays the framer-motion entrance the React version had: once in view,
-  // opacity eases in (0.3s) while x settles on framer's default spring
-  // (stiffness 500, damping 25). Reduced motion keeps the fade and drops the
-  // slide, as MotionConfig reducedMotion="user" did.
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function springKeyframes(from: number): Keyframe[] {
@@ -63,13 +58,12 @@ const cardClass =
   function reveal(element: HTMLElement) {
     element.style.opacity = "1";
     element.style.transform = "none";
+    if (reduced.matches) return;
     element.animate([{ opacity: 0 }, { opacity: 1 }], {
       duration: 300,
       easing: "cubic-bezier(0.25, 0.1, 0.35, 1)",
     });
-    if (!reduced.matches) {
-      element.animate(springKeyframes(20), { duration: 600 });
-    }
+    element.animate(springKeyframes(20), { duration: 600 });
   }
 
   const observer = new IntersectionObserver((entries) => {

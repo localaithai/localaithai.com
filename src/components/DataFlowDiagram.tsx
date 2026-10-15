@@ -77,11 +77,11 @@ function StepBox({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.4 }}
-      className={`rounded-xl border p-4 transition-all duration-300 ${active ? "bg-[#111827] border-[#1e293b]" : "bg-[#0c1220]/50 border-[#1e293b]/50 opacity-50"}`}
+      className={`rounded-xl border p-4 transition-[background-color,border-color,color,box-shadow] duration-300 ${active ? "bg-[#111827] border-[#1e293b]" : "bg-[#0c1220]/50 border-[#1e293b]/50 opacity-50"}`}
       style={
         active
           ? { borderColor: color + "30", boxShadow: `0 0 20px ${color}08` }
@@ -111,7 +111,7 @@ function StepBox({
               {details.map((d) => (
                 <div
                   key={d}
-                  className="flex items-center gap-1.5 text-[10px] text-[#64748b]"
+                  className="flex items-center gap-1.5 text-[10px] text-[#94a3b8]"
                 >
                   <Check size={8} style={{ color }} />
                   {d}
@@ -346,7 +346,7 @@ function DataFlowDiagram() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all whitespace-nowrap ${
+                className={`px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-[background-color,border-color,color,box-shadow] whitespace-nowrap ${
                   activeTab === tab.id
                     ? "text-[#060a14]"
                     : "text-[#94a3b8] hover:text-[#f0f4f8]"
@@ -368,7 +368,7 @@ function DataFlowDiagram() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}

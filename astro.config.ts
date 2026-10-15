@@ -12,7 +12,7 @@ export default defineConfig({
   // Pages keep the slashless URLs of the Next.js export (/hardware), while the
   // blog keeps its directory URLs (/blog/, /blog/<slug>/). "preserve" writes
   // hardware.astro to hardware.html and blog/index.astro to blog/index.html.
-  trailingSlash: "never",
+  trailingSlash: "ignore",
   build: { format: "preserve" },
   devToolbar: { enabled: false },
   integrations: [react()],

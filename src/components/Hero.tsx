@@ -1,16 +1,12 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import GridCanvas from "./GridCanvas";
-import { withMotionConfig } from "@/components/motion-config";
+import { useStaticMotion, withMotionConfig } from "@/components/motion-config";
 
-const benefits = [
-  "ประมวลผลในเครื่อง",
-  "เลือกเครื่องให้พอดีกับงาน",
-  "ดูแลหลังส่งมอบ",
-];
+const benefits = ["ประมวลผลในเครื่อง", "เลือกเครื่องให้พอดีกับงาน", "ดูแลหลังส่งมอบ"];
 
 function Hero() {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useStaticMotion();
   const [motionAllowed, setMotionAllowed] = useState(false);
 
   useEffect(() => setMotionAllowed(!reducedMotion), [reducedMotion]);
@@ -23,7 +19,7 @@ function Hero() {
         </div>
       ) : null}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="relative z-10 mx-auto flex min-h-[88svh] max-w-7xl flex-col justify-center pt-36 pb-20 lg:pt-44"

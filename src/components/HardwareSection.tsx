@@ -419,7 +419,7 @@ function MobileHardwareComparison() {
           <button
             key={card.key}
             onClick={() => setActive(card.key)}
-            className="shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all snap-start min-w-[60px]"
+            className="shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-[background-color,border-color,color,box-shadow] snap-start min-w-[60px]"
             style={{
               borderWidth: 2,
               borderStyle: "solid",
@@ -439,7 +439,7 @@ function MobileHardwareComparison() {
       <AnimatePresence mode="wait">
         <motion.div
           key={current.key}
-          initial={{ opacity: 0, y: 10 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
@@ -493,7 +493,7 @@ function HardwareSection() {
               <button
                 key={cat.id}
                 onClick={() => { setActiveCategory(cat.id); setExpandedItem(null); }}
-                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all shrink-0 snap-start ${
+                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-[background-color,border-color,color,box-shadow] shrink-0 snap-start ${
                   activeCategory === cat.id ? "text-[#060a14] shadow-lg" : "text-[#94a3b8] bg-[#111827] border border-[#1e293b]"
                 }`}
                 style={activeCategory === cat.id ? { background: cat.color, boxShadow: `0 4px 20px ${cat.color}30` } : {}}
@@ -509,7 +509,7 @@ function HardwareSection() {
 
       {/* Category detail */}
       <AnimatePresence mode="wait">
-        <motion.div key={current.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} className="max-w-6xl mx-auto px-6 mb-20">
+        <motion.div key={current.id} initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} className="max-w-6xl mx-auto px-6 mb-20">
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-black text-[#f0f4f8] flex items-center gap-3">
               <span className="text-3xl">{current.emoji}</span> {current.title}
@@ -519,7 +519,7 @@ function HardwareSection() {
 
           <div className="space-y-4">
             {current.items.map((item, i) => (
-              <motion.div key={item.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+              <motion.div key={item.name} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
                 <GlowCard color={item.color}>
                   <div className="p-5 md:p-6">
                     {item.image ? (
@@ -545,10 +545,10 @@ function HardwareSection() {
                               <h3 className="text-lg font-bold text-[#f0f4f8]">{item.name}</h3>
                               <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: item.color + "15", color: item.color }}>{item.tag}</span>
                             </div>
-                            <p className="text-xs text-[#64748b]">{item.tagline}</p>
+                            <p className="text-xs text-[#94a3b8]">{item.tagline}</p>
                           </div>
                         </div>
-                        <motion.div animate={{ rotate: expandedItem === item.name ? 180 : 0 }}><ChevronDown size={16} className="text-[#64748b]" /></motion.div>
+                        <motion.div animate={{ rotate: expandedItem === item.name ? 180 : 0 }}><ChevronDown size={16} className="text-[#94a3b8]" /></motion.div>
                       </div>
                       <p className="text-sm text-[#94a3b8] leading-relaxed">{item.description}</p>
                     </button>
@@ -570,7 +570,7 @@ function HardwareSection() {
                               <div className="rounded-xl bg-[#111827] border border-[#1e293b] overflow-hidden">
                                 {item.keySpecs.map((s, si) => (
                                   <div key={s.label} className={`flex justify-between px-4 py-2 text-xs ${si % 2 === 0 ? "bg-[#0c1220]/50" : ""}`}>
-                                    <span className="text-[#64748b]">{s.label}</span>
+                                    <span className="text-[#94a3b8]">{s.label}</span>
                                     <span className="text-[#f0f4f8] font-mono text-right">{s.value}</span>
                                   </div>
                                 ))}
@@ -585,12 +585,12 @@ function HardwareSection() {
                                   <table className="w-full text-xs min-w-[500px]">
                                     <thead>
                                       <tr className="border-b border-[#1e293b]">
-                                        <th className="text-left py-2 px-3 text-[#64748b]">รุ่น</th>
-                                        <th className="text-left py-2 px-3 text-[#64748b]">RAM</th>
-                                        <th className="text-left py-2 px-3 text-[#64748b]">BW</th>
-                                        <th className="text-left py-2 px-3 text-[#64748b]">ความเร็ว</th>
-                                        <th className="text-left py-2 px-3 text-[#64748b]">Model สูงสุด</th>
-                                        <th className="text-left py-2 px-3 text-[#64748b]">ราคาเครื่อง</th>
+                                        <th className="text-left py-2 px-3 text-[#94a3b8]">รุ่น</th>
+                                        <th className="text-left py-2 px-3 text-[#94a3b8]">RAM</th>
+                                        <th className="text-left py-2 px-3 text-[#94a3b8]">BW</th>
+                                        <th className="text-left py-2 px-3 text-[#94a3b8]">ความเร็ว</th>
+                                        <th className="text-left py-2 px-3 text-[#94a3b8]">Model สูงสุด</th>
+                                        <th className="text-left py-2 px-3 text-[#94a3b8]">ราคาเครื่อง</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -637,7 +637,7 @@ function HardwareSection() {
                             {/* Best for + Package */}
                             <div className="flex flex-col sm:flex-row gap-3">
                               <div className="flex-1 rounded-xl p-3 bg-[#111827] border border-[#1e293b]">
-                                <p className="text-[10px] text-[#64748b] mb-1">เหมาะกับ</p>
+                                <p className="text-[10px] text-[#94a3b8] mb-1">เหมาะกับ</p>
                                 <p className="text-xs text-[#f0f4f8]">{item.bestFor}</p>
                               </div>
                               <div className="shrink-0 rounded-xl p-3" style={{ background: item.color + "10", border: `1px solid ${item.color}20` }}>
@@ -680,7 +680,7 @@ function HardwareSection() {
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="border-b border-[#1e293b]">
-                      <th className="text-left py-3 px-3 text-[#64748b]"></th>
+                      <th className="text-left py-3 px-3 text-[#94a3b8]"></th>
                       <th className="text-center py-3 px-2 text-[#94a3b8]">M4</th>
                       <th className="text-center py-3 px-2 text-[#00ff88] font-bold">M4 Pro</th>
                       <th className="text-center py-3 px-2 text-[#8b5cf6]">M4 Max</th>
@@ -707,7 +707,7 @@ function HardwareSection() {
                 </table>
               </div>
             </GlowCard>
-            <p className="text-[10px] text-[#64748b] text-center mt-4">
+            <p className="text-[10px] text-[#94a3b8] text-center mt-4">
               * tok/s = tokens per second สำหรับ Qwen 2.5 7B Q4 | Bandwidth หน่วย GB/s | ราคาเครื่องเปล่า ไม่รวมบริการติดตั้ง
             </p>
           </div>

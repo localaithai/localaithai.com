@@ -249,7 +249,7 @@ function SupportSection() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {problems.map((p, i) => (
-            <motion.div key={p.title} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
+            <motion.div key={p.title} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
               <GlowCard color={p.color}>
                 <div className="p-5">
                   <span className="text-2xl block mb-3">{p.emoji}</span>
@@ -271,7 +271,7 @@ function SupportSection() {
         </div>
         <div className="space-y-4">
           {services.map((svc, i) => (
-            <motion.div key={svc.title} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
+            <motion.div key={svc.title} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
               <GlowCard color={svc.color}>
                 <div className="p-5 md:p-6">
                   <div className="flex items-start gap-4 mb-4">
@@ -280,7 +280,7 @@ function SupportSection() {
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-[#f0f4f8]">{svc.title}</h3>
-                      <p className="text-xs text-[#64748b]">{svc.subtitle}</p>
+                      <p className="text-xs text-[#94a3b8]">{svc.subtitle}</p>
                       <p className="text-sm text-[#94a3b8] mt-1">{svc.desc}</p>
                     </div>
                   </div>
@@ -310,7 +310,7 @@ function SupportSection() {
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-5">
           {plans.map((plan, i) => (
-            <motion.div key={plan.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+            <motion.div key={plan.name} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
               <div className="relative rounded-2xl p-[1.5px] h-full" style={{ background: `linear-gradient(135deg, ${plan.color}50, transparent 40%, ${plan.color}30)` }}>
                 <div className="rounded-2xl bg-[#0c1220] p-5 sm:p-6 h-full flex flex-col">
                   {plan.badge && (
@@ -320,11 +320,11 @@ function SupportSection() {
                   )}
                   <span className="text-3xl mb-3">{plan.emoji}</span>
                   <h4 className="text-lg font-black text-[#f0f4f8] mb-1">{plan.name}</h4>
-                  <p className="text-xs text-[#64748b] mb-4">{plan.bestFor}</p>
+                  <p className="text-xs text-[#94a3b8] mb-4">{plan.bestFor}</p>
 
                   <div className="border-t border-[#1e293b] pt-4 mb-4">
                     <span className="text-3xl font-black" style={{ color: plan.color }}>{plan.price}</span>
-                    <span className="text-sm text-[#64748b]">{plan.period}</span>
+                    <span className="text-sm text-[#94a3b8]">{plan.period}</span>
                   </div>
 
                   <ul className="space-y-2.5 mb-4 flex-1">
@@ -335,8 +335,8 @@ function SupportSection() {
                       </li>
                     ))}
                     {plan.notIncluded.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-[#64748b]">
-                        <span className="mt-0.5 shrink-0 text-[#64748b]">✗</span>
+                      <li key={f} className="flex items-start gap-2 text-sm text-[#94a3b8]">
+                        <span className="mt-0.5 shrink-0 text-[#94a3b8]">✗</span>
                         {f}
                       </li>
                     ))}
@@ -363,7 +363,7 @@ function SupportSection() {
             <table className="w-full text-xs min-w-[480px]">
               <thead>
                 <tr className="border-b border-[#1e293b]">
-                  <th className="text-left py-3 px-3 text-[#64748b]"></th>
+                  <th className="text-left py-3 px-3 text-[#94a3b8]"></th>
                   <th className="text-center py-3 px-3 text-[#00e5ff]">Basic</th>
                   <th className="text-center py-3 px-3 text-[#00ff88] font-bold">Pro</th>
                   <th className="text-center py-3 px-3 text-[#8b5cf6]">Enterprise</th>

@@ -27,11 +27,11 @@ function Packages() {
           {tiers.map((tier, index) => (
             <motion.div
               key={tier.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.06 }}
-              className="flex flex-col rounded-2xl border border-[#1e293b] bg-[#111827] p-5 transition-transform hover:-translate-y-1 sm:p-6"
+              className="flex flex-col rounded-2xl border border-[#1e293b] bg-[#111827] p-5 sm:p-6"
               style={{ boxShadow: `0 0 28px ${tier.color}10` }}
             >
               <div

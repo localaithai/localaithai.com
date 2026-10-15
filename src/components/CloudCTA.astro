@@ -1,6 +1,7 @@
 ---
 import { ArrowRight, Cloud, Laptop, ShieldCheck } from "@lucide/astro";
 import { assetUrl } from "@/lib/assets";
+import ShinyText from "@/components/reactbits/ShinyText.astro";
 
 const points = [
   { icon: Laptop, text: "หนึ่ง seat คือหนึ่งการติดตั้งบนเครื่องพนักงาน" },
@@ -31,7 +32,7 @@ const points = [
             src={assetUrl("/mimir-suite-logo.png")}
           />
           <h2 class="text-2xl md:text-3xl font-black text-[#f0f4f8] mt-3 mb-3">
-            ไม่ต้องมี AI machine?<br /><span class="gradient-text-cyan">ใช้ Mimir Suites Cloud</span>
+            ไม่ต้องมี AI machine?<br /><span class="gradient-text-cyan">ใช้ <ShinyText text="Mimir Suites Cloud" /></span>
           </h2>
           <p class="text-sm text-[#94a3b8] leading-relaxed mb-6">
             Suite ติดตั้งบนเครื่องพนักงานแต่ละคน ใช้โมเดลจากผู้ให้บริการคลาวด์ โดยไม่ต้องซื้อ

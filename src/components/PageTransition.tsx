@@ -1,16 +1,17 @@
-import { MotionConfig, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { withMotionConfig } from "@/components/motion-config";
 
-export default function PageTransition({ children }: { children: ReactNode }) {
+function PageTransition({ children }: { children: ReactNode }) {
   return (
-    <MotionConfig reducedMotion="user">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        {children}
-      </motion.div>
-    </MotionConfig>
+    <motion.div
+      initial={false}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
   );
 }
+
+export default withMotionConfig(PageTransition);

@@ -219,13 +219,13 @@ export default function ScrollAnimation() {
         {/* Small scroll hint (shows when partially scrolled) */}
         {progress >= 0.05 && progress < 0.1 && (
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce z-20">
-            <span className="text-xs text-[#64748b]">เลื่อนต่อ...</span>
+            <span className="text-xs text-[#94a3b8]">เลื่อนต่อ...</span>
             <svg
               width="20"
               height="20"
               viewBox="0 0 20 20"
               fill="none"
-              className="text-[#64748b]"
+              className="text-[#94a3b8]"
             >
               <path
                 d="M10 4v12m0 0l-4-4m4 4l4-4"

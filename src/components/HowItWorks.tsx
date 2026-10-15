@@ -81,7 +81,7 @@ function HowItWorks() {
           {steps.map((step, i) => (
             <motion.div
               key={step.num}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
@@ -112,7 +112,7 @@ function HowItWorks() {
         </div>
 
         {/* Arrow flow (desktop) */}
-        <div className="hidden md:flex justify-center items-center gap-2 mb-20 text-[#64748b]">
+        <div className="hidden md:flex justify-center items-center gap-2 mb-20 text-[#94a3b8]">
           <span className="text-xs">ใส่ข้อมูล</span>
           <ArrowRight size={14} />
           <span className="text-xs">AI เรียนรู้</span>
@@ -134,11 +134,11 @@ function HowItWorks() {
           {useCases.map((uc, i) => (
             <motion.div
               key={uc.title}
-              initial={{ opacity: 0, y: 15 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="rounded-xl bg-[#111827] border border-[#1e293b] p-4 sm:p-5 hover:border-[#00e5ff]/30 transition-all"
+              className="rounded-xl bg-[#111827] border border-[#1e293b] p-4 sm:p-5 hover:border-[#00e5ff]/30 transition-[background-color,border-color,color,box-shadow]"
             >
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[#00e5ff]/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -164,7 +164,7 @@ function HowItWorks() {
 
         {/* Simple cost comparison */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={false}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="mt-16 rounded-2xl border border-[#1e293b] bg-[#111827] overflow-hidden"
@@ -212,7 +212,7 @@ function HowItWorks() {
         </motion.div>
         {/* Why not just pay ฿700/month for ChatGPT? */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={false}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="mt-16"
@@ -314,7 +314,7 @@ function HowItWorks() {
                   <table className="w-full text-xs min-w-[500px]">
                     <thead>
                       <tr className="border-b border-[#1e293b]">
-                        <th className="text-left py-2 px-3 text-[#64748b]">สถานการณ์</th>
+                        <th className="text-left py-2 px-3 text-[#94a3b8]">สถานการณ์</th>
                         <th className="text-center py-2 px-3 text-[#f87171]">ChatGPT Plus</th>
                         <th className="text-center py-2 px-3 text-[#00ff88]">AI ส่วนตัว</th>
                         <th className="text-center py-2 px-3 text-[#f0f4f8]">ประหยัด</th>
@@ -357,7 +357,7 @@ function HowItWorks() {
                   <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#111827] to-transparent pointer-events-none sm:hidden" />
                   <div className="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-[#111827] to-transparent pointer-events-none sm:hidden" />
                 </div>
-                <p className="text-[10px] text-[#64748b] mt-3">
+                <p className="text-[10px] text-[#94a3b8] mt-3">
                   * ถ้าใช้คนเดียว บริการคลาวด์อาจมีต้นทุนเริ่มต้นต่ำกว่า, แต่ Local AI เก็บข้อมูลและการประมวลผลไว้ในองค์กร
                   <br />AI machine ติดตั้งในองค์กร และพนักงานใช้ Mimir Suites ตามสิทธิ์ใช้งาน
                 </p>

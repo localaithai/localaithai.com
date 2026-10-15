@@ -342,7 +342,7 @@ function ProductCard({ product, catColor }: { product: Product; catColor: string
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-[#64748b] font-mono">{product.specs}</p>
+              <p className="text-[11px] text-[#94a3b8] font-mono">{product.specs}</p>
             </div>
             <div className="text-right shrink-0">
               <p className="text-lg font-black" style={{ color: product.badgeColor || catColor }}>{formatPrice(product.price)}</p>
@@ -403,7 +403,7 @@ function ShopSection() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all shrink-0 snap-start ${
+                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-[background-color,border-color,color,box-shadow] shrink-0 snap-start ${
                   activeCategory === cat.id ? "text-[#060a14] shadow-lg" : "text-[#94a3b8] bg-[#111827] border border-[#1e293b]"
                 }`}
                 style={activeCategory === cat.id ? { background: cat.color, boxShadow: `0 4px 20px ${cat.color}30` } : {}}
@@ -419,7 +419,7 @@ function ShopSection() {
 
       {/* Product list */}
       <AnimatePresence mode="wait">
-        <motion.div key={current.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} className="max-w-5xl mx-auto px-6 mb-20">
+        <motion.div key={current.id} initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} className="max-w-5xl mx-auto px-6 mb-20">
           <div className="mb-6">
             <h2 className="text-xl md:text-2xl font-black text-[#f0f4f8] flex items-center gap-3">
               <span className="text-2xl">{current.emoji}</span> {current.title}
@@ -429,7 +429,7 @@ function ShopSection() {
 
           <div className="space-y-3 sm:space-y-4">
             {current.products.map((product, i) => (
-              <motion.div key={product.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+              <motion.div key={product.name} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                 <ProductCard product={product} catColor={current.color} />
               </motion.div>
             ))}
