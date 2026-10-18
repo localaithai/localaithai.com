@@ -20,9 +20,10 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 ---
 
 <!doctype html>
-<html lang="th" class="scroll-smooth">
+<html lang="th">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
     {/* Inlined component styles can open a layer before Tailwind's bundle; pin the order first. */}
     <style is:inline>@layer properties, theme, base, components, utilities;</style>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -126,5 +127,40 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       is:inline
       src="https://localai-omni.vercel.app/analytics.js"
       defer></script>
+    <script is:inline>
+      (() => {
+        const pending = () =>
+          document.querySelectorAll("[data-reveal]:not(.is-in)");
+        if (!("IntersectionObserver" in window)) {
+          for (const el of pending()) el.classList.add("is-in");
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add("is-in");
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+        );
+        for (const el of pending()) {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.style.transition = "none";
+            el.classList.add("is-in");
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => el.style.removeProperty("transition")),
+            );
+          } else {
+            observer.observe(el);
+          }
+        }
+        // Islands that client-render replace their server nodes; observe the new ones.
+        new MutationObserver(() => {
+          for (const el of pending()) observer.observe(el);
+        }).observe(document.body, { childList: true, subtree: true });
+      })();
+    </script>
   </body>
 </html>

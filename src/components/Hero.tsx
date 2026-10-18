@@ -18,6 +18,10 @@ function Hero() {
           <GridCanvas />
         </div>
       ) : null}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_62%_58%_at_24%_52%,rgba(6,10,20,0.82),rgba(6,10,20,0.35)_55%,transparent_80%)]"
+      />
       <motion.div
         initial={false}
         animate={{ opacity: 1, y: 0 }}
@@ -39,18 +43,18 @@ function Hero() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a
               href="#contact"
-              className="min-h-11 w-full rounded-lg bg-[#00e5ff] px-8 py-3.5 text-center text-base font-bold text-[#060a14] transition-opacity hover:opacity-90 sm:w-auto"
+              className="btn min-h-11 w-full rounded-lg bg-[#00e5ff] px-8 py-3.5 text-center text-base font-bold text-[#060a14] hover:opacity-90 sm:w-auto"
             >
               Request a Demo
             </a>
             <a
               href="#how-it-works"
-              className="min-h-11 w-full rounded-lg border border-[#1e293b] px-8 py-3.5 text-center text-base font-semibold text-[#f0f4f8] transition-colors hover:border-[#00e5ff] hover:text-[#00e5ff] sm:w-auto"
+              className="btn min-h-11 w-full rounded-lg border border-[#1e293b] bg-[#060a14]/40 px-8 py-3.5 text-center text-base font-semibold text-[#f0f4f8] hover:border-[#00e5ff] hover:text-[#00e5ff] sm:w-auto"
             >
               ดูว่า AI ส่วนตัวทำอะไรได้บ้าง
             </a>
           </div>
-          <ul className="mt-7 grid gap-3 border-y border-[#1e293b] py-3 sm:grid-cols-3">
+          <ul className="mt-9 grid gap-3 border-t border-[#1e293b] pt-3 sm:grid-cols-3">
             {benefits.map((benefit) => (
               <li
                 key={benefit}

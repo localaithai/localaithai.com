@@ -12,16 +12,16 @@ const partners = [
 ] as const;
 ---
 
-<section aria-labelledby="partners-heading" class="relative border-y border-[#1e293b] bg-[#0c1220]/80 py-16 lg:py-20">
+<section aria-labelledby="partners-heading" class="relative border-y border-[#1e293b] bg-[#0c1220]/80 py-20 lg:py-24">
   <div class="mx-auto max-w-7xl px-6">
-    <div class="grid gap-8 lg:grid-cols-[minmax(0,28rem)_1fr] lg:items-end lg:gap-16">
-      <div>
-        <p class="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-[#00e5ff]">Delivery network</p>
-        <h2 id="partners-heading" class="text-3xl font-bold text-[#f0f4f8] md:text-5xl">พาร์ทเนอร์ที่ช่วยให้ระบบพร้อมใช้จริง</h2>
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,30rem)_1fr] lg:items-end lg:gap-16">
+      <div data-reveal>
+        <p class="eyebrow mb-5 font-mono text-xs uppercase tracking-[0.18em] text-[#00e5ff]">Delivery network</p>
+        <h2 id="partners-heading" class="text-h2 font-bold text-[#f0f4f8]">พาร์ทเนอร์ที่ช่วยให้ระบบพร้อมใช้จริง</h2>
       </div>
-      <p class="max-w-2xl text-base leading-8 text-[#94a3b8] lg:text-lg">ตั้งแต่เครื่อง AI, UPS, rack ไปจนถึงการรับประกัน เราประสานเครือข่ายพาร์ทเนอร์เพื่อส่งมอบอุปกรณ์แท้และออกแบบระบบให้เหมาะกับหน้างาน</p>
+      <p data-reveal style="--i: 1" class="lead">ตั้งแต่เครื่อง AI, UPS, rack ไปจนถึงการรับประกัน เราประสานเครือข่ายพาร์ทเนอร์เพื่อส่งมอบอุปกรณ์แท้และออกแบบระบบให้เหมาะกับหน้างาน</p>
     </div>
-    <ul class="mt-12 grid grid-cols-2 overflow-hidden rounded-2xl border border-[#1e293b] bg-[#111827] sm:grid-cols-3 lg:grid-cols-7">
+    <ul data-reveal class="mt-12 grid grid-cols-2 overflow-hidden rounded-2xl border border-[#1e293b] bg-[#111827] sm:grid-cols-3 lg:grid-cols-7">
       {
         partners.map((partner) => (
           <li class="group flex min-h-28 items-center justify-center border-b border-r border-[#1e293b] px-5 py-6">

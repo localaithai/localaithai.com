@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
 import {
   FileText,
   ArrowRight,
@@ -62,14 +62,14 @@ const useCases = [
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-16 lg:py-20 relative">
+    <section id="how-it-works" className="py-20 lg:py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#f0f4f8] mb-4">
+        <div data-reveal className="text-center mb-12 lg:mb-16">
+          <h2 className="text-h2 font-bold text-[#f0f4f8] mb-5">
             ระบบ AI ส่วนตัวทำงานยังไง?
           </h2>
-          <p className="text-[#94a3b8] max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
+          <p className="lead mx-auto">
             ง่ายมาก, เหมือนมีพนักงานที่รู้ข้อมูลทุกอย่างในบริษัท
             <br />
             แต่ทำงานเร็วกว่า และพร้อมตอบ 24 ชั่วโมง
@@ -79,13 +79,11 @@ function HowItWorks() {
         {/* 3-step diagram */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
           {steps.map((step, i) => (
-            <motion.div
+            <div
               key={step.num}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="relative rounded-2xl bg-[#111827] border border-[#1e293b] p-4 sm:p-6"
+              data-reveal
+              style={{ "--i": i } as CSSProperties}
+              className="surface relative rounded-2xl bg-[#111827] p-4 sm:p-6"
             >
               {/* Step number */}
               <span
@@ -107,7 +105,7 @@ function HowItWorks() {
               <p className="text-sm text-[#94a3b8] leading-relaxed">
                 {step.desc}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -121,8 +119,8 @@ function HowItWorks() {
         </div>
 
         {/* Use cases */}
-        <div className="text-center mb-10">
-          <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#f0f4f8] mb-3">
+        <div data-reveal className="text-center mb-10">
+          <h3 className="text-h3 font-bold text-[#f0f4f8] mb-3">
             ใช้ทำอะไรได้บ้าง?
           </h3>
           <p className="text-[#94a3b8] text-sm">
@@ -132,13 +130,11 @@ function HowItWorks() {
 
         <div className="grid sm:grid-cols-2 gap-5">
           {useCases.map((uc, i) => (
-            <motion.div
+            <div
               key={uc.title}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="rounded-xl bg-[#111827] border border-[#1e293b] p-4 sm:p-5 hover:border-[#00e5ff]/30 transition-[background-color,border-color,color,box-shadow]"
+              data-reveal
+              style={{ "--i": i % 2 } as CSSProperties}
+              className="surface rounded-2xl bg-[#111827] p-4 sm:p-5"
             >
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[#00e5ff]/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -158,15 +154,13 @@ function HowItWorks() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Simple cost comparison */}
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+        <div
+          data-reveal
           className="mt-16 rounded-2xl border border-[#1e293b] bg-[#111827] overflow-hidden"
         >
           <div className="p-6 md:p-8 text-center border-b border-[#1e293b]">
@@ -209,16 +203,11 @@ function HowItWorks() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
         {/* Why not just pay ฿700/month for ChatGPT? */}
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-xl md:text-3xl lg:text-4xl font-bold text-[#f0f4f8] mb-3">
+        <div className="mt-20 lg:mt-24">
+          <div data-reveal className="text-center mb-8">
+            <h3 className="text-h3 font-bold text-[#f0f4f8] mb-3">
               แล้วทำไมไม่จ่าย ฿700/เดือน ใช้ ChatGPT ก็พอ?
             </h3>
             <p className="text-sm text-[#94a3b8] max-w-lg mx-auto">
@@ -228,7 +217,7 @@ function HowItWorks() {
 
           <div className="space-y-4">
             {/* 1. Censorship */}
-            <div className="rounded-xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">🚫</span>
@@ -264,7 +253,7 @@ function HowItWorks() {
             </div>
 
             {/* 2. Data leak */}
-            <div className="rounded-xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">📤</span>
@@ -300,7 +289,7 @@ function HowItWorks() {
             </div>
 
             {/* 3. Cost */}
-            <div className="rounded-xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">💸</span>
@@ -365,7 +354,7 @@ function HowItWorks() {
             </div>
 
             {/* 4. Rate limit */}
-            <div className="rounded-xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">⏳</span>
@@ -401,7 +390,7 @@ function HowItWorks() {
 
             {/* 5. Stability + Offline */}
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="rounded-xl bg-[#111827] border border-[#1e293b] p-5">
+              <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] p-5">
                 <span className="text-2xl block mb-3">🔄</span>
                 <h4 className="text-sm font-bold text-[#f0f4f8] mb-2">Model เปลี่ยนทุกเดือน ไม่มีใครบอก</h4>
                 <p className="text-xs text-[#94a3b8] leading-relaxed mb-3">
@@ -415,7 +404,11 @@ function HowItWorks() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-[#111827] border border-[#1e293b] p-5">
+              <div
+                data-reveal
+                style={{ "--i": 1 } as CSSProperties}
+                className="rounded-2xl bg-[#111827] border border-[#1e293b] p-5"
+              >
                 <span className="text-2xl block mb-3">📡</span>
                 <h4 className="text-sm font-bold text-[#f0f4f8] mb-2">เน็ตล่ม / Server ล่ม = หยุดงาน</h4>
                 <p className="text-xs text-[#94a3b8] leading-relaxed mb-3">
@@ -432,8 +425,8 @@ function HowItWorks() {
             </div>
           </div>
 
-          <div className="mt-10 text-center">
-            <div className="inline-block rounded-xl bg-[#111827] border border-[#1e293b] p-6 max-w-2xl">
+          <div data-reveal className="mt-10 text-center">
+            <div className="inline-block rounded-2xl bg-[#111827] border border-[#1e293b] p-6 max-w-2xl">
               <p className="text-base text-[#f0f4f8] font-semibold mb-2">
                 สรุป: ChatGPT ดีสำหรับใช้ส่วนตัว
               </p>
@@ -444,13 +437,13 @@ function HowItWorks() {
               </p>
               <a
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] font-bold text-sm hover:opacity-90 transition-opacity"
+                className="btn inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] font-bold text-sm hover:opacity-90"
               >
                 ปรึกษาฟรี ว่าเหมาะกับธุรกิจคุณไหม
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

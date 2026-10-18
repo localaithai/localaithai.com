@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { type CSSProperties, useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { blogIndex } from "@/lib/site";
@@ -113,6 +113,7 @@ function DesktopDropdown({
                 <a
                   key={child.href}
                   href={child.href}
+                  aria-current={isActive ? "page" : undefined}
                   onClick={() => setOpen(false)}
                   className={`block px-4 py-3 rounded-xl transition-[background-color,border-color,color,box-shadow] ${
                     isActive
@@ -152,10 +153,12 @@ function DesktopDropdown({
 /* ─── Mobile Accordion Group ─── */
 function MobileGroup({
   group,
+  index,
   pathname,
   onNavigate,
 }: {
   group: NavGroup;
+  index: number;
   pathname: string;
   onNavigate: () => void;
 }) {
@@ -163,21 +166,26 @@ function MobileGroup({
   const isChildActive = group.children.some((c) => pathname === c.href);
 
   return (
-    <div className="border-b border-[#1e293b]/50 last:border-b-0">
+    <div
+      className="menu-item border-b border-[#1e293b]/50 last:border-b-0"
+      style={{ "--i": index } as CSSProperties}
+    >
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center justify-between w-full py-4 px-2 text-[15px] font-medium transition-colors ${
+        aria-expanded={open}
+        className={`flex items-center justify-between w-full py-4 px-1 text-[1.65rem] leading-snug font-semibold tracking-tight transition-colors ${
           isChildActive
             ? "text-[#00e5ff]"
-            : "text-[#94a3b8] active:text-[#00e5ff]"
+            : "text-[#f0f4f8] active:text-[#00e5ff]"
         }`}
       >
         <span>{group.label}</span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.25, ease: "easeInOut" }}
+          className="text-[#94a3b8]"
         >
-          <ChevronDown size={16} />
+          <ChevronDown size={20} />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -196,6 +204,7 @@ function MobileGroup({
                   <a
                     key={child.href}
                     href={child.href}
+                    aria-current={isActive ? "page" : undefined}
                     onClick={onNavigate}
                     className={`block py-3 px-4 rounded-xl transition-colors min-h-[44px] ${
                       isActive
@@ -227,14 +236,53 @@ function MobileGroup({
 
 /* ─── Main Navbar ─── */
 function Navbar({ pathname }: { pathname: string }) {
-  const [scrolled, setScrolled] = useState(false);
+  const overHero = pathname === "/";
+  const [glass, setGlass] = useState(!overHero);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      setGlass(!overHero || y > 24);
+      const goingDown = y > lastY + 4;
+      const goingUp = y < lastY - 4;
+      if (goingDown && y > window.innerHeight) setHidden(true);
+      if (goingUp) setHidden(false);
+      if (goingDown || goingUp) lastY = y;
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overHero]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    desktop.addEventListener("change", onDesktop);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onDesktop);
+    };
+  }, [open]);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -261,15 +309,12 @@ function Navbar({ pathname }: { pathname: string }) {
       >
         ข้ามไปเนื้อหา
       </a>
-      <motion.nav
-        initial={false}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,color,box-shadow] duration-300 ${
-          scrolled
-            ? "bg-[#060a14]/90 backdrop-blur-xl border-b border-[#1e293b]"
-            : "bg-transparent"
-        }`}
+      <nav
+        data-state={glass || open ? "glass" : "top"}
+        data-hidden={hidden ? "" : undefined}
+        data-menu-open={open ? "" : undefined}
+        onFocus={() => setHidden(false)}
+        className="site-nav fixed inset-x-0 top-0 z-50"
       >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
@@ -303,7 +348,8 @@ function Navbar({ pathname }: { pathname: string }) {
               <a
                 key={item.href + item.label}
                 href={item.href}
-                className={`inline-flex min-h-11 items-center text-sm font-medium transition-colors relative ${
+                aria-current={pathname === item.href ? "page" : undefined}
+                className={`nav-link inline-flex min-h-11 items-center text-sm font-medium transition-colors ${
                   pathname === item.href
                     ? "text-[#00e5ff]"
                     : item.highlight
@@ -312,15 +358,12 @@ function Navbar({ pathname }: { pathname: string }) {
                 }`}
               >
                 {item.label}
-                {pathname === item.href && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#00e5ff] rounded-full" />
-                )}
               </a>
             )
           )}
           <a
             href="/contact"
-            className="inline-flex min-h-11 items-center text-sm font-semibold px-5 py-2 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] hover:opacity-90 transition-opacity"
+            className="btn inline-flex min-h-11 items-center text-sm font-semibold px-5 py-2 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] hover:opacity-90"
           >
             ขอใบเสนอราคา
           </a>
@@ -328,7 +371,10 @@ function Navbar({ pathname }: { pathname: string }) {
 
         {/* Mobile toggle */}
         <button
+          ref={toggleRef}
           onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           className="lg:hidden text-[#94a3b8] p-2 -mr-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label={open ? "Close menu" : "Open menu"}
         >
@@ -351,6 +397,7 @@ function Navbar({ pathname }: { pathname: string }) {
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -358,18 +405,19 @@ function Navbar({ pathname }: { pathname: string }) {
             className="lg:hidden overflow-hidden overscroll-contain"
           >
             <div
-              className="border-b border-[#1e293b] px-6 pb-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
+              className="border-b border-[#1e293b] px-6 pt-2 pb-[calc(1.75rem+env(safe-area-inset-bottom))] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
               style={{
                 background: "rgba(12,18,32,0.97)",
                 backdropFilter: "blur(60px) saturate(180%)",
                 WebkitBackdropFilter: "blur(60px) saturate(180%)",
               }}
             >
-              {navItems.map((item) =>
+              {navItems.map((item, index) =>
                 isGroup(item) ? (
                   <MobileGroup
                     key={item.label}
                     group={item}
+                    index={index}
                     pathname={pathname}
                     onNavigate={() => setOpen(false)}
                   />
@@ -377,13 +425,15 @@ function Navbar({ pathname }: { pathname: string }) {
                   <a
                     key={item.href + item.label}
                     href={item.href}
+                    aria-current={pathname === item.href ? "page" : undefined}
                     onClick={() => setOpen(false)}
-                    className={`block py-4 px-2 min-h-[44px] text-[15px] font-medium transition-colors border-b border-[#1e293b]/50 ${
+                    style={{ "--i": index } as CSSProperties}
+                    className={`menu-item block py-4 px-1 min-h-[44px] text-[1.65rem] leading-snug font-semibold tracking-tight transition-colors border-b border-[#1e293b]/50 ${
                       pathname === item.href
                         ? "text-[#00e5ff]"
                         : item.highlight
                           ? "text-[#ec4899]"
-                          : "text-[#94a3b8] active:text-[#00e5ff]"
+                          : "text-[#f0f4f8] active:text-[#00e5ff]"
                     }`}
                   >
                     {pathname === item.href && "→ "}
@@ -394,7 +444,8 @@ function Navbar({ pathname }: { pathname: string }) {
               <a
                 href="/contact"
                 onClick={() => setOpen(false)}
-                className="block mt-5 text-center text-[15px] font-semibold px-5 py-3.5 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] min-h-[44px] active:opacity-90"
+                style={{ "--i": navItems.length } as CSSProperties}
+                className="menu-item btn block mt-6 text-center text-[15px] font-semibold px-5 py-3.5 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] min-h-[44px] active:opacity-90"
               >
                 ขอใบเสนอราคา
               </a>
@@ -402,7 +453,7 @@ function Navbar({ pathname }: { pathname: string }) {
           </motion.div>
         )}
       </AnimatePresence>
-      </motion.nav>
+      </nav>
     </>
   );
 }

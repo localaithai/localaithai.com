@@ -3,49 +3,49 @@ import CrossSiteLink from "@/components/CrossSiteLink";
 import { blogIndex } from "@/lib/site";
 ---
 
-<footer class="py-12 border-t border-[#1e293b] bg-[#060a14]">
+<footer class="pt-20 pb-12 lg:pt-24 border-t border-[#1e293b] bg-[#060a14]">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-10">
-      <div>
+    <div class="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-[#1e293b] bg-[#1e293b] sm:grid-cols-2 md:grid-cols-4 mb-12">
+      <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">Solutions</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/packages" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Packages</a>
+          <a href="/packages" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Packages</a>
         </div>
       </div>
 
-      <div>
+      <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">Hardware</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/hardware" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Hardware</a>
-          <a href="/shop" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">ร้านค้า</a>
-          <a href="/tech-stack" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Tech Stack</a>
+          <a href="/hardware" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Hardware</a>
+          <a href="/shop" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">ร้านค้า</a>
+          <a href="/tech-stack" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Tech Stack</a>
         </div>
       </div>
 
-      <div>
+      <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] mb-3">บริการ</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/services" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Services</a>
-          <a href="https://www.cloudaithai.com" target="_blank" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Cloud AI →</a>
-          <a href="/support" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Support</a>
-          <a href="/how-it-works" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">How it works</a>
-          <a href="/blog/" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">{blogIndex.navLabel}</a>
+          <a href="/services" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Services</a>
+          <a href="https://www.cloudaithai.com" target="_blank" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Cloud AI →</a>
+          <a href="/support" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Support</a>
+          <a href="/how-it-works" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">How it works</a>
+          <a href="/blog/" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">{blogIndex.navLabel}</a>
         </div>
       </div>
 
-      <div>
+      <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] mb-3">ติดต่อ</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/contact" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">Contact</a>
-          <a data-cta="tel" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1"></a>
-          <a data-cta="email" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1"></a>
-          <a data-cta="line" class="inline-flex min-h-11 items-center gap-2 [&>[data-omni-line-logo]]:!size-4 hover:text-[#00e5ff] transition-colors py-2 sm:py-1"><span>LINE <span data-cta="lineid"></span></span></a>
-          <a href="/privacy" class="flex min-h-11 items-center hover:text-[#00e5ff] transition-colors py-2 sm:py-1">นโยบายความเป็นส่วนตัว</a>
+          <a href="/contact" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Contact</a>
+          <a data-cta="tel" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1"></a>
+          <a data-cta="email" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1"></a>
+          <a data-cta="line" class="footer-link inline-flex min-h-11 items-center gap-2 [&>[data-omni-line-logo]]:!size-4 hover:text-[#00e5ff] py-2 sm:py-1"><span>LINE <span data-cta="lineid"></span></span></a>
+          <a href="/privacy" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">นโยบายความเป็นส่วนตัว</a>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-[#1e293b] gap-4">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center gap-2">
         <img src="/icon.svg" alt="LocalAI" width="24" height="24" class="rounded-md" />
         <span class="text-[13px] font-semibold text-[#f0f4f8]">LocalAI Thailand</span>

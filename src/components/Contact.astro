@@ -4,18 +4,18 @@ import { Mail, MessageCircle, Phone } from "@lucide/astro";
 // omni's cta.js fills every data-cta element after load, so this section is
 // static: a hydrating React island would render over the DOM cta.js wrote.
 const cardClass =
-  "flex items-center gap-4 p-5 rounded-xl bg-[#111827] border border-[#1e293b]";
+  "surface flex min-h-16 items-center gap-4 p-5 rounded-2xl bg-[#111827]";
 ---
 
-<section id="contact" class="py-16 lg:py-20 relative overflow-hidden">
+<section id="contact" class="py-20 lg:py-24 relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-6 relative">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-5xl font-bold text-[#f0f4f8] mb-4">ขอเดโมและประเมินสเปก</h2>
-      <p class="text-[#94a3b8]">บอก workload ของคุณ, เราจะช่วยวาง Local AI ที่เหมาะสม</p>
+    <div data-reveal class="text-center mb-12">
+      <h2 class="text-h2 font-bold text-[#f0f4f8] mb-5">ขอเดโมและประเมินสเปก</h2>
+      <p class="lead mx-auto">บอก workload ของคุณ, เราจะช่วยวาง Local AI ที่เหมาะสม</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8">
-      <div class="space-y-5">
+      <div data-reveal class="space-y-5">
         <a data-cta="line" class={cardClass}><MessageCircle size={22} class="text-[#00C300]" /><span class="text-[#f0f4f8] font-bold">แชทผ่าน LINE</span></a>
         <a data-cta="tel" class={`${cardClass} text-[#f0f4f8] font-bold`}><Phone size={22} class="text-[#00e5ff]" /></a>
         <a data-cta="email" class={`${cardClass} text-[#f0f4f8] font-bold`}><Mail size={22} class="text-[#8b5cf6]" /></a>

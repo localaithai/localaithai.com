@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
 import { assetUrl } from "@/lib/assets";
 import {
   Award,
@@ -51,21 +51,21 @@ const reasons = [
 
 function WhyUs() {
   return (
-    <section id="why-us" className="py-16 lg:py-20 relative">
+    <section id="why-us" className="py-20 lg:py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#f0f4f8] mb-4">
+        <div data-reveal className="text-center mb-12 lg:mb-16">
+          <h2 className="text-h2 font-bold text-[#f0f4f8] mb-5">
             ทำไมลูกค้าถึงเลือกเรา
           </h2>
-          <p className="text-[#94a3b8] max-w-2xl mx-auto text-base lg:text-lg">
+          <p className="lead mx-auto">
             เพราะเราไม่ใช่แค่ร้านขายของ, เราเป็นทีมที่ช่วยคุณ
             <br />
             ตั้งแต่เลือกเครื่อง ติดตั้งระบบ จนใช้งาน AI ได้จริง
           </p>
         </div>
 
-        <figure className="mx-auto mt-8 mb-12 max-w-3xl">
-          <div className="aspect-[16/9] overflow-hidden rounded-lg border border-[#1e293b] bg-[#111827]">
+        <figure data-reveal className="mx-auto mt-8 mb-12 max-w-3xl">
+          <div className="aspect-[16/9] overflow-hidden rounded-2xl border border-[#1e293b] bg-[#111827]">
             <picture className="block h-full">
               <source
                 media="(max-width: 767px)"
@@ -90,13 +90,11 @@ function WhyUs() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {reasons.map((r, i) => (
-            <motion.div
+            <div
               key={r.title}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="rounded-2xl bg-[#111827] border border-[#1e293b] p-6 hover:border-opacity-60 transition-[background-color,border-color,color,box-shadow] duration-300"
+              data-reveal
+              style={{ "--i": i % 3 } as CSSProperties}
+              className="surface rounded-2xl bg-[#111827] p-6"
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor =
                   r.color + "40";
@@ -117,7 +115,7 @@ function WhyUs() {
               <p className="text-sm text-[#94a3b8] leading-relaxed">
                 {r.desc}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
