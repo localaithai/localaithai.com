@@ -51,19 +51,19 @@ const related = relatedPosts
       ? "mimir-blog-article-layout mimir-blog-with-toc"
       : "mimir-blog-article-layout"}
   >
-    <header class="mimir-blog-article-header">
-      <nav class="mimir-blog-breadcrumb" aria-label="เส้นทางหน้า">
-        <ol>
-          <li>
-            <a href="/">หน้าแรก</a>
-          </li>
-          <li>
-            <a href="/blog/">ข่าวและอัปเดต</a>
-          </li>
-          <li aria-current="page">{post.title}</li>
-        </ol>
-      </nav>
+    <nav class="mimir-blog-breadcrumb" aria-label="เส้นทางหน้า">
+      <ol>
+        <li>
+          <a href="/">หน้าแรก</a>
+        </li>
+        <li>
+          <a href="/blog/">ข่าวและอัปเดต</a>
+        </li>
+        <li aria-current="page">{post.title}</li>
+      </ol>
+    </nav>
 
+    <header class="mimir-blog-article-header">
       <p class="mimir-blog-tags">
         <span class="mimir-blog-chip">{categoryLabels[post.kind]}</span>
         <span class="mimir-blog-byline">เผยแพร่โดย {siteName}</span>

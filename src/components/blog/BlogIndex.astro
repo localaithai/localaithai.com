@@ -19,6 +19,15 @@ const monthFormat = new Intl.DateTimeFormat("th-TH", {
   year: "numeric",
   timeZone: "Asia/Bangkok",
 });
+const dayFormat = new Intl.DateTimeFormat("th-TH", {
+  day: "numeric",
+  timeZone: "Asia/Bangkok",
+});
+const shortMonthFormat = new Intl.DateTimeFormat("th-TH", {
+  month: "short",
+  year: "numeric",
+  timeZone: "Asia/Bangkok",
+});
 const categoryLabels: Record<Post["kind"], string> = {
   news: "ข่าว",
   guide: "คู่มือ",
@@ -110,7 +119,7 @@ for (const post of archive) {
             {lead.summary ?? lead.description}
           </p>
           <p class="mimir-blog-meta">
-            <span>
+            <span class="mimir-blog-meta-date">
               ข่าววันที่{" "}
               <time datetime={lead.published.toISOString()}>
                 {dateFormat.format(lead.published)}
@@ -151,12 +160,20 @@ for (const post of archive) {
           {entries.map((post) => (
             <li>
               <article class="mimir-blog-row">
+                <p class="mimir-blog-row-date" aria-hidden="true">
+                  <span class="mimir-blog-row-day">
+                    {dayFormat.format(post.published)}
+                  </span>
+                  <span class="mimir-blog-row-month">
+                    {shortMonthFormat.format(post.published)}
+                  </span>
+                </p>
                 <div class="mimir-blog-row-body">
                   <p class="mimir-blog-meta">
                     <span class="mimir-blog-chip">
                       {categoryLabels[post.kind]}
                     </span>
-                    <span>
+                    <span class="mimir-blog-meta-date">
                       ข่าววันที่{" "}
                       <time datetime={post.published.toISOString()}>
                         {dateFormat.format(post.published)}
