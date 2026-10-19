@@ -1,5 +1,17 @@
 ---
 import type { Blog, Post } from "@mimir/blog";
+import BlogBreadcrumb from "./BlogBreadcrumb.astro";
+import {
+  chip,
+  entryFocus,
+  focusRing,
+  marker,
+  media,
+  mediaImage,
+  metaRow,
+  sectionHeading,
+  stretchLink,
+} from "./blog-classes";
 import { BlogVideo } from "./blog-video";
 import { mdxComponents } from "./mdx-components";
 import { RenderNode } from "./render-node";
@@ -43,67 +55,90 @@ const related = relatedPosts
       entries.findIndex((entry) => entry.path === candidate.path) === index,
   )
   .slice(0, 2);
+const section = "mt-[clamp(3rem,6vw,4.5rem)]";
 ---
 
-<article class="mimir-blog-article" aria-labelledby="mimir-blog-title">
+<article
+  class="mx-auto max-w-[76rem] px-[clamp(1.25rem,4vw,3rem)] pt-[clamp(1.5rem,4vw,3rem)] pb-[clamp(3rem,8vw,6rem)] leading-[1.85] text-ink wrap-anywhere"
+  aria-labelledby="mimir-blog-title"
+>
   <div
-    class={showContents
-      ? "mimir-blog-article-layout mimir-blog-with-toc"
-      : "mimir-blog-article-layout"}
+    class:list={[
+      "grid grid-cols-[minmax(0,46rem)] justify-center",
+      showContents &&
+        "xl:grid-cols-[minmax(0,46rem)_16rem] xl:gap-x-[clamp(3rem,5vw,5rem)]",
+    ]}
   >
-    <nav class="mimir-blog-breadcrumb" aria-label="เส้นทางหน้า">
-      <ol>
-        <li>
-          <a href="/">หน้าแรก</a>
-        </li>
-        <li>
-          <a href="/blog/">ข่าวและอัปเดต</a>
-        </li>
-        <li aria-current="page">{post.title}</li>
-      </ol>
-    </nav>
+    <BlogBreadcrumb
+      class="row-start-1 xl:col-start-1"
+      items={[
+        { label: "หน้าแรก", href: "/" },
+        { label: "ข่าวและอัปเดต", href: "/blog/" },
+        { label: post.title },
+      ]}
+    />
 
-    <header class="mimir-blog-article-header">
-      <p class="mimir-blog-tags">
-        <span class="mimir-blog-chip">{categoryLabels[post.kind]}</span>
-        <span class="mimir-blog-byline">เผยแพร่โดย {siteName}</span>
+    <header
+      class="row-start-3 mt-[clamp(2rem,4vw,3rem)] min-w-0 animate-blog-rise motion-reduce:animate-none xl:col-start-1"
+    >
+      <p class="m-0 mb-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm leading-[1.6]">
+        <span class={chip}>{categoryLabels[post.kind]}</span>
+        <span class="text-ink-2">เผยแพร่โดย {siteName}</span>
       </p>
-      <h1 id="mimir-blog-title" class="mimir-blog-title">
+      <h1
+        id="mimir-blog-title"
+        class="m-0 font-display text-[clamp(2rem,1.35rem+2.6vw,3.5rem)] leading-[1.35] font-[650] tracking-[-0.01em] text-balance"
+      >
         {post.title}
       </h1>
-      <div class="mimir-blog-keypoint">
-        <p class="mimir-blog-keypoint-label">ประเด็นสำคัญ</p>
-        <p class="mimir-blog-keypoint-text">
+      <div class="my-[clamp(1.5rem,3vw,2rem)] rounded-[1rem] bg-ink p-[clamp(1.25rem,3vw,1.75rem)] text-page">
+        <p class:list={[marker, "m-0 mb-2 text-sm font-bold text-page before:bg-page"]}>
+          ประเด็นสำคัญ
+        </p>
+        <p class="m-0 text-[clamp(1.0625rem,1rem+0.35vw,1.25rem)] leading-[1.85] text-pretty">
           {post.summary ?? post.description}
         </p>
       </div>
-      <dl class="mimir-blog-metadata">
-        <div>
-          <dt>ข่าววันที่</dt>
-          <dd>
-            <time datetime={post.published.toISOString()}>
-              {dateFormat.format(post.published)}
-            </time>
-          </dd>
-        </div>
-        <div>
-          <dt>ตรวจทานล่าสุด</dt>
-          <dd>
-            <time datetime={post.reviewed.toISOString()}>
-              {dateFormat.format(post.reviewed)}
-            </time>
-          </dd>
-        </div>
-        <div>
-          <dt>เวลาอ่าน</dt>
-          <dd>ประมาณ {post.readingMinutes} นาที</dd>
-        </div>
+      <dl
+        class="m-0 flex flex-wrap gap-x-10 gap-y-3 border-y border-line py-4"
+      >
+        {
+          [
+            {
+              term: "ข่าววันที่",
+              value: (
+                <time datetime={post.published.toISOString()}>
+                  {dateFormat.format(post.published)}
+                </time>
+              ),
+            },
+            {
+              term: "ตรวจทานล่าสุด",
+              value: (
+                <time datetime={post.reviewed.toISOString()}>
+                  {dateFormat.format(post.reviewed)}
+                </time>
+              ),
+            },
+            {
+              term: "เวลาอ่าน",
+              value: `ประมาณ ${post.readingMinutes} นาที`,
+            },
+          ].map((item) => (
+            <div class="grid min-w-0">
+              <dt class="text-[0.8125rem] leading-[1.6] text-ink-2">{item.term}</dt>
+              <dd class="m-0 text-[0.9375rem] leading-[1.6] font-semibold">
+                {item.value}
+              </dd>
+            </div>
+          ))
+        }
       </dl>
     </header>
 
     {
       post.hero ? (
-        <figure class="mimir-blog-hero">
+        <figure class="col-span-full row-start-2 m-0 min-w-0">
           <img
             src={post.hero.src}
             alt={post.hero.alt}
@@ -111,11 +146,17 @@ const related = relatedPosts
             height="675"
             loading="eager"
             fetchpriority="high"
+            class="block aspect-video w-full rounded-[1rem] bg-surface object-cover lg:aspect-[21/9]"
           />
-          <figcaption class="mimir-blog-caption">
+          <figcaption class="mt-3 flex flex-wrap items-center gap-x-4 text-sm leading-[1.7] text-ink-2">
             <span>{post.hero.caption}</span>
             <span>ภาพ: {post.hero.credit}</span>
-            <a href={post.hero.sourceUrl}>แหล่งที่มาของภาพ</a>
+            <a
+              href={post.hero.sourceUrl}
+              class:list={["inline-flex min-h-11 items-center text-brand", focusRing]}
+            >
+              แหล่งที่มาของภาพ
+            </a>
           </figcaption>
         </figure>
       ) : null
@@ -123,34 +164,76 @@ const related = relatedPosts
 
     {
       showContents ? (
-        <nav class="mimir-blog-toc" aria-labelledby="mimir-blog-toc-title">
-          <h2 id="mimir-blog-toc-title">ในบทความนี้</h2>
-          <ol>
-            {post.headings.map((heading) => (
-              <li data-depth={heading.depth}>
-                <a href={`#${heading.id}`}>{heading.text}</a>
-              </li>
-            ))}
+        <nav
+          class="row-start-4 mt-[clamp(2rem,4vw,3rem)] min-w-0 rounded-[1rem] border border-line bg-surface px-6 py-5 xl:sticky xl:top-26 xl:col-start-2 xl:max-h-[calc(100svh-8.5rem)] xl:self-start xl:overflow-y-auto xl:rounded-none xl:border-0 xl:bg-transparent xl:p-0"
+          aria-labelledby="mimir-blog-toc-title"
+        >
+          <h2
+            id="mimir-blog-toc-title"
+            class="m-0 mb-2 text-sm leading-[1.6] font-bold text-ink-2"
+          >
+            ในบทความนี้
+          </h2>
+          <ol class="m-0 list-none p-0 [counter-reset:toc]">
+            {post.headings.map((heading) =>
+              heading.depth === 2 ? (
+                <li class="[counter-increment:toc]">
+                  <a
+                    href={`#${heading.id}`}
+                    class:list={[
+                      "flex min-h-11 gap-3 py-2 text-[0.9375rem] leading-[1.6] text-ink no-underline transition-colors before:min-w-5 before:flex-none before:text-ink-2 before:tabular-nums before:content-[counter(toc)] hover:text-brand",
+                      focusRing,
+                    ]}
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ) : (
+                <li>
+                  <a
+                    href={`#${heading.id}`}
+                    class:list={[
+                      "flex min-h-11 py-2 ps-8 text-sm leading-[1.6] text-ink-2 no-underline transition-colors hover:text-brand",
+                      focusRing,
+                    ]}
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ),
+            )}
           </ol>
         </nav>
       ) : null
     }
 
-    <div class="mimir-blog-content">
-      <div class="mimir-blog-prose"><RenderNode node={body} /></div>
+    <div
+      class:list={[
+        "row-start-5 mt-[clamp(2rem,4vw,3rem)] min-w-0",
+        showContents && "xl:col-start-1 xl:row-start-4",
+      ]}
+    >
+      <div
+        class="min-w-0 text-[clamp(1.0625rem,1rem+0.2vw,1.125rem)] leading-[1.9] *:first:mt-0"
+      >
+        <RenderNode node={body} />
+      </div>
 
       {
         post.faq.length > 0 ? (
-          <section
-            class="mimir-blog-section mimir-blog-faq"
-            aria-labelledby="mimir-blog-faq-title"
-          >
-            <h2 id="mimir-blog-faq-title">คำถามที่พบบ่อย</h2>
-            <dl>
+          <section class={section} aria-labelledby="mimir-blog-faq-title">
+            <h2 id="mimir-blog-faq-title" class={sectionHeading}>
+              คำถามที่พบบ่อย
+            </h2>
+            <dl class="m-0 rounded-[1rem] border border-line bg-surface">
               {post.faq.map((item) => (
-                <div>
-                  <dt>{item.question}</dt>
-                  <dd>{item.answer}</dd>
+                <div class="border-line px-6 py-5 not-first:border-t">
+                  <dt class="mb-1.5 text-[1.0625rem] leading-[1.7] font-[650]">
+                    {item.question}
+                  </dt>
+                  <dd class="m-0 leading-[1.85] whitespace-pre-line text-ink-2">
+                    {item.answer}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -160,12 +243,11 @@ const related = relatedPosts
 
       {
         post.videos.length > 0 ? (
-          <section
-            class="mimir-blog-section"
-            aria-labelledby="mimir-blog-videos-title"
-          >
-            <h2 id="mimir-blog-videos-title">วิดีโอที่เกี่ยวข้อง</h2>
-            <ul class="mimir-blog-video-list">
+          <section class={section} aria-labelledby="mimir-blog-videos-title">
+            <h2 id="mimir-blog-videos-title" class={sectionHeading}>
+              วิดีโอที่เกี่ยวข้อง
+            </h2>
+            <ul class="m-0 grid list-none gap-6 p-0">
               {post.videos.map((video) => (
                 <li>
                   <BlogVideo client:visible video={video} />
@@ -178,21 +260,27 @@ const related = relatedPosts
 
       {
         post.citations.length > 0 ? (
-          <section
-            class="mimir-blog-section"
-            aria-labelledby="mimir-blog-sources-title"
-          >
-            <h2 id="mimir-blog-sources-title">แหล่งข้อมูล</h2>
-            <ol class="mimir-blog-sources">
+          <section class={section} aria-labelledby="mimir-blog-sources-title">
+            <h2 id="mimir-blog-sources-title" class={sectionHeading}>
+              แหล่งข้อมูล
+            </h2>
+            <ol class="m-0 grid list-none p-0 [counter-reset:source]">
               {post.citations.map((citation) => (
-                <li>
-                  <a href={citation.url}>
+                <li class="relative border-line py-5 ps-12 [counter-increment:source] not-first:border-t before:absolute before:start-0 before:top-6 before:grid before:size-7.5 before:place-items-center before:rounded-full before:border before:border-line before:text-[0.8125rem] before:leading-none before:font-bold before:text-ink-2 before:tabular-nums before:content-[counter(source)]">
+                  <a
+                    href={citation.url}
+                    class:list={[
+                      "inline leading-[1.7] font-semibold text-ink no-underline transition-colors hover:text-brand hover:underline",
+                      focusRing,
+                    ]}
+                  >
                     {citation.title}
                     <svg
                       viewBox="0 0 16 16"
                       width="14"
                       height="14"
                       aria-hidden="true"
+                      class="ms-1 inline-block align-[-0.125em] text-brand"
                     >
                       <path
                         fill="none"
@@ -204,23 +292,23 @@ const related = relatedPosts
                       />
                     </svg>
                   </a>
-                  <p class="mimir-blog-source-publisher">
+                  <p class="m-0 mt-1 text-[0.9375rem] text-ink-2">
                     {citation.publisher}
                   </p>
-                  <dl class="mimir-blog-source-dates">
+                  <dl class="m-0 mt-1 flex flex-wrap gap-x-5 text-[0.8125rem] leading-[1.7] text-ink-2">
                     {citation.published ? (
-                      <div>
+                      <div class="flex gap-1.5">
                         <dt>เผยแพร่ต้นทาง</dt>
-                        <dd>
+                        <dd class="m-0 text-ink">
                           <time datetime={citation.published}>
                             {sourceDate(citation.published)}
                           </time>
                         </dd>
                       </div>
                     ) : null}
-                    <div>
+                    <div class="flex gap-1.5">
                       <dt>เข้าถึงข้อมูล</dt>
-                      <dd>
+                      <dd class="m-0 text-ink">
                         <time datetime={citation.accessed}>
                           {sourceDate(citation.accessed)}
                         </time>
@@ -236,36 +324,43 @@ const related = relatedPosts
 
       {
         related.length > 0 ? (
-          <nav
-            class="mimir-blog-section"
-            aria-labelledby="mimir-blog-related-title"
-          >
-            <h2 id="mimir-blog-related-title">อ่านต่อ</h2>
-            <ul class="mimir-blog-related">
+          <nav class={section} aria-labelledby="mimir-blog-related-title">
+            <h2 id="mimir-blog-related-title" class={sectionHeading}>
+              อ่านต่อ
+            </h2>
+            <ul class="m-0 grid list-none gap-6 p-0 sm:grid-cols-2">
               {related.map((candidate) => (
-                <li class="mimir-blog-related-item">
+                <li
+                  class:list={[
+                    "group relative grid min-w-0 content-start gap-3",
+                    entryFocus,
+                  ]}
+                >
                   {candidate.hero ? (
-                    <div class="mimir-blog-media">
+                    <div class:list={[media, "aspect-video"]}>
                       <img
                         src={candidate.hero.src}
                         alt=""
                         width="1200"
                         height="675"
                         loading="lazy"
+                        class={mediaImage}
                       />
                     </div>
                   ) : null}
-                  <p class="mimir-blog-meta">
-                    <span class="mimir-blog-chip">
-                      {categoryLabels[candidate.kind]}
-                    </span>
-                    <span>
-                      <time datetime={candidate.published.toISOString()}>
-                        {shortDateFormat.format(candidate.published)}
-                      </time>
-                    </span>
+                  <p class={metaRow}>
+                    <span class={chip}>{categoryLabels[candidate.kind]}</span>
+                    <time datetime={candidate.published.toISOString()}>
+                      {shortDateFormat.format(candidate.published)}
+                    </time>
                   </p>
-                  <a class="mimir-blog-stretch" href={candidate.path}>
+                  <a
+                    class:list={[
+                      stretchLink,
+                      "font-display text-lg leading-[1.6] font-semibold text-balance transition-colors group-hover:text-brand",
+                    ]}
+                    href={candidate.path}
+                  >
                     {candidate.title}
                   </a>
                 </li>
@@ -276,17 +371,37 @@ const related = relatedPosts
       }
 
       <aside
-        class="mimir-blog-offer"
+        class:list={[
+          section,
+          "relative grid justify-items-start gap-3 overflow-hidden rounded-[1rem] border border-brand/35 bg-surface bg-[image:radial-gradient(120%_140%_at_100%_0%,color-mix(in_oklch,var(--color-brand)_20%,transparent),transparent_60%)] p-[clamp(1.5rem,4vw,2.5rem)]",
+        ]}
         aria-labelledby="mimir-blog-offer-title"
         data-cta-zone
       >
-        <h2 id="mimir-blog-offer-title">นำข่าวนี้ไปวางแผนกับองค์กรของคุณ</h2>
-        <p>
+        <h2
+          id="mimir-blog-offer-title"
+          class="m-0 max-w-[24ch] font-display text-[clamp(1.375rem,1.2rem+0.8vw,1.875rem)] leading-[1.5] font-[650] text-balance"
+        >
+          นำข่าวนี้ไปวางแผนกับองค์กรของคุณ
+        </h2>
+        <p class="m-0 mb-2 max-w-[52ch] text-ink-2">
           ปรึกษาว่าข่าวนี้มีผลต่อแผนระบบ AI ของคุณอย่างไร ก่อนตัดสินใจลงทุน
         </p>
-        <a class="mimir-blog-cta" href={ctaHref}>
+        <a
+          href={ctaHref}
+          class:list={[
+            "group/cta inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-brand bg-brand px-6 py-2.5 text-center font-[650] text-page no-underline transition-[filter] duration-300 hover:brightness-110",
+            focusRing,
+          ]}
+        >
           {ctaLabel}
-          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+          <svg
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+            aria-hidden="true"
+            class="transition-transform duration-300 ease-blog group-hover/cta:translate-x-1 motion-reduce:transition-none"
+          >
             <path
               fill="none"
               stroke="currentColor"

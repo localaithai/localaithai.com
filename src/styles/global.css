@@ -21,6 +21,27 @@
   --hairline: rgba(148, 163, 184, 0.14);
 }
 
+@theme static {
+  --color-page: #060a14;
+  --color-surface: #0c1220;
+  --color-ink: #f0f4f8;
+  --color-ink-2: #94a3b8;
+  --color-line: #263244;
+  --color-brand: #00e5ff;
+  --color-brand-tint: #0c2330;
+}
+
+@theme {
+  --ease-blog: cubic-bezier(0.25, 1, 0.5, 1);
+  --animate-blog-rise: blog-rise 700ms var(--ease-blog) both;
+
+  @keyframes blog-rise {
+    from {
+      transform: translateY(0.75rem);
+    }
+  }
+}
+
 @theme inline {
   --font-sans: "Space Grotesk", sans-serif;
   --font-thai: "IBM Plex Sans Thai", sans-serif;

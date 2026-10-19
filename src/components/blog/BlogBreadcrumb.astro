@@ -1,0 +1,47 @@
+---
+import { focusRing } from "./blog-classes";
+
+type Props = {
+  items: readonly { label: string; href?: string }[];
+  class?: string;
+};
+
+const { items, class: className } = Astro.props;
+---
+
+<nav aria-label="เส้นทางหน้า" class:list={["min-w-0", className]}>
+  <ol
+    class="m-0 mb-[clamp(1.5rem,3vw,2.5rem)] flex list-none flex-wrap items-center gap-x-2.5 p-0 text-sm leading-[1.6] text-ink-2"
+  >
+    {
+      items.map((item, index) => (
+        <li
+          class="flex min-w-0 items-center gap-2.5"
+          aria-current={item.href ? undefined : "page"}
+        >
+          {index > 0 ? (
+            <span
+              aria-hidden="true"
+              class="size-1.5 flex-none rotate-45 border-t-[1.5px] border-r-[1.5px] border-current opacity-60"
+            />
+          ) : null}
+          {item.href ? (
+            <a
+              href={item.href}
+              class:list={[
+                "inline-flex min-h-11 items-center text-ink-2 no-underline transition-colors hover:text-ink",
+                focusRing,
+              ]}
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span class="block max-w-[min(32ch,100%)] truncate text-ink">
+              {item.label}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

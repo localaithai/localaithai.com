@@ -1,5 +1,17 @@
 ---
 import type { Post } from "@mimir/blog";
+import BlogBreadcrumb from "./BlogBreadcrumb.astro";
+import {
+  badge,
+  chip,
+  entryFocus,
+  focusRing,
+  media,
+  mediaImage,
+  metaDot,
+  metaRow,
+  stretchLink,
+} from "./blog-classes";
 
 type Props = {
   posts: readonly Post[];
@@ -49,28 +61,35 @@ for (const post of archive) {
 }
 ---
 
-<section class="mimir-blog-index" aria-labelledby="mimir-blog-index-title">
-  <nav class="mimir-blog-breadcrumb" aria-label="เส้นทางหน้า">
-    <ol>
-      <li>
-        <a href="/">หน้าแรก</a>
-      </li>
-      <li aria-current="page">ข่าวและอัปเดต</li>
-    </ol>
-  </nav>
+<section
+  class="mx-auto max-w-[76rem] px-[clamp(1.25rem,4vw,3rem)] pt-[clamp(1.5rem,4vw,3rem)] pb-[clamp(3rem,8vw,6rem)] leading-[1.85] text-ink wrap-anywhere"
+  aria-labelledby="mimir-blog-index-title"
+>
+  <BlogBreadcrumb items={[{ label: "หน้าแรก", href: "/" }, { label: "ข่าวและอัปเดต" }]} />
 
-  <header class="mimir-blog-index-header">
-    <div class="mimir-blog-index-heading">
-      <p class="mimir-blog-kicker">{siteName}</p>
-      <h1 id="mimir-blog-index-title" class="mimir-blog-title">
+  <header
+    class="grid animate-blog-rise gap-6 border-b border-line pb-[clamp(2rem,4vw,3rem)] motion-reduce:animate-none lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-x-12"
+  >
+    <div class="grid min-w-0 gap-3">
+      <p class="m-0 text-[0.9375rem] font-semibold text-ink-2">{siteName}</p>
+      <h1
+        id="mimir-blog-index-title"
+        class="m-0 max-w-[18ch] font-display text-[clamp(2.25rem,1.5rem+3.2vw,4.25rem)] leading-[1.3] font-[650] tracking-[-0.01em] text-balance"
+      >
         {indexTitle}
       </h1>
-      <p class="mimir-blog-lede">{indexDescription}</p>
+      <p
+        class="m-0 mt-1 max-w-[62ch] text-[clamp(1.0625rem,1rem+0.3vw,1.1875rem)] leading-[1.8] text-pretty text-ink-2"
+      >
+        {indexDescription}
+      </p>
     </div>
-    <div class="mimir-blog-index-aside">
+    <div
+      class="flex flex-wrap items-center gap-x-5 gap-y-2 lg:flex-col lg:items-end lg:text-end"
+    >
       {
         lead ? (
-          <p class="mimir-blog-index-status">
+          <p class="m-0 text-sm text-ink-2">
             {orderedPosts.length} บทความ · ล่าสุด{" "}
             <time datetime={lead.published.toISOString()}>
               {dateFormat.format(lead.published)}
@@ -78,8 +97,20 @@ for (const post of archive) {
           </p>
         ) : null
       }
-      <a class="mimir-blog-feed-link" href="/blog/feed.xml">
-        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <a
+        href="/blog/feed.xml"
+        class:list={[
+          "inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-4 text-sm font-semibold text-ink no-underline transition-colors hover:border-brand hover:bg-ink/4",
+          focusRing,
+        ]}
+      >
+        <svg
+          viewBox="0 0 16 16"
+          width="16"
+          height="16"
+          aria-hidden="true"
+          class="text-brand"
+        >
           <path
             fill="currentColor"
             d="M2.5 11a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM1 5.5A9.5 9.5 0 0 1 10.5 15h-2A7.5 7.5 0 0 0 1 7.5v-2ZM1 1a14 14 0 0 1 14 14h-2A12 12 0 0 0 1 3V1Z"
@@ -92,9 +123,14 @@ for (const post of archive) {
 
   {
     lead ? (
-      <article class="mimir-blog-lead">
+      <article
+        class:list={[
+          "group relative my-[clamp(2rem,4vw,3.5rem)] grid animate-blog-rise gap-6 [animation-delay:80ms] motion-reduce:animate-none grid-cols-1 lg:gap-10",
+          entryFocus,
+        ]}
+      >
         {lead.hero ? (
-          <div class="mimir-blog-media mimir-blog-lead-media">
+          <div class:list={[media, "order-2 aspect-video lg:aspect-[21/9]"]}>
             <img
               src={lead.hero.src}
               alt={lead.hero.alt}
@@ -102,34 +138,41 @@ for (const post of archive) {
               height="675"
               loading="eager"
               fetchpriority="high"
+              class={mediaImage}
             />
           </div>
         ) : null}
-        <div class="mimir-blog-lead-body">
-          <p class="mimir-blog-tags">
-            <span class="mimir-blog-badge">ล่าสุด</span>
-            <span class="mimir-blog-chip">{categoryLabels[lead.kind]}</span>
+        <div class="grid min-w-0 content-center justify-items-start gap-4 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-x-[clamp(2rem,4vw,4rem)] lg:gap-y-4">
+          <p class="m-0 flex flex-wrap items-center gap-x-3 gap-y-1.5 lg:col-start-1 lg:row-start-1">
+            <span class={badge}>ล่าสุด</span>
+            <span class={chip}>{categoryLabels[lead.kind]}</span>
           </p>
-          <h2 class="mimir-blog-lead-title">
-            <a class="mimir-blog-stretch" href={lead.path}>
+          <h2 class="m-0 font-display text-[clamp(1.625rem,1.15rem+1.8vw,2.625rem)] leading-[1.4] font-[650] tracking-[-0.01em] text-balance transition-colors group-hover:text-brand lg:col-start-1 lg:row-start-2 lg:row-span-3 lg:text-[clamp(2rem,1.2rem+2.4vw,3.25rem)]">
+            <a class={stretchLink} href={lead.path}>
               {lead.title}
             </a>
           </h2>
-          <p class="mimir-blog-lead-summary">
+          <p class="m-0 max-w-[52ch] text-[1.0625rem] leading-[1.85] text-pretty text-ink-2 lg:col-start-2 lg:row-start-1 lg:row-span-2">
             {lead.summary ?? lead.description}
           </p>
-          <p class="mimir-blog-meta">
-            <span class="mimir-blog-meta-date">
+          <p class="m-0 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm leading-[1.6] text-ink-2 lg:col-start-2 lg:row-start-3">
+            <span>
               ข่าววันที่{" "}
               <time datetime={lead.published.toISOString()}>
                 {dateFormat.format(lead.published)}
               </time>
             </span>
+            <span aria-hidden="true" class={metaDot} />
             <span>อ่านประมาณ {lead.readingMinutes} นาที</span>
           </p>
-          <span class="mimir-blog-read-more" aria-hidden="true">
+          <span class="mt-1 inline-flex items-center gap-2 font-semibold text-brand lg:col-start-2 lg:row-start-4" aria-hidden="true">
             อ่านบทความ
-            <svg viewBox="0 0 16 16" width="16" height="16">
+            <svg
+              viewBox="0 0 16 16"
+              width="16"
+              height="16"
+              class="transition-transform duration-300 ease-blog group-hover:translate-x-1 motion-reduce:transition-none"
+            >
               <path
                 fill="none"
                 stroke="currentColor"
@@ -143,61 +186,61 @@ for (const post of archive) {
         </div>
       </article>
     ) : (
-      <p class="mimir-blog-empty">ยังไม่มีข่าวที่เผยแพร่</p>
+      <p class="my-12 text-ink-2">ยังไม่มีข่าวที่เผยแพร่</p>
     )
   }
 
   {
     [...months].map(([month, entries], monthIndex) => (
       <section
-        class="mimir-blog-archive"
+        class="pt-[clamp(1.5rem,3vw,2.5rem)]"
         aria-labelledby={`mimir-blog-month-${monthIndex}`}
       >
-        <h2 id={`mimir-blog-month-${monthIndex}`} class="mimir-blog-month">
+        <h2
+          id={`mimir-blog-month-${monthIndex}`}
+          class="m-0 font-display text-lg leading-[1.6] font-semibold mb-5"
+        >
           {month}
         </h2>
-        <ol class="mimir-blog-rows">
+        <ol class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
           {entries.map((post) => (
-            <li>
-              <article class="mimir-blog-row">
-                <p class="mimir-blog-row-date" aria-hidden="true">
-                  <span class="mimir-blog-row-day">
-                    {dayFormat.format(post.published)}
-                  </span>
-                  <span class="mimir-blog-row-month">
-                    {shortMonthFormat.format(post.published)}
-                  </span>
-                </p>
-                <div class="mimir-blog-row-body">
-                  <p class="mimir-blog-meta">
-                    <span class="mimir-blog-chip">
-                      {categoryLabels[post.kind]}
-                    </span>
-                    <span class="mimir-blog-meta-date">
+            <li class="grid lg:first:col-span-2 lg:first:row-span-2">
+              <article
+                class:list={[
+                  "group relative isolate grid min-h-76 overflow-hidden rounded-[1rem] bg-surface",
+                  entryFocus,
+                ]}
+              >
+                <div class="grid min-w-0 content-end gap-2 self-stretch bg-[linear-gradient(to_top,rgb(6_10_20/0.96)_0%,rgb(6_10_20/0.78)_45%,rgb(6_10_20/0)_100%)] px-5 pt-28 pb-5">
+                  <p class="col-span-full m-0 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm leading-[1.6] text-ink/80">
+                    <span class={chip}>{categoryLabels[post.kind]}</span>
+                    <span>
                       ข่าววันที่{" "}
                       <time datetime={post.published.toISOString()}>
                         {dateFormat.format(post.published)}
                       </time>
                     </span>
+                    <span aria-hidden="true" class={metaDot} />
                     <span>อ่าน {post.readingMinutes} นาที</span>
                   </p>
-                  <h3 class="mimir-blog-row-title">
-                    <a class="mimir-blog-stretch" href={post.path}>
+                  <h3 class="col-start-1 m-0 font-display leading-[1.55] font-semibold text-balance text-[clamp(1.125rem,1rem+0.45vw,1.375rem)] transition-colors group-hover:text-brand">
+                    <a class={stretchLink} href={post.path}>
                       {post.title}
                     </a>
                   </h3>
-                  <p class="mimir-blog-row-summary">
+                  <p class="col-span-full m-0 max-w-[68ch] leading-[1.8] line-clamp-2 text-ink/80">
                     {post.summary ?? post.description}
                   </p>
                 </div>
                 {post.hero ? (
-                  <div class="mimir-blog-media mimir-blog-row-media">
+                  <div class="absolute inset-0 -z-1 overflow-hidden bg-surface">
                     <img
                       src={post.hero.src}
                       alt={post.hero.alt}
                       width="1200"
                       height="675"
                       loading="lazy"
+                      class={mediaImage}
                     />
                   </div>
                 ) : null}
