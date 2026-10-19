@@ -56,9 +56,11 @@ export function BlogVideo({ video }: BlogVideoProps) {
             onClick={() => setLoaded(true)}
           >
             <span className="mimir-blog-play-symbol" aria-hidden="true">
-              ▶
+              <svg viewBox="0 0 24 24" width="28" height="28">
+                <path fill="currentColor" d="M8 5.14v13.72L19 12 8 5.14Z" />
+              </svg>
             </span>
-            <span>เล่นวิดีโอ</span>
+            <span className="mimir-blog-play-label">เล่นวิดีโอ</span>
           </button>
         ) : (
           <p className="mimir-blog-video-unavailable">

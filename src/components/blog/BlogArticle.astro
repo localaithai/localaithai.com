@@ -19,8 +19,18 @@ const dateFormat = new Intl.DateTimeFormat("th-TH", {
   dateStyle: "long",
   timeZone: "Asia/Bangkok",
 });
+const shortDateFormat = new Intl.DateTimeFormat("th-TH", {
+  dateStyle: "medium",
+  timeZone: "Asia/Bangkok",
+});
 const sourceDate = (value: string) =>
-  dateFormat.format(new Date(`${value}T00:00:00+07:00`));
+  shortDateFormat.format(new Date(`${value}T00:00:00+07:00`));
+const categoryLabels: Record<Post["kind"], string> = {
+  news: "ข่าว",
+  guide: "คู่มือ",
+  compare: "เปรียบเทียบ",
+  "use-case": "ตัวอย่างการใช้งาน",
+};
 
 // The MDX body renders to static HTML on the server; no client JS ships for it.
 const body = await blog.render(post, mdxComponents);
@@ -41,7 +51,7 @@ const related = relatedPosts
       ? "mimir-blog-article-layout mimir-blog-with-toc"
       : "mimir-blog-article-layout"}
   >
-    <div class="mimir-blog-reader mimir-blog-opening">
+    <header class="mimir-blog-article-header">
       <nav class="mimir-blog-breadcrumb" aria-label="เส้นทางหน้า">
         <ol>
           <li>
@@ -54,60 +64,62 @@ const related = relatedPosts
         </ol>
       </nav>
 
-      <header class="mimir-blog-article-header">
-        <p class="mimir-blog-eyebrow">เผยแพร่โดย {siteName}</p>
-        <h1 id="mimir-blog-title" class="mimir-blog-title">
-          {post.title}
-        </h1>
-        <div class="mimir-blog-summary-panel">
-          <p class="mimir-blog-summary-label">ประเด็นสำคัญ</p>
-          <p class="mimir-blog-summary">
-            {post.summary ?? post.description}
-          </p>
-        </div>
-        <dl class="mimir-blog-metadata">
-          <div>
-            <dt>ข่าววันที่</dt>
-            <dd>
-              <time datetime={post.published.toISOString()}>
-                {dateFormat.format(post.published)}
-              </time>
-            </dd>
-          </div>
-          <div>
-            <dt>ตรวจทานล่าสุด</dt>
-            <dd>
-              <time datetime={post.reviewed.toISOString()}>
-                {dateFormat.format(post.reviewed)}
-              </time>
-            </dd>
-          </div>
-        </dl>
-        <p class="mimir-blog-reading-time">
-          อ่านประมาณ {post.readingMinutes} นาที
+      <p class="mimir-blog-tags">
+        <span class="mimir-blog-chip">{categoryLabels[post.kind]}</span>
+        <span class="mimir-blog-byline">เผยแพร่โดย {siteName}</span>
+      </p>
+      <h1 id="mimir-blog-title" class="mimir-blog-title">
+        {post.title}
+      </h1>
+      <div class="mimir-blog-keypoint">
+        <p class="mimir-blog-keypoint-label">ประเด็นสำคัญ</p>
+        <p class="mimir-blog-keypoint-text">
+          {post.summary ?? post.description}
         </p>
-      </header>
+      </div>
+      <dl class="mimir-blog-metadata">
+        <div>
+          <dt>ข่าววันที่</dt>
+          <dd>
+            <time datetime={post.published.toISOString()}>
+              {dateFormat.format(post.published)}
+            </time>
+          </dd>
+        </div>
+        <div>
+          <dt>ตรวจทานล่าสุด</dt>
+          <dd>
+            <time datetime={post.reviewed.toISOString()}>
+              {dateFormat.format(post.reviewed)}
+            </time>
+          </dd>
+        </div>
+        <div>
+          <dt>เวลาอ่าน</dt>
+          <dd>ประมาณ {post.readingMinutes} นาที</dd>
+        </div>
+      </dl>
+    </header>
 
-      {
-        post.hero ? (
-          <figure class="mimir-blog-hero">
-            <img
-              src={post.hero.src}
-              alt={post.hero.alt}
-              width="1200"
-              height="675"
-              loading="eager"
-              fetchpriority="high"
-            />
-            <figcaption class="mimir-blog-caption">
-              <span>{post.hero.caption}</span>
-              <span>ภาพ: {post.hero.credit}</span>
-              <a href={post.hero.sourceUrl}>แหล่งที่มาของภาพ</a>
-            </figcaption>
-          </figure>
-        ) : null
-      }
-    </div>
+    {
+      post.hero ? (
+        <figure class="mimir-blog-hero">
+          <img
+            src={post.hero.src}
+            alt={post.hero.alt}
+            width="1200"
+            height="675"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <figcaption class="mimir-blog-caption">
+            <span>{post.hero.caption}</span>
+            <span>ภาพ: {post.hero.credit}</span>
+            <a href={post.hero.sourceUrl}>แหล่งที่มาของภาพ</a>
+          </figcaption>
+        </figure>
+      ) : null
+    }
 
     {
       showContents ? (
@@ -124,7 +136,7 @@ const related = relatedPosts
       ) : null
     }
 
-    <div class="mimir-blog-reader mimir-blog-content">
+    <div class="mimir-blog-content">
       <div class="mimir-blog-prose"><RenderNode node={body} /></div>
 
       {
@@ -174,8 +186,27 @@ const related = relatedPosts
             <ol class="mimir-blog-sources">
               {post.citations.map((citation) => (
                 <li>
-                  <a href={citation.url}>{citation.title}</a>
-                  <p>{citation.publisher}</p>
+                  <a href={citation.url}>
+                    {citation.title}
+                    <svg
+                      viewBox="0 0 16 16"
+                      width="14"
+                      height="14"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 11l6-6M6 5h5v5"
+                      />
+                    </svg>
+                  </a>
+                  <p class="mimir-blog-source-publisher">
+                    {citation.publisher}
+                  </p>
                   <dl class="mimir-blog-source-dates">
                     {citation.published ? (
                       <div>
@@ -212,8 +243,31 @@ const related = relatedPosts
             <h2 id="mimir-blog-related-title">อ่านต่อ</h2>
             <ul class="mimir-blog-related">
               {related.map((candidate) => (
-                <li>
-                  <a href={candidate.path}>{candidate.title}</a>
+                <li class="mimir-blog-related-item">
+                  {candidate.hero ? (
+                    <div class="mimir-blog-media">
+                      <img
+                        src={candidate.hero.src}
+                        alt=""
+                        width="1200"
+                        height="675"
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : null}
+                  <p class="mimir-blog-meta">
+                    <span class="mimir-blog-chip">
+                      {categoryLabels[candidate.kind]}
+                    </span>
+                    <span>
+                      <time datetime={candidate.published.toISOString()}>
+                        {shortDateFormat.format(candidate.published)}
+                      </time>
+                    </span>
+                  </p>
+                  <a class="mimir-blog-stretch" href={candidate.path}>
+                    {candidate.title}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -221,9 +275,27 @@ const related = relatedPosts
         ) : null
       }
 
-      <aside class="mimir-blog-offer">
+      <aside
+        class="mimir-blog-offer"
+        aria-labelledby="mimir-blog-offer-title"
+        data-cta-zone
+      >
+        <h2 id="mimir-blog-offer-title">นำข่าวนี้ไปวางแผนกับองค์กรของคุณ</h2>
+        <p>
+          ปรึกษาว่าข่าวนี้มีผลต่อแผนระบบ AI ของคุณอย่างไร ก่อนตัดสินใจลงทุน
+        </p>
         <a class="mimir-blog-cta" href={ctaHref}>
           {ctaLabel}
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 8h10M9 4l4 4-4 4"
+            />
+          </svg>
         </a>
       </aside>
     </div>

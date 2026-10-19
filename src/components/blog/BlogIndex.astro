@@ -11,7 +11,7 @@ type Props = {
 const { posts, siteName, indexTitle, indexDescription } = Astro.props;
 
 const dateFormat = new Intl.DateTimeFormat("th-TH", {
-  dateStyle: "long",
+  dateStyle: "medium",
   timeZone: "Asia/Bangkok",
 });
 const monthFormat = new Intl.DateTimeFormat("th-TH", {
@@ -29,9 +29,10 @@ const categoryLabels: Record<Post["kind"], string> = {
 const orderedPosts = [...posts].sort(
   (left, right) => right.published.getTime() - left.published.getTime(),
 );
+const [lead, ...archive] = orderedPosts;
 const months = new Map<string, Post[]>();
 
-for (const post of orderedPosts) {
+for (const post of archive) {
   const month = monthFormat.format(post.published);
   const entries = months.get(month) ?? [];
   entries.push(post);
@@ -48,71 +49,146 @@ for (const post of orderedPosts) {
       <li aria-current="page">ข่าวและอัปเดต</li>
     </ol>
   </nav>
+
   <header class="mimir-blog-index-header">
-    <p class="mimir-blog-eyebrow">{siteName}</p>
-    <h1 id="mimir-blog-index-title" class="mimir-blog-title">
-      {indexTitle}
-    </h1>
-    <p class="mimir-blog-summary">{indexDescription}</p>
-    <a class="mimir-blog-feed-link" href="/blog/feed.xml">
-      ติดตามข่าวผ่าน RSS
-    </a>
+    <div class="mimir-blog-index-heading">
+      <p class="mimir-blog-kicker">{siteName}</p>
+      <h1 id="mimir-blog-index-title" class="mimir-blog-title">
+        {indexTitle}
+      </h1>
+      <p class="mimir-blog-lede">{indexDescription}</p>
+    </div>
+    <div class="mimir-blog-index-aside">
+      {
+        lead ? (
+          <p class="mimir-blog-index-status">
+            {orderedPosts.length} บทความ · ล่าสุด{" "}
+            <time datetime={lead.published.toISOString()}>
+              {dateFormat.format(lead.published)}
+            </time>
+          </p>
+        ) : null
+      }
+      <a class="mimir-blog-feed-link" href="/blog/feed.xml">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M2.5 11a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM1 5.5A9.5 9.5 0 0 1 10.5 15h-2A7.5 7.5 0 0 0 1 7.5v-2ZM1 1a14 14 0 0 1 14 14h-2A12 12 0 0 0 1 3V1Z"
+          ></path>
+        </svg>
+        ติดตามข่าวผ่าน RSS
+      </a>
+    </div>
   </header>
 
   {
-    orderedPosts.length === 0 ? (
-      <p class="mimir-blog-empty">ยังไม่มีข่าวที่เผยแพร่</p>
+    lead ? (
+      <article class="mimir-blog-lead">
+        {lead.hero ? (
+          <div class="mimir-blog-media mimir-blog-lead-media">
+            <img
+              src={lead.hero.src}
+              alt={lead.hero.alt}
+              width="1200"
+              height="675"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+        ) : null}
+        <div class="mimir-blog-lead-body">
+          <p class="mimir-blog-tags">
+            <span class="mimir-blog-badge">ล่าสุด</span>
+            <span class="mimir-blog-chip">{categoryLabels[lead.kind]}</span>
+          </p>
+          <h2 class="mimir-blog-lead-title">
+            <a class="mimir-blog-stretch" href={lead.path}>
+              {lead.title}
+            </a>
+          </h2>
+          <p class="mimir-blog-lead-summary">
+            {lead.summary ?? lead.description}
+          </p>
+          <p class="mimir-blog-meta">
+            <span>
+              ข่าววันที่{" "}
+              <time datetime={lead.published.toISOString()}>
+                {dateFormat.format(lead.published)}
+              </time>
+            </span>
+            <span>อ่านประมาณ {lead.readingMinutes} นาที</span>
+          </p>
+          <span class="mimir-blog-read-more" aria-hidden="true">
+            อ่านบทความ
+            <svg viewBox="0 0 16 16" width="16" height="16">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 8h10M9 4l4 4-4 4"
+              ></path>
+            </svg>
+          </span>
+        </div>
+      </article>
     ) : (
-      [...months].map(([month, entries]) => (
-        <section class="mimir-blog-archive">
-          <h2 class="mimir-blog-month">{month}</h2>
-          <ul class="mimir-blog-card-list">
-            {entries.map((post) => (
-              <li
-                class={
-                  post === orderedPosts[0]
-                    ? "mimir-blog-card mimir-blog-card-feature"
-                    : "mimir-blog-card"
-                }
-              >
-                {post.hero ? (
-                  <img
-                    class="mimir-blog-card-image"
-                    src={post.hero.src}
-                    alt={post.hero.alt}
-                    width="1200"
-                    height="675"
-                    loading={post === orderedPosts[0] ? "eager" : "lazy"}
-                    fetchpriority={post === orderedPosts[0] ? "high" : "auto"}
-                  />
-                ) : null}
-                <div class="mimir-blog-card-content">
-                  <p class="mimir-blog-eyebrow">{categoryLabels[post.kind]}</p>
-                  <h3 class="mimir-blog-card-title">
-                    <a href={post.path}>{post.title}</a>
+      <p class="mimir-blog-empty">ยังไม่มีข่าวที่เผยแพร่</p>
+    )
+  }
+
+  {
+    [...months].map(([month, entries], monthIndex) => (
+      <section
+        class="mimir-blog-archive"
+        aria-labelledby={`mimir-blog-month-${monthIndex}`}
+      >
+        <h2 id={`mimir-blog-month-${monthIndex}`} class="mimir-blog-month">
+          {month}
+        </h2>
+        <ol class="mimir-blog-rows">
+          {entries.map((post) => (
+            <li>
+              <article class="mimir-blog-row">
+                <div class="mimir-blog-row-body">
+                  <p class="mimir-blog-meta">
+                    <span class="mimir-blog-chip">
+                      {categoryLabels[post.kind]}
+                    </span>
+                    <span>
+                      ข่าววันที่{" "}
+                      <time datetime={post.published.toISOString()}>
+                        {dateFormat.format(post.published)}
+                      </time>
+                    </span>
+                    <span>อ่าน {post.readingMinutes} นาที</span>
+                  </p>
+                  <h3 class="mimir-blog-row-title">
+                    <a class="mimir-blog-stretch" href={post.path}>
+                      {post.title}
+                    </a>
                   </h3>
-                  <p class="mimir-blog-card-summary">
+                  <p class="mimir-blog-row-summary">
                     {post.summary ?? post.description}
                   </p>
-                  <dl class="mimir-blog-card-dates">
-                    <div>
-                      <dt>ข่าววันที่</dt>
-                      <dd>
-                        <time datetime={post.published.toISOString()}>
-                          {dateFormat.format(post.published)}
-                        </time>
-                      </dd>
-                    </div>
-                  </dl>
-                  <p class="mimir-blog-reading-time">
-                    อ่านประมาณ {post.readingMinutes} นาที
-                  </p>
                 </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))
-    )
+                {post.hero ? (
+                  <div class="mimir-blog-media mimir-blog-row-media">
+                    <img
+                      src={post.hero.src}
+                      alt={post.hero.alt}
+                      width="1200"
+                      height="675"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : null}
+              </article>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
   }
 </section>
