@@ -1,0 +1,68 @@
+{
+  "sources": [
+    {
+      "source_id": "anthropic-text-watermark",
+      "file": "anthropic-text-watermark.png",
+      "original_image_url": "https://www.anthropic.com/api/opengraph-illustration?name=Hand%20Quill&backgroundColor=heather",
+      "source_page": "https://www.anthropic.com/news/claude-text-watermark",
+      "credit": "Anthropic (แหล่งภาพ)",
+      "sha256": "778342ca21627340a55421928a1025456335508c095713aae6d4bf299b13ad31"
+    },
+    {
+      "source_id": "asus-proart-rtx-spark",
+      "file": "asus-proart-rtx-spark.jpg",
+      "original_image_url": "https://dlcdnwebimgs.asus.com/files/media/202609/6a35a889-6349-4336-946c-7c8ee53ff679/KV.jpg",
+      "source_page": "https://www.asus.com/us/business/resources/news/asus-proart-at-ifa2026/",
+      "credit": "ASUS (แหล่งภาพ)",
+      "sha256": "97d28a42d607d8a8e7a2c50ecb6206af5943f25006beaad1fe7c712f4bbeeb0a"
+    },
+    {
+      "source_id": "microsoft-agent-security-pilot",
+      "file": "microsoft-agent-security-pilot.jpg",
+      "original_image_url": "https://www.microsoft.com/insidetrack/blog/uploads/prod/2026/08/10918-Hero_image.jpg",
+      "source_page": "https://www.microsoft.com/insidetrack/blog/securing-ai-agents-in-the-enterprise-learnings-from-our-journey-at-microsoft/",
+      "credit": "Microsoft (แหล่งภาพ)",
+      "sha256": "12e3ff315d2165511c43cb369cdd9b203f9e8ce96ebaf3b5b7bdd2d6dd36e5c9"
+    },
+    {
+      "source_id": "nemotron-lightning-switchyard",
+      "file": "nemotron-lightning-switchyard.jpg",
+      "original_image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/08/image1.jpeg",
+      "source_page": "https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/",
+      "credit": "NVIDIA (แหล่งภาพ)",
+      "sha256": "bb82588996871e2008dee5a12277e867766f06d0fdb24739782bc16c1d7e6858"
+    },
+    {
+      "source_id": "nvidia-jetson-reasoning-guide",
+      "file": "nvidia-jetson-reasoning-guide.webp",
+      "original_image_url": "https://developer-blogs.nvidia.com/wp-content/uploads/2026/09/image2-3.webp",
+      "source_page": "https://developer.nvidia.com/blog/frontier-reasoning-reaches-the-edge-how-to-deploy-and-optimize-models-on-nvidia-jetson/",
+      "credit": "NVIDIA (แหล่งภาพ)",
+      "sha256": "d420bd84c7760d63eb2fa9639fc8888f14bfc52de13c4c510f077571aec8cc8a"
+    },
+    {
+      "source_id": "nvidia-local-ai-ifa",
+      "file": "nvidia-local-ai-ifa.jpg",
+      "original_image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/09/nv-blog-1280x680-1.jpg",
+      "source_page": "https://blogs.nvidia.com/blog/local-ai-ifa-next-gen-agents-nv-pair-rtx-spark/",
+      "credit": "NVIDIA (แหล่งภาพ)",
+      "sha256": "2db424ac8981301b104b4126407c07442d5620da83039336ed0cde0d80e3ba1e"
+    },
+    {
+      "source_id": "nvidia-rtx-spark-october",
+      "file": "nvidia-rtx-spark-october.jpg",
+      "original_image_url": "https://iprsoftwaremedia.com/219/files/202610/6b76fb1cf81fffb13a4bb218a40498e4/6ad1b68c3d63324cdc9b1ab9_nvidia-rtx-spark/nvidia-rtx-spark_f4f2e983-c349-4b1f-ac12-c09817b54764-prv.jpg?v=f4f2e983-c349-4b1f-ac12-c09817b54764",
+      "source_page": "https://nvidianews.nvidia.com/news/nvidia-rtx-spark-pcs-available-today-a-new-beginning-for-windows-pcs",
+      "credit": "NVIDIA (แหล่งภาพ)",
+      "sha256": "259c01548bf3ffe1409fe9ba24c1d53e560a43850cc1fc6b98702bd64dff56a5"
+    },
+    {
+      "source_id": "pathumma-gdcc-award",
+      "file": "pathumma-gdcc-award.jpg",
+      "original_image_url": "http://www.nstda.or.th/archives/wp-content/uploads/2026/08/20260824-Pathumma-LLM-5-1024x682.jpg",
+      "source_page": "https://www.nstda.or.th/archives/pathumma-llm-gdcc-gov-cloud-awards-2026/",
+      "credit": "NSTDA (แหล่งภาพ)",
+      "sha256": "f6e1519fa0d685b6aa2f34b82456b972c1b49f0b37c1d9c617138a477f0479db"
+    }
+  ]
+}

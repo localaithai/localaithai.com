@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 19009",
-    "build": "node vendor/mimir-blog/verify.mjs && node scripts/blog-social-images.mjs && astro build",
+    "build": "node vendor/mimir-blog/verify.mjs && node scripts/blog-social-images.ts && astro build",
     "preview": "astro preview --port 19009",
     "lint": "biome lint .",
     "typecheck": "astro check",
@@ -44,5 +44,8 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.17.1"
+  "packageManager": "pnpm@10.17.1",
+  "engines": {
+    "node": ">=22.18.0"
+  }
 }

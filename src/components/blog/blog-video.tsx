@@ -1,5 +1,4 @@
 import type { BlogVideo as BlogVideoData } from "@mimir/blog";
-import { useId, useState } from "react";
 import { focusRing } from "./blog-classes";
 
 type BlogVideoProps = { video: BlogVideoData };
@@ -30,51 +29,25 @@ function youtubeEmbedUrl(value: string): string | undefined {
 }
 
 export function BlogVideo({ video }: BlogVideoProps) {
-  const [loaded, setLoaded] = useState(false);
-  const playerId = useId();
   const embedUrl = youtubeEmbedUrl(video.url);
 
   return (
     <figure className="m-0 min-w-0 overflow-hidden rounded-[1rem] border border-line bg-surface">
       <div
         className="grid aspect-video place-items-center bg-[color-mix(in_oklch,var(--color-ink)_6%,var(--color-page))] bg-[image:radial-gradient(90%_120%_at_50%_110%,color-mix(in_oklch,var(--color-brand)_28%,transparent),transparent_70%)]"
-        id={playerId}
       >
-        {loaded && embedUrl ? (
+        {embedUrl ? (
           <iframe
             src={embedUrl}
             title={video.title}
             width={1200}
             height={675}
             loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
             className="block size-full border-0"
             allow="encrypted-media; picture-in-picture; fullscreen"
             allowFullScreen
           />
-        ) : embedUrl ? (
-          <button
-            className={`group grid min-h-11 min-w-11 cursor-pointer justify-items-center gap-3.5 border-0 bg-transparent p-4 font-semibold text-ink ${focusRing}`}
-            type="button"
-            aria-label={`เล่นวิดีโอ: ${video.title}`}
-            aria-controls={playerId}
-            aria-expanded={loaded}
-            onClick={() => setLoaded(true)}
-          >
-            <span
-              className="grid size-18 place-items-center rounded-full bg-brand text-page shadow-[0_0_0_0.5rem_color-mix(in_oklch,var(--color-brand)_18%,transparent)] transition-[transform,box-shadow] duration-300 ease-blog group-hover:scale-106 group-hover:shadow-[0_0_0_0.75rem_color-mix(in_oklch,var(--color-brand)_14%,transparent)] motion-reduce:transition-none"
-              aria-hidden="true"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="28"
-                height="28"
-                className="ms-[3px]"
-              >
-                <path fill="currentColor" d="M8 5.14v13.72L19 12 8 5.14Z" />
-              </svg>
-            </span>
-            <span>เล่นวิดีโอ</span>
-          </button>
         ) : (
           <p className="m-0 p-5 text-ink-2">เปิดวิดีโอได้จากลิงก์ต้นทางด้านล่าง</p>
         )}

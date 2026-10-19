@@ -11,6 +11,8 @@ import {
 import path from "node:path";
 import { parseDocument } from "yaml";
 
+const siteOrigin: string = "https://www.localaithai.com";
+
 const content = path.resolve("content/blog");
 const directory = path.resolve("public/blog-media");
 const limit = 16 * 1024 * 1024;
@@ -25,7 +27,10 @@ const dateParts = Object.fromEntries(
     .map((part) => [part.type, part.value]),
 );
 const today = [dateParts.year, dateParts.month, dateParts.day].join("-");
-const images = new Map();
+const images = new Map<
+  string,
+  { file: string; url: URL; filename: string; referer: string }
+>();
 for (const name of readdirSync(content).filter((name) =>
   /\.mdx$/i.test(name),
 )) {
@@ -64,26 +69,23 @@ for (const name of readdirSync(content).filter((name) =>
       throw new Error("hero requires an immutable owned asset URL");
     if (
       ![hero.alt, hero.caption, hero.credit].every(
-        (value) => typeof value === "string" && value.trim(),
+        (value: unknown) => typeof value === "string" && value.trim(),
       )
     )
       throw new Error("hero requires alt, caption and credit");
-    const owner = /^\/assets\/sites\/([^/]+)\//.exec(url.pathname)?.[1];
     const attribution = new URL(hero.sourceUrl);
     if (
-      !owner ||
       attribution.protocol !== "https:" ||
-      ![owner, "www." + owner].includes(attribution.hostname) ||
       attribution.username ||
       attribution.password ||
       attribution.port
     )
-      throw new Error("hero sourceUrl must be its approved owning Mimir page");
+      throw new Error("hero sourceUrl must be an HTTPS source page");
     images.set(hero.src, {
       file,
       url,
       filename,
-      referer: attribution.origin + "/",
+      referer: siteOrigin + "/",
     });
   } catch (error) {
     throw new Error(
@@ -112,7 +114,7 @@ for (const [src, image] of images) {
     if (Number(response.headers.get("content-length") ?? 0) > limit)
       throw new Error("image exceeds 16MiB");
     if (!response.body) throw new Error("response has no image body");
-    const chunks = [];
+    const chunks: Uint8Array[] = [];
     let size = 0;
     for await (const chunk of response.body) {
       size += chunk.byteLength;

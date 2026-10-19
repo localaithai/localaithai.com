@@ -146,7 +146,7 @@ const section = "mt-[clamp(3rem,6vw,4.5rem)]";
             height="675"
             loading="eager"
             fetchpriority="high"
-            class="block aspect-video w-full rounded-[1rem] bg-surface object-cover lg:aspect-[21/9]"
+            class="block aspect-video w-full rounded-[1rem] bg-surface object-contain lg:aspect-[21/9]"
           />
           <figcaption class="mt-3 flex flex-wrap items-center gap-x-4 text-sm leading-[1.7] text-ink-2">
             <span>{post.hero.caption}</span>
@@ -250,7 +250,7 @@ const section = "mt-[clamp(3rem,6vw,4.5rem)]";
             <ul class="m-0 grid list-none gap-6 p-0">
               {post.videos.map((video) => (
                 <li>
-                  <BlogVideo client:visible video={video} />
+                  <BlogVideo video={video} />
                 </li>
               ))}
             </ul>
