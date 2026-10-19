@@ -67,7 +67,7 @@ const related = relatedPosts
         </div>
         <dl class="mimir-blog-metadata">
           <div>
-            <dt>เผยแพร่บทความ</dt>
+            <dt>ข่าววันที่</dt>
             <dd>
               <time datetime={post.published.toISOString()}>
                 {dateFormat.format(post.published)}
@@ -82,18 +82,6 @@ const related = relatedPosts
               </time>
             </dd>
           </div>
-          {
-            post.newsDate ? (
-              <div>
-                <dt>วันที่ข่าวต้นทาง</dt>
-                <dd>
-                  <time datetime={post.newsDate}>
-                    {sourceDate(post.newsDate)}
-                  </time>
-                </dd>
-              </div>
-            ) : null
-          }
         </dl>
         <p class="mimir-blog-reading-time">
           อ่านประมาณ {post.readingMinutes} นาที
