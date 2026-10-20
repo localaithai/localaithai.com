@@ -11,21 +11,25 @@ type Props = {
   head: PageHead;
   /** Replaces the head title only, as the Next.js not-found page did. */
   documentTitle?: string;
+  /** Replaces the body colours, as the Next.js not-found page did. */
+  bodyColors?: string;
 };
 
-const { head, documentTitle } = Astro.props;
+const {
+  head,
+  documentTitle,
+  bodyColors = "bg-(--bg-primary) text-(--text-primary)",
+} = Astro.props;
 const { openGraph: og, twitter } = head;
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 ---
 
 <!doctype html>
-<html lang="th">
+<html lang="th" class="motion-safe:scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <script is:inline>document.documentElement.classList.add("js");</script>
-    {/* Inlined component styles can open a layer before Tailwind's bundle; pin the order first. */}
-    <style is:inline>@layer properties, theme, base, components, utilities;</style>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="alternate" type="text/plain" href="/llms.txt" />
     <slot name="head" />
@@ -116,7 +120,12 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       type="image/png"
     />
   </head>
-  <body class="antialiased">
+  <body
+    class:list={[
+      "overflow-x-hidden font-[family-name:'Space_Grotesk','IBM_Plex_Sans_Thai',sans-serif] antialiased selection:bg-[rgba(0,229,255,0.3)] selection:text-white",
+      bodyColors,
+    ]}
+  >
     <JsonLd data={organizationGraph()} />
     <PageTransition client:load>
       <slot />

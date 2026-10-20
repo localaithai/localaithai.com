@@ -14,7 +14,7 @@ function Packages() {
   return (
     <section id="packages" className="relative py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div data-reveal className="mb-12 text-center lg:mb-14">
+        <div data-reveal className="reveal-on-scroll mb-12 text-center lg:mb-14">
           <h2 className="mb-5 text-h2 font-bold text-[#f0f4f8]">
             เริ่มจากขนาดที่เหมาะกับงาน
           </h2>
@@ -28,39 +28,43 @@ function Packages() {
             <div
               key={tier.title}
               data-reveal
-              className="surface flex flex-col rounded-2xl bg-[#111827] p-5 sm:p-6"
-              style={{ "--i": index, boxShadow: `0 0 28px ${tier.color}10` } as CSSProperties}
+              className="reveal-on-scroll surface flex flex-col rounded-2xl bg-[#111827] p-5 shadow-[0_0_28px_var(--tint-10)] sm:p-6"
+              style={
+                {
+                  "--i": index,
+                  "--tint": tier.color,
+                  "--tint-10": `${tier.color}10`,
+                  "--tint-15": `${tier.color}15`,
+                  "--tint-60": `${tier.color}60`,
+                } as CSSProperties
+              }
             >
-              <div
-                className="mb-5 flex size-11 items-center justify-center rounded-xl"
-                style={{ background: `${tier.color}15` }}
-              >
-                <tier.icon size={21} style={{ color: tier.color }} />
+              <div className="mb-5 flex size-11 items-center justify-center rounded-xl bg-(--tint-15)">
+                <tier.icon size={21} className="text-(--tint)" />
               </div>
               <h3 className="mb-2 text-lg font-bold text-[#f0f4f8]">{tier.title}</h3>
               <p className="mb-4 text-xs text-[#94a3b8]">{tier.hardware}</p>
-              <p className="mb-5 text-xl font-bold" style={{ color: tier.color }}>
+              <p className="mb-5 text-xl font-bold text-(--tint)">
                 {tier.price}
               </p>
               <ul className="mb-6 flex-1 space-y-3">
                 {tier.outcomes.map((outcome) => (
                   <li key={outcome} className="flex items-start gap-2 text-sm text-[#94a3b8]">
-                    <Check size={14} className="mt-0.5 shrink-0" style={{ color: tier.color }} />
+                    <Check size={14} className="mt-0.5 shrink-0 text-(--tint)" />
                     {outcome}
                   </li>
                 ))}
               </ul>
               <a
                 href="#contact"
-                className="btn flex min-h-11 items-center justify-center rounded-lg border py-2.5 text-center text-sm font-semibold hover:bg-white/[0.04]"
-                style={{ borderColor: `${tier.color}60`, color: tier.color }}
+                className="btn flex min-h-11 items-center justify-center rounded-lg border border-(--tint-60) py-2.5 text-center text-sm font-semibold text-(--tint) hover:bg-white/[0.04]"
               >
                 ขอประเมินสเปก
               </a>
             </div>
           ))}
         </div>
-        <div data-reveal className="mt-10 rounded-2xl border border-[#00e5ff]/20 bg-[#00e5ff]/5 p-6 text-center">
+        <div data-reveal className="reveal-on-scroll mt-10 rounded-2xl border border-[#00e5ff]/20 bg-[#00e5ff]/5 p-6 text-center">
           <Sparkles size={22} className="mx-auto mb-3 text-[#00e5ff]" />
           <p className="mb-4 text-sm text-[#94a3b8]">
             ทุกระบบใช้ Mimir Suites บนเครื่องพนักงาน และ AI machine ติดตั้งในองค์กรของคุณ

@@ -34,7 +34,7 @@ Before writing copy, CTAs, footer disclosures, or cross-links, read:
 - The footer carries no operator line until the operating entity is named. Render nothing, never a placeholder.
 - Tool and vendor names on the tech-stack page identify genuine components inside our offer, never our identity.
 - Copy is Thai-first with English technical nouns inline (GPU, RAG, PDPA, LLM). Keep Thai line heights.
-- React Bits `ShinyText` is a CSS-only Astro component on the existing Latin `Mimir Suites Cloud` label in `CloudCTA`. Its solid cyan text stays readable through the sweep, and reduced motion removes the sweep. Global defaults belong in Tailwind base/components layers; keep `:root` tokens unlayered. See `docs/decisions/design/log-2026-10-15.md`.
+- React Bits `ShinyText` is a CSS-only Astro component on the existing Latin `Mimir Suites Cloud` label in `CloudCTA`. Its solid cyan text stays readable through the sweep, and reduced motion removes the sweep. Element defaults belong in the Tailwind base layer and shared classes in `@utility`; nothing uses the components layer, which Tailwind declares first. Keep `:root` tokens unlayered. See `docs/decisions/design/log-2026-10-15.md`.
 - TypeScript is strict; do not weaken types or add broad suppressions.
 - Preserve WCAG 2.2 AA behavior: semantic structure, keyboard access, visible focus, contrast, touch targets and reduced motion.
 

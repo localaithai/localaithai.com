@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { motion } from "framer-motion";
 import {
   BatteryCharging,
@@ -116,16 +117,17 @@ function Infrastructure() {
             >
               {/* Header */}
               <div
-                className="px-6 pt-6 pb-4 border-b border-[#1e293b]"
-                style={{
-                  background: `linear-gradient(135deg, ${cat.color}08, transparent)`,
-                }}
+                className="px-6 pt-6 pb-4 border-b border-[#1e293b] bg-[linear-gradient(135deg,var(--tint-08),transparent)]"
+                style={
+                  {
+                    "--tint": cat.color,
+                    "--tint-08": `${cat.color}08`,
+                    "--tint-15": `${cat.color}15`,
+                  } as CSSProperties
+                }
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background: cat.color + "15" }}
-                >
-                  <cat.icon size={20} style={{ color: cat.color }} />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 bg-(--tint-15)">
+                  <cat.icon size={20} className="text-(--tint)" />
                 </div>
                 <h3 className="text-lg font-bold text-[#f0f4f8]">
                   {cat.title}
@@ -138,8 +140,8 @@ function Infrastructure() {
                 <div className="flex items-start gap-2">
                   <AlertTriangle
                     size={14}
-                    className="mt-0.5 shrink-0"
-                    style={{ color: cat.color }}
+                    className="mt-0.5 shrink-0 text-(--tint)"
+                    style={{ "--tint": cat.color } as CSSProperties}
                   />
                   <p className="text-xs text-[#94a3b8] leading-relaxed">
                     {cat.whyNeed}
@@ -148,23 +150,21 @@ function Infrastructure() {
               </div>
 
               {/* Items */}
-              <div className="p-6 space-y-5">
+              <div
+                className="p-6 space-y-5"
+                style={
+                  { "--tint": cat.color, "--tint-40": `${cat.color}40` } as CSSProperties
+                }
+              >
                 {cat.items.map((item) => (
-                  <div
-                    key={item.name}
-                    className="border-l-2 pl-4"
-                    style={{ borderColor: cat.color + "40" }}
-                  >
+                  <div key={item.name} className="border-l-2 border-(--tint-40) pl-4">
                     <h4 className="text-sm font-semibold text-[#f0f4f8] mb-1">
                       {item.name}
                     </h4>
                     <p className="text-xs text-[#94a3b8] mb-2 leading-relaxed">
                       {item.desc}
                     </p>
-                    <p
-                      className="text-sm font-bold"
-                      style={{ color: cat.color }}
-                    >
+                    <p className="text-sm font-bold text-(--tint)">
                       {item.price}
                     </p>
                   </div>

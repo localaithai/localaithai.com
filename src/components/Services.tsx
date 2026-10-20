@@ -71,8 +71,7 @@ function Services() {
                     height={44}
                     loading="lazy"
                     decoding="async"
-                    className="size-11 object-contain"
-                    style={{ color: "transparent" }}
+                    className="size-11 object-contain text-transparent"
                   />
                 ))}
               </div>

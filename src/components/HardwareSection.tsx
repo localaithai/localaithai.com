@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Zap, Cpu, HardDrive, BatteryCharging, Server, Monitor, ArrowRight } from "lucide-react";
 import { assetUrl } from "@/lib/assets";
@@ -7,7 +7,7 @@ import { withMotionConfig } from "@/components/motion-config";
 
 function GlowCard({ children, color = "#00e5ff", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
-    <div className={`relative rounded-2xl p-[1px] ${className}`} style={{ background: `linear-gradient(135deg, ${color}40, transparent 50%, ${color}20)` }}>
+    <div className={`relative rounded-2xl p-[1px] bg-[linear-gradient(135deg,var(--tint-40),transparent_50%,var(--tint-20))] ${className}`} style={{ "--tint-40": `${color}40`, "--tint-20": `${color}20` } as CSSProperties}>
       <div className="rounded-2xl bg-[#0c1220] h-full">{children}</div>
     </div>
   );
@@ -419,16 +419,11 @@ function MobileHardwareComparison() {
           <button
             key={card.key}
             onClick={() => setActive(card.key)}
-            className="shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-[background-color,border-color,color,box-shadow] snap-start min-w-[60px]"
-            style={{
-              borderWidth: 2,
-              borderStyle: "solid",
-              borderColor: active === card.key ? card.color : "#1e293b",
-              background: active === card.key ? card.color + "10" : "#111827",
-            }}
+            className={`shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl border-2 transition-[background-color,border-color,color,box-shadow] snap-start min-w-[60px] ${active === card.key ? "border-(--tint) bg-(--tint-10)" : "border-[#1e293b] bg-[#111827]"}`}
+            style={{ "--tint": card.color, "--tint-10": `${card.color}10` } as CSSProperties}
           >
             <span className="text-lg">{card.emoji}</span>
-            <span className="text-[9px] font-bold whitespace-nowrap" style={{ color: active === card.key ? "#f0f4f8" : "#64748b" }}>
+            <span className={`text-[9px] font-bold whitespace-nowrap ${active === card.key ? "text-[#f0f4f8]" : "text-[#64748b]"}`}>
               {card.name.split(" ").slice(-2).join(" ")}
             </span>
           </button>
@@ -446,7 +441,7 @@ function MobileHardwareComparison() {
         >
           <GlowCard color={current.color}>
             <div className="overflow-hidden rounded-2xl">
-              <div className="flex items-center gap-3 px-4 py-3 border-b border-[#1e293b]" style={{ background: current.color + "08" }}>
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-[#1e293b] bg-(--tint-08)" style={{ "--tint-08": `${current.color}08` } as CSSProperties}>
                 <span className="text-xl">{current.emoji}</span>
                 <div>
                   <p className="text-sm font-bold text-[#f0f4f8]">{current.name}</p>
@@ -494,9 +489,9 @@ function HardwareSection() {
                 key={cat.id}
                 onClick={() => { setActiveCategory(cat.id); setExpandedItem(null); }}
                 className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-[background-color,border-color,color,box-shadow] shrink-0 snap-start ${
-                  activeCategory === cat.id ? "text-[#060a14] shadow-lg" : "text-[#94a3b8] bg-[#111827] border border-[#1e293b]"
+                  activeCategory === cat.id ? "bg-(--tint) text-[#060a14] shadow-[0_4px_20px_var(--tint-30)]" : "text-[#94a3b8] bg-[#111827] border border-[#1e293b]"
                 }`}
-                style={activeCategory === cat.id ? { background: cat.color, boxShadow: `0 4px 20px ${cat.color}30` } : {}}
+                style={{ "--tint": cat.color, "--tint-30": `${cat.color}30` } as CSSProperties}
               >
                 <span>{cat.emoji}</span>
                 <span className="hidden sm:inline">{cat.title.split("/")[0].split("(")[0].trim()}</span>
@@ -521,7 +516,17 @@ function HardwareSection() {
             {current.items.map((item, i) => (
               <motion.div key={item.name} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
                 <GlowCard color={item.color}>
-                  <div className="p-5 md:p-6">
+                  <div
+                    className="p-5 md:p-6"
+                    style={
+                      {
+                        "--tint": item.color,
+                        "--tint-10": `${item.color}10`,
+                        "--tint-15": `${item.color}15`,
+                        "--tint-20": `${item.color}20`,
+                      } as CSSProperties
+                    }
+                  >
                     {item.image ? (
                       <figure className="mb-4">
                         <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-[#070b12]">
@@ -530,8 +535,7 @@ function HardwareSection() {
                             alt={item.name}
                             loading="lazy"
                             decoding="async"
-                            className="object-contain p-5"
-                            style={{ position: "absolute", height: "100%", width: "100%", inset: 0, color: "transparent" }}
+                            className="absolute inset-0 size-full object-contain p-5 text-transparent"
                           />
                         </div>
                       </figure>
@@ -543,7 +547,7 @@ function HardwareSection() {
                           <div>
                             <div className="flex items-center gap-2 flex-wrap">
                               <h3 className="text-lg font-bold text-[#f0f4f8]">{item.name}</h3>
-                              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: item.color + "15", color: item.color }}>{item.tag}</span>
+                              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-(--tint-15) text-(--tint)">{item.tag}</span>
                             </div>
                             <p className="text-xs text-[#94a3b8]">{item.tagline}</p>
                           </div>
@@ -560,13 +564,13 @@ function HardwareSection() {
 
                             {/* Why for AI */}
                             <div>
-                              <h4 className="text-xs font-bold text-[#f0f4f8] mb-2 flex items-center gap-2"><Zap size={12} style={{ color: item.color }} /> ทำไมเหมาะกับ AI</h4>
+                              <h4 className="text-xs font-bold text-[#f0f4f8] mb-2 flex items-center gap-2"><Zap size={12} className="text-(--tint)" /> ทำไมเหมาะกับ AI</h4>
                               <p className="text-xs text-[#94a3b8] leading-relaxed">{item.whyForAI}</p>
                             </div>
 
                             {/* Key specs */}
                             <div>
-                              <h4 className="text-xs font-bold text-[#f0f4f8] mb-2 flex items-center gap-2"><Cpu size={12} style={{ color: item.color }} /> สเปค</h4>
+                              <h4 className="text-xs font-bold text-[#f0f4f8] mb-2 flex items-center gap-2"><Cpu size={12} className="text-(--tint)" /> สเปค</h4>
                               <div className="rounded-xl bg-[#111827] border border-[#1e293b] overflow-hidden">
                                 {item.keySpecs.map((s, si) => (
                                   <div key={s.label} className={`flex justify-between px-4 py-2 text-xs ${si % 2 === 0 ? "bg-[#0c1220]/50" : ""}`}>
@@ -599,7 +603,7 @@ function HardwareSection() {
                                           <td className="py-2 px-3 text-[#f0f4f8] font-medium">{m.name}</td>
                                           <td className="py-2 px-3 text-[#94a3b8] font-mono">{m.ram}</td>
                                           <td className="py-2 px-3 text-[#94a3b8] font-mono">{m.bandwidth}</td>
-                                          <td className="py-2 px-3 font-mono" style={{ color: item.color }}>{m.tokPerSec}</td>
+                                          <td className="py-2 px-3 font-mono text-(--tint)">{m.tokPerSec}</td>
                                           <td className="py-2 px-3 text-[#94a3b8]">{m.maxModel}</td>
                                           <td className="py-2 px-3 text-[#94a3b8] font-mono">{m.price}</td>
                                         </tr>
@@ -640,11 +644,11 @@ function HardwareSection() {
                                 <p className="text-[10px] text-[#94a3b8] mb-1">เหมาะกับ</p>
                                 <p className="text-xs text-[#f0f4f8]">{item.bestFor}</p>
                               </div>
-                              <div className="shrink-0 rounded-xl p-3" style={{ background: item.color + "10", border: `1px solid ${item.color}20` }}>
-                                <p className="text-[10px]" style={{ color: item.color }}>จุดอ้างอิงสำหรับ sizing</p>
+                              <div className="shrink-0 rounded-xl p-3 bg-(--tint-10) border border-(--tint-20)">
+                                <p className="text-[10px] text-(--tint)">จุดอ้างอิงสำหรับ sizing</p>
                                 <p className="text-sm font-bold text-[#f0f4f8]">{item.sizingNote}</p>
-                                <p className="text-lg font-black" style={{ color: item.color }}>{item.referencePrice}</p>
-                                <a href="/contact" className="inline-flex items-center gap-1 text-[10px] font-bold mt-1" style={{ color: item.color }}>
+                                <p className="text-lg font-black text-(--tint)">{item.referencePrice}</p>
+                                <a href="/contact" className="inline-flex items-center gap-1 text-[10px] font-bold mt-1 text-(--tint)">
                                   สนใจ <ArrowRight size={10} />
                                 </a>
                               </div>
@@ -732,11 +736,11 @@ function HardwareSection() {
               { q: "50-100+ คนและงานหนัก", a: "GPU server, ประเมินสเปกตาม workload", color: "#f59e0b" },
               { q: "ไม่แน่ใจ", a: "ปรึกษาฟรี, บอกว่าใช้กี่คน ทำอะไร เราแนะนำให้", color: "#ec4899" },
             ].map((item) => (
-              <div key={item.q} className="flex items-start gap-3 p-4 rounded-xl bg-[#111827] border border-[#1e293b]">
-                <span className="text-sm" style={{ color: item.color }}>→</span>
+              <div key={item.q} className="flex items-start gap-3 p-4 rounded-xl bg-[#111827] border border-[#1e293b]" style={{ "--tint": item.color } as CSSProperties}>
+                <span className="text-sm text-(--tint)">→</span>
                 <div>
                   <p className="text-sm text-[#f0f4f8] font-medium">{item.q}</p>
-                  <p className="text-xs mt-0.5" style={{ color: item.color }}>{item.a}</p>
+                  <p className="text-xs mt-0.5 text-(--tint)">{item.a}</p>
                 </div>
               </div>
             ))}

@@ -65,7 +65,7 @@ function HowItWorks() {
     <section id="how-it-works" className="py-20 lg:py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section header */}
-        <div data-reveal className="text-center mb-12 lg:mb-16">
+        <div data-reveal className="reveal-on-scroll text-center mb-12 lg:mb-16">
           <h2 className="text-h2 font-bold text-[#f0f4f8] mb-5">
             ระบบ AI ส่วนตัวทำงานยังไง?
           </h2>
@@ -82,22 +82,22 @@ function HowItWorks() {
             <div
               key={step.num}
               data-reveal
-              style={{ "--i": i } as CSSProperties}
-              className="surface relative rounded-2xl bg-[#111827] p-4 sm:p-6"
+              style={
+                {
+                  "--i": i,
+                  "--tint": step.color,
+                  "--tint-15": `${step.color}15`,
+                } as CSSProperties
+              }
+              className="reveal-on-scroll surface relative rounded-2xl bg-[#111827] p-4 sm:p-6"
             >
               {/* Step number */}
-              <span
-                className="text-5xl font-black absolute top-4 right-5 opacity-10"
-                style={{ color: step.color }}
-              >
+              <span className="text-5xl font-black absolute top-4 right-5 opacity-10 text-(--tint)">
                 {step.num}
               </span>
 
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: step.color + "15" }}
-              >
-                <step.icon size={20} style={{ color: step.color }} />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 bg-(--tint-15)">
+                <step.icon size={20} className="text-(--tint)" />
               </div>
               <h3 className="text-lg font-bold text-[#f0f4f8] mb-3">
                 {step.title}
@@ -119,7 +119,7 @@ function HowItWorks() {
         </div>
 
         {/* Use cases */}
-        <div data-reveal className="text-center mb-10">
+        <div data-reveal className="reveal-on-scroll text-center mb-10">
           <h3 className="text-h3 font-bold text-[#f0f4f8] mb-3">
             ใช้ทำอะไรได้บ้าง?
           </h3>
@@ -134,7 +134,7 @@ function HowItWorks() {
               key={uc.title}
               data-reveal
               style={{ "--i": i % 2 } as CSSProperties}
-              className="surface rounded-2xl bg-[#111827] p-4 sm:p-5"
+              className="reveal-on-scroll surface rounded-2xl bg-[#111827] p-4 sm:p-5"
             >
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg bg-[#00e5ff]/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -161,7 +161,7 @@ function HowItWorks() {
         {/* Simple cost comparison */}
         <div
           data-reveal
-          className="mt-16 rounded-2xl border border-[#1e293b] bg-[#111827] overflow-hidden"
+          className="reveal-on-scroll mt-16 rounded-2xl border border-[#1e293b] bg-[#111827] overflow-hidden"
         >
           <div className="p-6 md:p-8 text-center border-b border-[#1e293b]">
             <h3 className="text-xl font-bold text-[#f0f4f8] mb-2">
@@ -206,7 +206,7 @@ function HowItWorks() {
         </div>
         {/* Why not just pay ฿700/month for ChatGPT? */}
         <div className="mt-20 lg:mt-24">
-          <div data-reveal className="text-center mb-8">
+          <div data-reveal className="reveal-on-scroll text-center mb-8">
             <h3 className="text-h3 font-bold text-[#f0f4f8] mb-3">
               แล้วทำไมไม่จ่าย ฿700/เดือน ใช้ ChatGPT ก็พอ?
             </h3>
@@ -217,7 +217,7 @@ function HowItWorks() {
 
           <div className="space-y-4">
             {/* 1. Censorship */}
-            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="reveal-on-scroll rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">🚫</span>
@@ -253,7 +253,7 @@ function HowItWorks() {
             </div>
 
             {/* 2. Data leak */}
-            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="reveal-on-scroll rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">📤</span>
@@ -289,7 +289,7 @@ function HowItWorks() {
             </div>
 
             {/* 3. Cost */}
-            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="reveal-on-scroll rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">💸</span>
@@ -354,7 +354,7 @@ function HowItWorks() {
             </div>
 
             {/* 4. Rate limit */}
-            <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
+            <div data-reveal className="reveal-on-scroll rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden">
               <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start gap-3 mb-4">
                   <span className="text-2xl shrink-0">⏳</span>
@@ -390,7 +390,7 @@ function HowItWorks() {
 
             {/* 5. Stability + Offline */}
             <div className="grid sm:grid-cols-2 gap-4">
-              <div data-reveal className="rounded-2xl bg-[#111827] border border-[#1e293b] p-5">
+              <div data-reveal className="reveal-on-scroll rounded-2xl bg-[#111827] border border-[#1e293b] p-5">
                 <span className="text-2xl block mb-3">🔄</span>
                 <h4 className="text-sm font-bold text-[#f0f4f8] mb-2">Model เปลี่ยนทุกเดือน ไม่มีใครบอก</h4>
                 <p className="text-xs text-[#94a3b8] leading-relaxed mb-3">
@@ -407,7 +407,7 @@ function HowItWorks() {
               <div
                 data-reveal
                 style={{ "--i": 1 } as CSSProperties}
-                className="rounded-2xl bg-[#111827] border border-[#1e293b] p-5"
+                className="reveal-on-scroll rounded-2xl bg-[#111827] border border-[#1e293b] p-5"
               >
                 <span className="text-2xl block mb-3">📡</span>
                 <h4 className="text-sm font-bold text-[#f0f4f8] mb-2">เน็ตล่ม / Server ล่ม = หยุดงาน</h4>
@@ -425,7 +425,7 @@ function HowItWorks() {
             </div>
           </div>
 
-          <div data-reveal className="mt-10 text-center">
+          <div data-reveal className="reveal-on-scroll mt-10 text-center">
             <div className="inline-block rounded-2xl bg-[#111827] border border-[#1e293b] p-6 max-w-2xl">
               <p className="text-base text-[#f0f4f8] font-semibold mb-2">
                 สรุป: ChatGPT ดีสำหรับใช้ส่วนตัว

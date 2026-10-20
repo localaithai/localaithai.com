@@ -1,6 +1,9 @@
 ---
 import CrossSiteLink from "@/components/CrossSiteLink";
 import { blogIndex } from "@/lib/site";
+
+const footerLink =
+  "relative w-fit min-h-11 items-center py-2 transition-[color] duration-350 ease-(--ease) after:absolute after:inset-x-0 after:bottom-[calc(50%-0.9em)] after:h-px after:origin-right after:bg-current after:[transform:scaleX(0)] after:transition-[transform] after:duration-450 after:ease-(--ease) hover:text-[#00e5ff] hover:after:origin-left hover:after:[transform:scaleX(1)] sm:py-1";
 ---
 
 <footer class="pt-20 pb-12 lg:pt-24 border-t border-[#1e293b] bg-[#060a14]">
@@ -9,38 +12,38 @@ import { blogIndex } from "@/lib/site";
       <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">Solutions</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/packages" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Packages</a>
+          <a href="/packages" class={`${footerLink} flex`}>Packages</a>
         </div>
       </div>
 
       <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] uppercase tracking-wider mb-3">Hardware</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/hardware" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Hardware</a>
-          <a href="/shop" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">ร้านค้า</a>
-          <a href="/tech-stack" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Tech Stack</a>
+          <a href="/hardware" class={`${footerLink} flex`}>Hardware</a>
+          <a href="/shop" class={`${footerLink} flex`}>ร้านค้า</a>
+          <a href="/tech-stack" class={`${footerLink} flex`}>Tech Stack</a>
         </div>
       </div>
 
       <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] mb-3">บริการ</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/services" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Services</a>
-          <a href="https://www.cloudaithai.com" target="_blank" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Cloud AI →</a>
-          <a href="/support" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Support</a>
-          <a href="/how-it-works" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">How it works</a>
-          <a href="/blog/" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">{blogIndex.navLabel}</a>
+          <a href="/services" class={`${footerLink} flex`}>Services</a>
+          <a href="https://www.cloudaithai.com" target="_blank" class={`${footerLink} flex`}>Cloud AI →</a>
+          <a href="/support" class={`${footerLink} flex`}>Support</a>
+          <a href="/how-it-works" class={`${footerLink} flex`}>How it works</a>
+          <a href="/blog/" class={`${footerLink} flex`}>{blogIndex.navLabel}</a>
         </div>
       </div>
 
       <div class="bg-[#060a14] p-6 lg:p-7">
         <p class="text-[12px] font-semibold text-[#f0f4f8] mb-3">ติดต่อ</p>
         <div class="space-y-0.5 text-[13px] text-[#94a3b8]">
-          <a href="/contact" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">Contact</a>
-          <a data-cta="tel" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1"></a>
-          <a data-cta="email" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1"></a>
-          <a data-cta="line" class="footer-link inline-flex min-h-11 items-center gap-2 [&>[data-omni-line-logo]]:!size-4 hover:text-[#00e5ff] py-2 sm:py-1"><span>LINE <span data-cta="lineid"></span></span></a>
-          <a href="/privacy" class="footer-link flex min-h-11 items-center hover:text-[#00e5ff] py-2 sm:py-1">นโยบายความเป็นส่วนตัว</a>
+          <a href="/contact" class={`${footerLink} flex`}>Contact</a>
+          <a data-cta="tel" class={`${footerLink} flex`}></a>
+          <a data-cta="email" class={`${footerLink} flex`}></a>
+          <a data-cta="line" class={`${footerLink} inline-flex gap-2 [&>[data-omni-line-logo]]:!size-4`}><span>LINE <span data-cta="lineid"></span></span></a>
+          <a href="/privacy" class={`${footerLink} flex`}>นโยบายความเป็นส่วนตัว</a>
         </div>
       </div>
     </div>

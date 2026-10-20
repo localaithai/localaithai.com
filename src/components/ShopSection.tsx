@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingCart, Monitor, Cpu, HardDrive, BatteryCharging, Server, ExternalLink, ArrowRight, Tag } from "lucide-react";
 import { withMotionConfig } from "@/components/motion-config";
@@ -318,7 +318,7 @@ function formatPrice(n: number) {
 
 function GlowCard({ children, color = "#00e5ff", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
-    <div className={`relative rounded-2xl p-[1px] ${className}`} style={{ background: `linear-gradient(135deg, ${color}40, transparent 50%, ${color}20)` }}>
+    <div className={`relative rounded-2xl p-[1px] bg-[linear-gradient(135deg,var(--tint-40),transparent_50%,var(--tint-20))] ${className}`} style={{ "--tint-40": `${color}40`, "--tint-20": `${color}20` } as CSSProperties}>
       <div className="rounded-2xl bg-[#0c1220] h-full">{children}</div>
     </div>
   );
@@ -327,17 +327,18 @@ function GlowCard({ children, color = "#00e5ff", className = "" }: { children: R
 /* ─── Product Card ─── */
 function ProductCard({ product, catColor }: { product: Product; catColor: string }) {
   const [open, setOpen] = useState(false);
+  const color = product.badgeColor || catColor;
 
   return (
-    <GlowCard color={product.badgeColor || catColor}>
-      <div className="p-4 sm:p-5 md:p-6">
+    <GlowCard color={color}>
+      <div className="p-4 sm:p-5 md:p-6" style={{ "--tint": color, "--tint-15": `${color}15` } as CSSProperties}>
         <button onClick={() => setOpen(!open)} className="w-full text-left">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">
                 <h3 className="text-sm font-bold text-[#f0f4f8]">{product.name}</h3>
                 {product.badge && (
-                  <span className="text-[9px] font-bold px-2 py-0.5 rounded-full shrink-0" style={{ background: (product.badgeColor || catColor) + "15", color: product.badgeColor || catColor }}>
+                  <span className="text-[9px] font-bold px-2 py-0.5 rounded-full shrink-0 bg-(--tint-15) text-(--tint)">
                     {product.badge}
                   </span>
                 )}
@@ -345,7 +346,7 @@ function ProductCard({ product, catColor }: { product: Product; catColor: string
               <p className="text-[11px] text-[#94a3b8] font-mono">{product.specs}</p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-lg font-black" style={{ color: product.badgeColor || catColor }}>{formatPrice(product.price)}</p>
+              <p className="text-lg font-black text-(--tint)">{formatPrice(product.price)}</p>
               {product.priceNote && <p className="text-[9px] text-[#f87171]">{product.priceNote}</p>}
             </div>
           </div>
@@ -360,7 +361,7 @@ function ProductCard({ product, catColor }: { product: Product; catColor: string
                   <Cpu size={12} className="text-[#00e5ff] mt-0.5 shrink-0" />
                   <span className="text-[#94a3b8]"><span className="text-[#f0f4f8] font-medium">ใช้กับ AI:</span> {product.aiUse}</span>
                 </div>
-                <a href="/contact" className="inline-flex items-center gap-1.5 mt-2 text-xs font-bold px-4 py-2 rounded-lg" style={{ background: (product.badgeColor || catColor) + "15", color: product.badgeColor || catColor }}>
+                <a href="/contact" className="inline-flex items-center gap-1.5 mt-2 text-xs font-bold px-4 py-2 rounded-lg bg-(--tint-15) text-(--tint)">
                   สั่งซื้อ / สอบถาม <ArrowRight size={12} />
                 </a>
               </div>
@@ -404,9 +405,9 @@ function ShopSection() {
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-[background-color,border-color,color,box-shadow] shrink-0 snap-start ${
-                  activeCategory === cat.id ? "text-[#060a14] shadow-lg" : "text-[#94a3b8] bg-[#111827] border border-[#1e293b]"
+                  activeCategory === cat.id ? "bg-(--tint) text-[#060a14] shadow-[0_4px_20px_var(--tint-30)]" : "text-[#94a3b8] bg-[#111827] border border-[#1e293b]"
                 }`}
-                style={activeCategory === cat.id ? { background: cat.color, boxShadow: `0 4px 20px ${cat.color}30` } : {}}
+                style={{ "--tint": cat.color, "--tint-30": `${cat.color}30` } as CSSProperties}
               >
                 <span>{cat.emoji}</span>
                 <span className="hidden sm:inline">{cat.title.split("(")[0].trim()}</span>

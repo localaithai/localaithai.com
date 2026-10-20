@@ -53,7 +53,7 @@ function WhyUs() {
   return (
     <section id="why-us" className="py-20 lg:py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div data-reveal className="text-center mb-12 lg:mb-16">
+        <div data-reveal className="reveal-on-scroll text-center mb-12 lg:mb-16">
           <h2 className="text-h2 font-bold text-[#f0f4f8] mb-5">
             ทำไมลูกค้าถึงเลือกเรา
           </h2>
@@ -64,7 +64,7 @@ function WhyUs() {
           </p>
         </div>
 
-        <figure data-reveal className="mx-auto mt-8 mb-12 max-w-3xl">
+        <figure data-reveal className="reveal-on-scroll mx-auto mt-8 mb-12 max-w-3xl">
           <div className="aspect-[16/9] overflow-hidden rounded-2xl border border-[#1e293b] bg-[#111827]">
             <picture className="block h-full">
               <source
@@ -78,8 +78,7 @@ function WhyUs() {
                 height={810}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover object-[70%_center]"
-                style={{ color: "transparent" }}
+                className="h-full w-full object-cover object-[70%_center] text-transparent"
               />
             </picture>
           </div>
@@ -93,8 +92,14 @@ function WhyUs() {
             <div
               key={r.title}
               data-reveal
-              style={{ "--i": i % 3 } as CSSProperties}
-              className="surface rounded-2xl bg-[#111827] p-6"
+              style={
+                {
+                  "--i": i % 3,
+                  "--tint": r.color,
+                  "--tint-12": `${r.color}12`,
+                } as CSSProperties
+              }
+              className="reveal-on-scroll surface rounded-2xl bg-[#111827] p-6"
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.borderColor =
                   r.color + "40";
@@ -103,11 +108,8 @@ function WhyUs() {
                 (e.currentTarget as HTMLElement).style.borderColor = "#1e293b";
               }}
             >
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: r.color + "12" }}
-              >
-                <r.icon size={22} style={{ color: r.color }} />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-(--tint-12)">
+                <r.icon size={22} className="text-(--tint)" />
               </div>
               <h3 className="text-lg font-bold text-[#f0f4f8] mb-2">
                 {r.title}

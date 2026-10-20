@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FileText,
@@ -32,12 +32,12 @@ function FlowDots({
   return (
     <div
       className={`flex ${isDown ? "flex-col" : "flex-row"} items-center gap-1 ${isDown ? "py-1" : "px-1"}`}
+      style={{ "--tint": color } as CSSProperties}
     >
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="w-1.5 h-1.5 rounded-full"
-          style={{ background: color }}
+          className="w-1.5 h-1.5 rounded-full bg-(--tint)"
           animate={{ opacity: [0.15, 0.9, 0.15], scale: [0.7, 1.1, 0.7] }}
           transition={{
             duration: 1.2,
@@ -47,9 +47,9 @@ function FlowDots({
         />
       ))}
       {isDown ? (
-        <ArrowDown size={12} style={{ color }} />
+        <ArrowDown size={12} className="text-(--tint)" />
       ) : (
-        <ArrowRight size={12} style={{ color }} />
+        <ArrowRight size={12} className="text-(--tint)" />
       )}
     </div>
   );
@@ -81,26 +81,24 @@ function StepBox({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.4 }}
-      className={`rounded-xl border p-4 transition-[background-color,border-color,color,box-shadow] duration-300 ${active ? "bg-[#111827] border-[#1e293b]" : "bg-[#0c1220]/50 border-[#1e293b]/50 opacity-50"}`}
+      className={`rounded-xl border p-4 transition-[background-color,border-color,color,box-shadow] duration-300 ${active ? "bg-[#111827] border-(--tint-30) shadow-[0_0_20px_var(--tint-08)]" : "bg-[#0c1220]/50 border-[#1e293b]/50 opacity-50"}`}
       style={
-        active
-          ? { borderColor: color + "30", boxShadow: `0 0 20px ${color}08` }
-          : {}
+        {
+          "--tint": color,
+          "--tint-08": `${color}08`,
+          "--tint-15": `${color}15`,
+          "--tint-20": `${color}20`,
+          "--tint-30": `${color}30`,
+        } as CSSProperties
       }
     >
       <div className="flex items-start gap-3">
-        <div
-          className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-          style={{ background: color + "15" }}
-        >
-          <Icon size={16} style={{ color }} />
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-(--tint-15)">
+          <Icon size={16} className="text-(--tint)" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span
-              className="text-[9px] font-bold px-1.5 py-0.5 rounded"
-              style={{ background: color + "20", color }}
-            >
+            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-(--tint-20) text-(--tint)">
               {step}
             </span>
             <span className="text-sm font-bold text-[#f0f4f8]">{title}</span>
@@ -113,7 +111,7 @@ function StepBox({
                   key={d}
                   className="flex items-center gap-1.5 text-[10px] text-[#94a3b8]"
                 >
-                  <Check size={8} style={{ color }} />
+                  <Check size={8} className="text-(--tint)" />
                   {d}
                 </div>
               ))}
@@ -348,14 +346,10 @@ function DataFlowDiagram() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-3 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-[background-color,border-color,color,box-shadow] whitespace-nowrap ${
                   activeTab === tab.id
-                    ? "text-[#060a14]"
+                    ? "bg-(--tint) text-[#060a14]"
                     : "text-[#94a3b8] hover:text-[#f0f4f8]"
                 }`}
-                style={
-                  activeTab === tab.id
-                    ? { background: tab.color }
-                    : {}
-                }
+                style={{ "--tint": tab.color } as CSSProperties}
               >
                 <span className="hidden sm:inline">{tab.label}</span>
                 <span className="sm:hidden">{tab.sublabel}</span>

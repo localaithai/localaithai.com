@@ -7,22 +7,22 @@ import { homeHead } from "@/lib/seo";
 const head = { ...homeHead(), noindex: true };
 ---
 
-<Base head={head} documentTitle="404: This page could not be found.">
+<Base
+  head={head}
+  documentTitle="404: This page could not be found."
+  bodyColors="bg-white text-black dark:bg-black dark:text-white"
+>
   <div
-    style='font-family:system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";height:100vh;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center'
+    class="flex h-screen flex-col items-center justify-center text-center font-[family-name:system-ui,'Segoe_UI',Roboto,Helvetica,Arial,sans-serif,'Apple_Color_Emoji','Segoe_UI_Emoji']"
   >
     <div>
-      <style is:inline>
-        body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}
-      </style>
       <h1
-        class="next-error-h1"
-        style="display:inline-block;margin:0 20px 0 0;padding:0 23px 0 0;font-size:24px;font-weight:500;vertical-align:top;line-height:49px"
+        class="mr-5 inline-block border-r border-r-[rgba(0,0,0,.3)] pr-[23px] align-top text-[24px] leading-[49px] font-medium dark:border-r-[rgba(255,255,255,.3)]"
       >
         404
       </h1>
-      <div style="display:inline-block">
-        <h2 style="font-size:14px;font-weight:400;line-height:49px;margin:0">
+      <div class="inline-block">
+        <h2 class="text-[14px] leading-[49px] font-normal">
           This page could not be found.
         </h2>
       </div>

@@ -237,8 +237,7 @@ export default function DataRoadBg() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0, opacity: 0.6 }}
+      className="fixed inset-0 z-0 pointer-events-none opacity-60"
     />
   );
 }

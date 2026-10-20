@@ -36,8 +36,7 @@ function TechStackSection() {
             height={56}
             loading="lazy"
             decoding="async"
-            className="mx-auto mb-4 h-14 w-auto object-contain"
-            style={{ color: "transparent" }}
+            className="mx-auto mb-4 h-14 w-auto object-contain text-transparent"
           />
           <h1 className="text-3xl md:text-5xl font-black text-[#f0f4f8] mb-4">
             แอป Mimir สำหรับงานจริง
@@ -67,8 +66,7 @@ function TechStackSection() {
                 height={48}
                 loading="lazy"
                 decoding="async"
-                className="mb-4 size-12 object-contain"
-                style={{ color: "transparent" }}
+                className="mb-4 size-12 object-contain text-transparent"
               />
               <h2 className="font-bold text-[#f0f4f8] mb-1">{app.name}</h2>
               <p className="text-sm text-[#94a3b8]">{app.outcome}</p>

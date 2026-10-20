@@ -1,5 +1,5 @@
 import { desktopFrameUrls, mobileFrameUrls } from "@/lib/assets";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { type CSSProperties, useEffect, useRef, useState, useCallback } from "react";
 
 const TOTAL_FRAMES = 180;
 
@@ -153,13 +153,13 @@ export default function ScrollAnimation() {
   }
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: isMobile ? "250vh" : "400vh" }}>
+    <section ref={sectionRef} className={`relative ${isMobile ? "h-[250vh]" : "h-[400vh]"}`}>
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-[#030810]">
         {/* Progress bar */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#1e293b] z-20">
           <div
-            className="h-full bg-gradient-to-r from-[#00e5ff] to-[#00ff88]"
-            style={{ width: `${progress * 100}%`, transition: "none" }}
+            className="h-full w-(--progress) bg-gradient-to-r from-[#00e5ff] to-[#00ff88] transition-none"
+            style={{ "--progress": `${progress * 100}%` } as CSSProperties}
           />
         </div>
 
@@ -168,10 +168,8 @@ export default function ScrollAnimation() {
           ref={canvasRef}
           width={FRAME_WIDTH}
           height={FRAME_HEIGHT}
-          style={{
-            width: `min(100vw, ${100 * (FRAME_WIDTH / FRAME_HEIGHT)}vh)`,
-            height: `min(100vh, ${100 * (FRAME_HEIGHT / FRAME_WIDTH)}vw)`,
-          }}
+          className="h-[min(100vh,calc(100vw/var(--frame-ratio)))] w-[min(100vw,calc(var(--frame-ratio)*100vh))]"
+          style={{ "--frame-ratio": FRAME_WIDTH / FRAME_HEIGHT } as CSSProperties}
         />
 
         {/* Loading indicator */}
@@ -187,8 +185,8 @@ export default function ScrollAnimation() {
         {/* Intro overlay, shows before scrolling */}
         {progress < 0.05 && loaded && (
           <div
-            className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6"
-            style={{ opacity: 1 - progress * 20 }}
+            className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 opacity-(--intro-opacity)"
+            style={{ "--intro-opacity": 1 - progress * 20 } as CSSProperties}
           >
             {/* Animated ring */}
             <div className="relative w-24 h-24 mb-8">

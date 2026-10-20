@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { motion } from "framer-motion";
 import {
   Check,
@@ -19,7 +20,7 @@ import { withMotionConfig } from "@/components/motion-config";
 
 function GlowCard({ children, color = "#00e5ff", className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
-    <div className={`relative rounded-2xl p-[1px] ${className}`} style={{ background: `linear-gradient(135deg, ${color}40, transparent 50%, ${color}20)` }}>
+    <div className={`relative rounded-2xl p-[1px] bg-[linear-gradient(135deg,var(--tint-40),transparent_50%,var(--tint-20))] ${className}`} style={{ "--tint-40": `${color}40`, "--tint-20": `${color}20` } as CSSProperties}>
       <div className="rounded-2xl bg-[#0c1220] h-full">{children}</div>
     </div>
   );
@@ -273,10 +274,10 @@ function SupportSection() {
           {services.map((svc, i) => (
             <motion.div key={svc.title} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
               <GlowCard color={svc.color}>
-                <div className="p-5 md:p-6">
+                <div className="p-5 md:p-6" style={{ "--tint": svc.color, "--tint-15": `${svc.color}15` } as CSSProperties}>
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: svc.color + "15" }}>
-                      <svc.icon size={20} style={{ color: svc.color }} />
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-(--tint-15)">
+                      <svc.icon size={20} className="text-(--tint)" />
                     </div>
                     <div>
                       <h3 className="text-base font-bold text-[#f0f4f8]">{svc.title}</h3>
@@ -287,7 +288,7 @@ function SupportSection() {
                   <div className="grid sm:grid-cols-2 gap-1.5 ml-15">
                     {svc.items.map((item) => (
                       <div key={item} className="flex items-start gap-2 text-xs text-[#94a3b8]">
-                        <Check size={11} className="mt-0.5 shrink-0" style={{ color: svc.color }} />
+                        <Check size={11} className="mt-0.5 shrink-0 text-(--tint)" />
                         {item}
                       </div>
                     ))}
@@ -311,7 +312,17 @@ function SupportSection() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-5">
           {plans.map((plan, i) => (
             <motion.div key={plan.name} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-              <div className="relative rounded-2xl p-[1.5px] h-full" style={{ background: `linear-gradient(135deg, ${plan.color}50, transparent 40%, ${plan.color}30)` }}>
+              <div
+                className="relative rounded-2xl p-[1.5px] h-full bg-[linear-gradient(135deg,var(--tint-50),transparent_40%,var(--tint-30))]"
+                style={
+                  {
+                    "--tint": plan.color,
+                    "--tint-25": `${plan.color}25`,
+                    "--tint-30": `${plan.color}30`,
+                    "--tint-50": `${plan.color}50`,
+                  } as CSSProperties
+                }
+              >
                 <div className="rounded-2xl bg-[#0c1220] p-5 sm:p-6 h-full flex flex-col">
                   {plan.badge && (
                     <div className={`absolute -top-3 right-4 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r ${plan.gradient}`}>
@@ -323,14 +334,14 @@ function SupportSection() {
                   <p className="text-xs text-[#94a3b8] mb-4">{plan.bestFor}</p>
 
                   <div className="border-t border-[#1e293b] pt-4 mb-4">
-                    <span className="text-3xl font-black" style={{ color: plan.color }}>{plan.price}</span>
+                    <span className="text-3xl font-black text-(--tint)">{plan.price}</span>
                     <span className="text-sm text-[#94a3b8]">{plan.period}</span>
                   </div>
 
                   <ul className="space-y-2.5 mb-4 flex-1">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-start gap-2 text-sm text-[#94a3b8]">
-                        <Check size={14} className="mt-0.5 shrink-0" style={{ color: plan.color }} />
+                        <Check size={14} className="mt-0.5 shrink-0 text-(--tint)" />
                         {f}
                       </li>
                     ))}
@@ -342,7 +353,7 @@ function SupportSection() {
                     ))}
                   </ul>
 
-                  <a href="/contact" className={`block text-center py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r ${plan.gradient} hover:opacity-90 transition-opacity shadow-lg`} style={{ boxShadow: `0 4px 15px ${plan.color}25` }}>
+                  <a href="/contact" className={`block text-center py-3 rounded-xl text-sm font-bold text-white bg-gradient-to-r ${plan.gradient} hover:opacity-90 transition-opacity shadow-[0_4px_15px_var(--tint-25)]`}>
                     เลือกแพ็คเกจ {plan.name} <ArrowRight size={14} className="inline ml-1" />
                   </a>
                 </div>

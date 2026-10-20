@@ -15,13 +15,13 @@ const partners = [
 <section aria-labelledby="partners-heading" class="relative border-y border-[#1e293b] bg-[#0c1220]/80 py-20 lg:py-24">
   <div class="mx-auto max-w-7xl px-6">
     <div class="grid gap-8 lg:grid-cols-[minmax(0,30rem)_1fr] lg:items-end lg:gap-16">
-      <div data-reveal>
+      <div data-reveal class="reveal-on-scroll">
         <p class="eyebrow mb-5 font-mono text-xs uppercase tracking-[0.18em] text-[#00e5ff]">Delivery network</p>
         <h2 id="partners-heading" class="text-h2 font-bold text-[#f0f4f8]">พาร์ทเนอร์ที่ช่วยให้ระบบพร้อมใช้จริง</h2>
       </div>
-      <p data-reveal style="--i: 1" class="lead">ตั้งแต่เครื่อง AI, UPS, rack ไปจนถึงการรับประกัน เราประสานเครือข่ายพาร์ทเนอร์เพื่อส่งมอบอุปกรณ์แท้และออกแบบระบบให้เหมาะกับหน้างาน</p>
+      <p data-reveal style="--i: 1" class="reveal-on-scroll lead">ตั้งแต่เครื่อง AI, UPS, rack ไปจนถึงการรับประกัน เราประสานเครือข่ายพาร์ทเนอร์เพื่อส่งมอบอุปกรณ์แท้และออกแบบระบบให้เหมาะกับหน้างาน</p>
     </div>
-    <ul data-reveal class="mt-12 grid grid-cols-2 overflow-hidden rounded-2xl border border-[#1e293b] bg-[#111827] sm:grid-cols-3 lg:grid-cols-7">
+    <ul data-reveal class="reveal-on-scroll mt-12 grid grid-cols-2 overflow-hidden rounded-2xl border border-[#1e293b] bg-[#111827] sm:grid-cols-3 lg:grid-cols-7">
       {
         partners.map((partner) => (
           <li class="group flex min-h-28 items-center justify-center border-b border-r border-[#1e293b] px-5 py-6">
@@ -31,8 +31,7 @@ const partners = [
               width="180"
               height="64"
               decoding="async"
-              class={`h-10 w-full object-contain opacity-70 transition duration-300 group-hover:opacity-100 sm:h-11 ${partner.className}`}
-              style="color:transparent"
+              class={`h-10 w-full object-contain text-transparent opacity-70 transition duration-300 group-hover:opacity-100 sm:h-11 ${partner.className}`}
               src={partner.logo}
             />
           </li>

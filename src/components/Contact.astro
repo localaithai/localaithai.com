@@ -5,17 +5,34 @@ import { Mail, MessageCircle, Phone } from "@lucide/astro";
 // static: a hydrating React island would render over the DOM cta.js wrote.
 const cardClass =
   "surface flex min-h-16 items-center gap-4 p-5 rounded-2xl bg-[#111827]";
+
+// cta.js injects the lead form, so its markup takes no classes: style it from the host.
+const omniForm = [
+  "[&_.omni-form]:flex [&_.omni-form]:flex-col [&_.omni-form]:gap-4",
+  "[&_.omni-heading]:hidden",
+  "[&_.omni-field]:block [&_.omni-field]:text-[.75rem] [&_.omni-field]:leading-[1.5] [&_.omni-field]:text-(--text-secondary)",
+  "[&_.omni-label]:mb-1.5 [&_.omni-label]:block",
+  "[&_.omni-input]:block [&_.omni-input]:min-h-11 [&_.omni-input]:w-full [&_.omni-input]:rounded-lg [&_.omni-input]:border [&_.omni-input]:border-[#2a3a4e] [&_.omni-input]:bg-(--bg-secondary) [&_.omni-input]:px-4 [&_.omni-input]:py-2.5 [&_.omni-input]:text-[.875rem] [&_.omni-input]:text-(--text-primary)",
+  "[&_.omni-input]:placeholder:text-(--text-muted)",
+  "[&_.omni-input:focus]:border-(--cyan) [&_.omni-input:focus]:outline-2 [&_.omni-input:focus]:outline-offset-2 [&_.omni-input:focus]:outline-(--cyan)",
+  "[&_textarea.omni-input]:min-h-24 [&_textarea.omni-input]:resize-y",
+  "[&_select.omni-input]:appearance-none [&_select.omni-input]:bg-[linear-gradient(45deg,transparent_50%,var(--text-secondary)_50%),linear-gradient(135deg,var(--text-secondary)_50%,transparent_50%)] [&_select.omni-input]:bg-[length:5px_5px,5px_5px] [&_select.omni-input]:bg-[position:calc(100%-18px)_55%,calc(100%-13px)_55%] [&_select.omni-input]:bg-no-repeat [&_select.omni-input]:pr-9",
+  "[&_.omni-field--checkbox]:flex [&_.omni-field--checkbox]:items-center [&_.omni-field--checkbox]:gap-2",
+  "[&_.omni-field--checkbox_.omni-input]:min-h-0 [&_.omni-field--checkbox_.omni-input]:w-auto [&_.omni-field--checkbox_.omni-input]:accent-(--cyan) [&_.omni-field--checkbox_.omni-label]:mb-0",
+  "[&_.omni-submit]:w-full [&_.omni-submit]:cursor-pointer [&_.omni-submit]:rounded-lg [&_.omni-submit]:border-none [&_.omni-submit]:bg-[linear-gradient(90deg,var(--cyan),var(--green))] [&_.omni-submit]:px-6 [&_.omni-submit]:py-3 [&_.omni-submit]:text-[.875rem] [&_.omni-submit]:font-bold [&_.omni-submit]:text-(--bg-primary)",
+  "[&_.omni-submit:disabled]:cursor-not-allowed [&_.omni-submit:disabled]:opacity-60",
+].join(" ");
 ---
 
 <section id="contact" class="py-20 lg:py-24 relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-6 relative">
-    <div data-reveal class="text-center mb-12">
+    <div data-reveal class="reveal-on-scroll text-center mb-12">
       <h2 class="text-h2 font-bold text-[#f0f4f8] mb-5">ขอเดโมและประเมินสเปก</h2>
       <p class="lead mx-auto">บอก workload ของคุณ, เราจะช่วยวาง Local AI ที่เหมาะสม</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8">
-      <div data-reveal class="space-y-5">
+      <div data-reveal class="reveal-on-scroll space-y-5">
         <a data-cta="line" class={cardClass}><MessageCircle size={22} class="text-[#00C300]" /><span class="text-[#f0f4f8] font-bold">แชทผ่าน LINE</span></a>
         <a data-cta="tel" class={`${cardClass} text-[#f0f4f8] font-bold`}><Phone size={22} class="text-[#00e5ff]" /></a>
         <a data-cta="email" class={`${cardClass} text-[#f0f4f8] font-bold`}><Mail size={22} class="text-[#8b5cf6]" /></a>
@@ -25,7 +42,7 @@ const cardClass =
         data-contact-reveal
         class="rounded-2xl bg-[#111827] border border-[#1e293b] p-6 md:p-8"
       >
-        <div data-cta="form"></div>
+        <div class={omniForm} data-cta="form"></div>
       </div>
     </div>
   </div>

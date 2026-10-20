@@ -98,14 +98,7 @@ function DesktopDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 rounded-2xl overflow-hidden p-1"
-            style={{
-              background: "rgba(12,18,32,0.95)",
-              backdropFilter: "blur(60px) saturate(180%)",
-              WebkitBackdropFilter: "blur(60px) saturate(180%)",
-              boxShadow:
-                "0 16px 48px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(30,41,59,0.8), 0 0 30px rgba(0,229,255,0.08), inset 0 0.5px 0 rgba(255,255,255,0.06)",
-            }}
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 rounded-2xl overflow-hidden p-1 bg-[rgba(12,18,32,0.95)] backdrop-blur-[60px] backdrop-saturate-[180%] shadow-[0_16px_48px_rgba(0,0,0,0.6),0_0_0_0.5px_rgba(30,41,59,0.8),0_0_30px_rgba(0,229,255,0.08),inset_0_0.5px_0_rgba(255,255,255,0.06)]"
           >
             {group.children.map((child) => {
               const isActive = pathname === child.href;
@@ -167,7 +160,7 @@ function MobileGroup({
 
   return (
     <div
-      className="menu-item border-b border-[#1e293b]/50 last:border-b-0"
+      className="motion-safe:animate-menu-rise border-b border-[#1e293b]/50 last:border-b-0"
       style={{ "--i": index } as CSSProperties}
     >
       <button
@@ -314,7 +307,7 @@ function Navbar({ pathname }: { pathname: string }) {
         data-hidden={hidden ? "" : undefined}
         data-menu-open={open ? "" : undefined}
         onFocus={() => setHidden(false)}
-        className="site-nav fixed inset-x-0 top-0 z-50"
+        className="fixed inset-x-0 top-0 z-50 border-b border-b-transparent transition-[background-color,border-color,box-shadow,transform] duration-[.5s,.5s,.5s,.6s] ease-(--ease) data-[state=glass]:border-b-(--hairline) data-[state=glass]:bg-[rgba(6,10,20,0.72)] data-[state=glass]:shadow-[0_18px_40px_-26px_rgba(0,0,0,0.8)] data-[state=glass]:backdrop-blur-[18px] data-[state=glass]:backdrop-saturate-150 data-hidden:not-data-menu-open:[transform:translate3d(0,calc(-100%_-_2.5rem),0)]"
       >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
@@ -349,7 +342,7 @@ function Navbar({ pathname }: { pathname: string }) {
                 key={item.href + item.label}
                 href={item.href}
                 aria-current={pathname === item.href ? "page" : undefined}
-                className={`nav-link inline-flex min-h-11 items-center text-sm font-medium transition-colors ${
+                className={`relative inline-flex min-h-11 items-center text-sm font-medium transition-colors after:absolute after:inset-x-0 after:bottom-2 after:h-px after:bg-current after:[transform:scaleX(0)] after:origin-right after:transition-[transform] after:duration-450 after:ease-(--ease) hover:after:[transform:scaleX(1)] hover:after:origin-left aria-[current=page]:after:[transform:scaleX(1)] aria-[current=page]:after:origin-left ${
                   pathname === item.href
                     ? "text-[#00e5ff]"
                     : item.highlight
@@ -405,12 +398,7 @@ function Navbar({ pathname }: { pathname: string }) {
             className="lg:hidden overflow-hidden overscroll-contain"
           >
             <div
-              className="border-b border-[#1e293b] px-6 pt-2 pb-[calc(1.75rem+env(safe-area-inset-bottom))] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
-              style={{
-                background: "rgba(12,18,32,0.97)",
-                backdropFilter: "blur(60px) saturate(180%)",
-                WebkitBackdropFilter: "blur(60px) saturate(180%)",
-              }}
+              className="border-b border-[#1e293b] px-6 pt-2 pb-[calc(1.75rem+env(safe-area-inset-bottom))] max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-[rgba(12,18,32,0.97)] backdrop-blur-[60px] backdrop-saturate-[180%]"
             >
               {navItems.map((item, index) =>
                 isGroup(item) ? (
@@ -428,7 +416,7 @@ function Navbar({ pathname }: { pathname: string }) {
                     aria-current={pathname === item.href ? "page" : undefined}
                     onClick={() => setOpen(false)}
                     style={{ "--i": index } as CSSProperties}
-                    className={`menu-item block py-4 px-1 min-h-[44px] text-[1.65rem] leading-snug font-semibold tracking-tight transition-colors border-b border-[#1e293b]/50 ${
+                    className={`motion-safe:animate-menu-rise block py-4 px-1 min-h-[44px] text-[1.65rem] leading-snug font-semibold tracking-tight transition-colors border-b border-[#1e293b]/50 ${
                       pathname === item.href
                         ? "text-[#00e5ff]"
                         : item.highlight
@@ -445,7 +433,7 @@ function Navbar({ pathname }: { pathname: string }) {
                 href="/contact"
                 onClick={() => setOpen(false)}
                 style={{ "--i": navItems.length } as CSSProperties}
-                className="menu-item btn block mt-6 text-center text-[15px] font-semibold px-5 py-3.5 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] min-h-[44px] active:opacity-90"
+                className="motion-safe:animate-menu-rise btn block mt-6 text-center text-[15px] font-semibold px-5 py-3.5 rounded-lg bg-gradient-to-r from-[#00e5ff] to-[#00ff88] text-[#060a14] min-h-[44px] active:opacity-90"
               >
                 ขอใบเสนอราคา
               </a>
