@@ -1,6 +1,7 @@
 {
   "version": "0.1.0",
-  "commit": "d0e2860f1631cc6545d644ae8743adb219e51b78",
+  "commit": "1e686c6f81482926568932d68b9b77fca060cbf6",
+  "domain": "localaithai.com",
   "files": {
     "core/dates.ts": "cd916b8b9cb268e8155a1ddb916907f2986fae06dff02dee7d0a4097090ee81b",
     "core/facts.ts": "8d44a02899f6472f2196ae08bcc8eda4ed87ad6985174ced50a0a168f805ee0f",
@@ -13,6 +14,7 @@
     "core/schema.ts": "2e8c7a438c3eaab1e2d8ecc4987c28da547cc8230299a90bded24d1fe68d1628",
     "core/text.ts": "c2c700226810de646cb8be43d9fc8753c0240938cd5e825eb4e295b0b280b2f6",
     "facts/index.ts": "b726928f532d49b7e91bba3326053ea340bbf501673edf5acd3f808ba436fa2e",
-    "verify.mjs": "013d29516868324a9d3db9795131f09d8e2c3183456aec3c8437c36bde86edc7"
+    "social-images.mjs": "e3573bbbb5d2154e5151218d197e686c6f24c540237f9358281537a08c85c11d",
+    "verify.mjs": "aae923211e0348e1173d7d3d548722e532a601dc5b1c9fbf0a6c867e12d23a76"
   }
 }

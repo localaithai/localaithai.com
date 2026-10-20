@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 19009",
-    "build": "node vendor/mimir-blog/verify.mjs && node scripts/blog-social-images.ts && astro build",
+    "build": "node vendor/mimir-blog/verify.mjs && node vendor/mimir-blog/social-images.mjs && astro build",
     "preview": "astro preview --port 19009",
     "lint": "biome lint .",
     "typecheck": "astro check",

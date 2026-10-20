@@ -26,6 +26,8 @@ export function verifyVendor(directory) {
     if (
       typeof manifest.version !== "string" ||
       !/^[a-f0-9]{40}$/.test(manifest.commit) ||
+      typeof manifest.domain !== "string" ||
+      !/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(manifest.domain) ||
       !manifest.files ||
       typeof manifest.files !== "object" ||
       Array.isArray(manifest.files)
@@ -36,12 +38,16 @@ export function verifyVendor(directory) {
     if (
       !expected.some((name) => name.startsWith("core/")) ||
       !expected.some((name) => name.startsWith("facts/")) ||
-      !expected.includes("verify.mjs")
+      !expected.includes("verify.mjs") ||
+      !expected.includes("social-images.mjs")
     )
-      throw new Error("manifest must cover core, facts, and verify.mjs");
+      throw new Error(
+        "manifest must cover core, facts, verify.mjs, and social-images.mjs",
+      );
     for (const relative of expected) {
       if (
         (relative !== "verify.mjs" &&
+          relative !== "social-images.mjs" &&
           !/^(core|facts)\/[^\\]+$/.test(relative)) ||
         relative.split("/").some((part) => part === ".." || part === ".") ||
         !/^[a-f0-9]{64}$/.test(manifest.files[relative])
