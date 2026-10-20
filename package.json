@@ -23,8 +23,8 @@
     "framer-motion": "^12.36.0",
     "github-slugger": "^2.0.0",
     "lucide-react": "^0.577.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "remotion": "^4.0.435",
@@ -42,9 +42,9 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19",
     "tailwindcss": "^4.3.3",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=22.18.0"
   }

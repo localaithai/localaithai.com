@@ -4,7 +4,7 @@ Static Astro 7 site for localaithai.com, the Local AI line's Thai selling door a
 
 ## Quick reference
 
-- Package manager: `pnpm@10.17.1` (`pnpm-lock.yaml` is the committed lockfile)
+- Package manager: `pnpm@10.33.0` (`pnpm-lock.yaml` is the committed lockfile)
 - Develop: `pnpm dev` at `http://localhost:19009`; `pnpm preview` serves the built `dist/` on the same port
 - Verification: `pnpm lint && pnpm typecheck && pnpm build` (static build writes `dist/`)
 - No test suite. `astro check` is the type gate.
