@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import OmniToaster from "@/components/OmniToaster";
 import PageTransition from "@/components/PageTransition";
 import JsonLd from "@/components/seo/JsonLd.astro";
@@ -119,10 +120,19 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       sizes="180x180"
       type="image/png"
     />
+    <Font cssVariable="--font-space" preload />
+    <Font
+      cssVariable="--font-plex"
+      preload={[
+        { weight: 400, subset: "thai" },
+        { weight: 700, subset: "thai" },
+      ]}
+    />
+    <Font cssVariable="--font-jetbrains" />
   </head>
   <body
     class:list={[
-      "overflow-x-hidden font-[family-name:'Space_Grotesk','IBM_Plex_Sans_Thai',sans-serif] antialiased selection:bg-[rgba(0,229,255,0.3)] selection:text-white",
+      "overflow-x-hidden font-sans antialiased selection:bg-[rgba(0,229,255,0.3)] selection:text-white",
       bodyColors,
     ]}
   >
